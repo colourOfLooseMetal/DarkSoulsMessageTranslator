@@ -68,8 +68,8 @@ print(len(sentences))
 #             twoSentences.append(dubSent)
 # print(len(twoSentences))
 
-with open('erDubSentences.json', 'w') as outfile:
-    json.dump(twoSentences, outfile)
+# with open('erDubSentences.json', 'w') as outfile:
+#     json.dump(twoSentences, outfile)
 
 with open('erSentences.json', 'w') as outfile:
     json.dump(sentences, outfile)

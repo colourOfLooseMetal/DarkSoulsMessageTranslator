@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.2/math.js" integrity="sha512-6q5sXPMxpoSt9FYL1BtwBFqzIsu75X90/zWkaz7wxsB0+n68hEvKDAKsHbdBuYmH/WZuMm5sYWStJli++GS/SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        </head>
+
+
+<script>
+
+    console.log("and so it begins");
+
+tensors = ;
+console.log(tensors.length, "longboy");
+
+function exportToJsonFile(jsonData, fname) {
+    let dataStr = JSON.stringify(jsonData);
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = fname +'.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+
+function randn_bm() {
+    var u = 0, v = 0;
+    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = Math.random();
+    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+}
+
+numberOfHashtables = 696;
+hashtableLength = 3;
+inputArrayDims = 512;
+projections = []
+hashTables = []
+for(i = 0; i < numberOfHashtables; i+= 1){
+    hashTables.push({})
+}
+// hashTables[2]["100"] = 10
+// console.log(hashTables[2]["100"])
+for(i = 0; i < numberOfHashtables; i+= 1){
+    projections[i] = new Array(hashtableLength);
+    for(j = 0; j < hashtableLength; j+= 1){
+        projections[i][j] = new Array(inputArrayDims);
+    }
+}
+
+for(i = 0; i < numberOfHashtables; i+= 1){
+    for(j = 0; j < hashtableLength; j+= 1){
+        for(k = 0; k < inputArrayDims; k+= 1){
+            projections[i][j][k] = randn_bm();
+        }
+    }
+}
+console.log("okkkkay")
+// exportToJsonFile(projections);
+
+for(i = 0; i < tensors.length; i+= 1){
+    console.log("k")
+    for(j = 0; j < numberOfHashtables; j+= 1){
+        hash = '';
+        for(k = 0; k < hashtableLength; k+= 1){
+            if(math.dot(tensors[i],projections[j][k]) >0){
+                hash += '1';
+            }
+            else{
+                hash += '0'
+            }
+        }
+        if(hash in hashTables[j]){
+            hashTables[j][hash].push(i);
+        }
+        else{
+            hashTables[j][hash] = [i];
+        }
+    }
+}
+exportToJsonFile(hashTables, "hashTables"+hashtableLength.toString()+"-"+numberOfHashtables.toString());
+exportToJsonFile(projections, "projections"+hashtableLength.toString()+"-"+numberOfHashtables.toString());
+</script>
+</html>
