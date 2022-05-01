@@ -1,8 +1,8 @@
 import json
 import numpy as np
 
-numberOfHashtables = 469
-hashtableLength = 4
+numberOfHashtables = 300
+hashtableLength = 5
 inputArrayDims = 512
 projections = []
 hashTables = []
@@ -28,7 +28,7 @@ print(len(projections[1][1]))
 print(np.dot([2,2,3,4,5],[2,3,4,3,1]))
 # input()
 print("okayyy")
-with open('.\\soapStoneTranslatorJs\\sm\\tensors.json') as f:
+with open('.\\soapStoneTranslatorJs\\hp\\hpTensors.json') as f:
     tensors = json.load(f)
 print("tensors loaded")
 # // exportToJsonFile(projections);
@@ -51,7 +51,7 @@ for i, t in enumerate(tensors):
             hashTables[j][hash] = [i];
 
 fnameAdd = str(numberOfHashtables) + "-" + str(hashtableLength)
-with open(fnameAdd+'smProjections.json', 'w') as outfile:
+with open(fnameAdd+'hpProjections.json', 'w') as outfile:
     json.dump(projections, outfile)
-with open(fnameAdd+'smHashes.json', 'w') as outfile:
+with open(fnameAdd+'hpHashes.json', 'w') as outfile:
     json.dump(hashTables, outfile)

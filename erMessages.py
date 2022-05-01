@@ -48,8 +48,9 @@ templates = [
 
 
 words = enemies + people + things + battleTactics + actions + situations + places + directions + bodyParts + affinities + concepts + phrases
-# print(len(words))
-
+#print(len(words))#368
+#print(len(templates))#25
+input()
 sentences = []
 for template in templates:
     for word in words:

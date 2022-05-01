@@ -1,0 +1,115 @@
+Universal Sentence Encoder and Locality Sensitive Hashing
+
+improving search time and file size for sentence embedding searches
+
+What is the universal sentence encoder
+
+The Universal Sentence Encoder is a model trained on a variety of data sorces and tasks to encode a sentence into a 512 dimensional vector (also called an embedding) with the goal of having sentences which are similiar in meaning produce vectors which are closer in the vector space.
+
+In other words a sentence goes in and an array of 512 numbers come out which can be compared to other arrays created by other sentences for a variety of nlp tasks but in our case to check how similiar they are semantically.
+
+The model is capible of doing this as it was trained on sentence pairs which had their semantic textual similarity scored by humans.
+
+Comparing Embeddings
+
+The model was trained to have similar sentences produce embeddings which have a high angular similarity (the angle between them is small), however can be rather slow to compute the angular distance between them from cos theta so it is common to use cosine similarity for comparison, cosine similarity is measured by the cosine of the angle between two vectors, so if two vectors have a high cosine similarity they will be pointing in a similar direction, the same as angular similarity. Cosine similarity is not a good measure of the strength of the assosication between two vectors but it works just as well for proportional assosication (seeing how close vectors are compared to other vectors). Take a look below at how cosine similarity (cos theta) compares to the angle between two vectors, drag the points around to see for yourself, also recall cos theta = ajacent over hypotanuse.
+
+note an example in 2D space is much easier to visualize than 512D but is very useful as the math remains the same at higher dimensions.
+
+chart showing angle and cosine similarity goes here.
+
+so this works well when we have a vectors that form a nice triangle, but we need a way to find the cosine similarity between vectors regardless of their magnatude, consider the image below.
+
+we need to find b or hwatever given this and that (fill in here jesse ************)
+
+two vecors image goies here
+
+fortunately there is a formula that allows us to solve for cos theta given a and b
+
+a dot b = |a||b|costheta, or rearranged to solve for cos theta adotbover|a||b| = cos theta, this is the formula for cosine similarity
+
+note, in your programs this part will usually be done by an adotb function, so you dont really need to understand the math just have an idea of what it represents, but it is nice to know, since geometry is fun, and remmeber, you need math (link). but if you are just intersted in the optimizations for lsh skip down below to the lsh section
+
+lets take a look at what each part of this formula means
+
+|a| means the magnitude?? of a, recall pythagarssss sqrt(Ax**2+Ay**2) = |a|
+
+a dot b is the dot product, the formula for which is ijewadpjpwa
+
+the dot product has a few interesting properties, take a look below at how it changes based on where the vectors are, not that it is negative if the vecots are more than 90degs appart
+and positive otherwise, this will come in handy later.
+
+So if you're like me when you see this formula you think thats kinda neat, but how does it work? and why does it work to solve for p
+
+lets take a look below and show how the formula adotb = |a||b|costheta can be proved or explained with something more familiar, the law of cosine
+
+law of cosine goes here
+
+mathy shit here then chart showing mathy shit that changes based on chart
+
+
+
+
+
+
+//neato chart goes here
+
+next part, search optimization
+
+Now that we have an understanding of the universal sentence encoder and how to compare embeddings created by using their cosine similarity it, lets look into some issues with searching through large sets of embeddings
+
+In elden ring players can create messages given lists of words and templates with blank spaces for the words to go in, 
+
+see some examples below
+
+there are 368 words and 25 templates, so for single sentences (without getting into combining two sentences with conjunctions) we have 368*25 = 9200 possible different sentences.
+
+note ** if you arent an elden ring or dark souls fan dont worry ive also created examples with the harry potter books and dialogue from the show sailor moon below
+
+The embeddings are created ahead of time and stored but when it's time to search that's 9200 arrays of 512 floats, to check the cosine similiarity of one against all of them is not an outlandish task especially when utilizing a gpu, but depending on the device running the search it can take upwards of a minute, recall that checking the magnitude and dot product of vectors involves a lot of operations for vectors at higher dimensions. If only we had a way to narrow our search results before comparing the embeddings.
+
+Locality Sensitive Hashes
+
+Locality sensitive hashing involves generating random vectors with the same number of dimensions as our embeddings and using them to divide the embeddings into groups (or bins) 
+
+lets take a look below at some 2d images to help visualize this, 
+
+we divide them into groups by checking if the dot product betweeen the randomly generated vector (or projection) and the sentence embedding is positive or negative, if two sentence embeddings are closer together, they are more likely to end up in the same bin, if the points are 180degs or have a cosine similarity of -1, they will never be in the same bin, if they are 90degs or cosine sim of 0, there is a 50* chance they will be in the same bin, and 100% chance if they are 0 degs and have cosine sim of 1
+
+the formula for the probability of two hashes being in the same bin would be 1-d/dc where d is the distance between the hashes and dc is the max distance, so we could use angular distance for this and see 1-90/180 = 0.5 or 50% and so on for the other examples, *((98798(or the probability of them not being divided by a bin since the prob of that would be just d/dc) add this point in idk
+
+we can then use multiple projections and group embeddings based on how they are divided by each bin, we will do this by giving the embeddings a 1 or 0 for a positive or negative dot product (within 90 or not) for each projection
+
+if vector a is within 90degs of p1(positive dot product) we will add a 1 to its hash and then it is not within 90 of p2 (negative dot product), the number of projections we have will also be our hash length since an embedding gets a 0 or 1 in its hash for each projection
+
+the probability of two events happening is p1*p2, like rolling a 4 on a 6 sided dice twice in a row would be 1/6* 1/6
+
+so using the formula above 1-d/dc we can multiply it by itself for the number of projections we have to see how the probabilty of two embeddings being in the same bins based on their distance changes this would give us (1-d/dc)^k where k is the number of projections, increasing k reduces  the chance of collision(two embedding having the same hash) since there are more opportunities for a projection to didvide them into seperate bins.
+
+
+this will help us speed up searches by checking a new embedding (not in our collection of sentences from elden ring or sailor moon) with our projections and then only comparing it with embeddings that have the same hash. We can adjust k to tune the probability of there being a collsion based on the distance betweeen the embeddings
+
+we can also created multiple hashes to increase the chance of collision, since just one will give us a high chance of false negatives, see vid and paper
+
+so looking at our formula (1-d/dc)^k is our probability of collision Pc right now for one hash of length k, 1-Pc is the probability that we dont have a collision for a hash, (1-pc)^L is the probability we dont have a collision for L number of hashes, and finally 1-(1-pc)^L is the probability we do have a collision, so thats 1-(1-(1-d/dc)^k)^L @wy is this right idk proabbility anymore im going off this equation from this paper https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation see page 1116
+
+visualizing this below helps us get a good idea for probability based on distance and hash length and number of hashes.
+
+so as we increase the number of hashes we have more chances for embeddings to fall into the same bin at least once, and embeddings that are very close are likely to fall into the same bin even more often.
+
+Which leads us to a finaly bit of optimization, we can increase the number of hashes in our hashtable and use frequency of bin collision as our similarity score to remove the need for checking cosine similarity entirely, this also eliminates the need to store the sentence embeddings to compare, we only need to create an embedding for the search term and create a hash of it by checking it with our projections. this will result in a loss of accuracy since collision is probabilty based as we saw above, but with enough tables we can achieve decent results which work well especially for something as subjective as comparing sentences. Less disk space is needed and search time is excellent.
+
+now we have gone from checking the cosine similarity between our search embedding with every one in our list, to just needing to check it with our projections to generate a hash or multiple hashes to check it between fewer of the embeddings, to only needing to check it with our projections, **** this blurb is a ilttle confusing, make concolusion clearer
+
+***throw code in at different points
+
+**links to live examples
+
+
+
+
+
+
+
+
+

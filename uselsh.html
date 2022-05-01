@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<!--
+	A modification of
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<link rel="apple-touch-icon" sizes="57x57" href="../icon/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../icon/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../icon/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../icon/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../icon/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../icon/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../icon/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../icon/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../icon/android-icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../icon/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png" />
+	<link rel="manifest" href="../icon/manifest.json" />
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage" content="../icon/ms-icon-144x144.png" />
+	<meta name="theme-color" content="#ffffff" />
+	<title>Granola</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8
+      ]><script src="assets/js/ie/html5shiv.js"></script
+    ><![endif]-->
+	<link rel="stylesheet" href="../assets/futureimperfect/css/main.css" />
+	<!--[if lte IE 9
+      ]><link rel="stylesheet" href="assets/css/ie9.css"
+    /><![endif]-->
+	<!--[if lte IE 8
+      ]><link rel="stylesheet" href="assets/css/ie8.css"
+    /><![endif]-->
+	<link rel="stylesheet" type="text/css" href="https://jsxgraph.org/distrib/jsxgraph.css" />
+	<script type="text/javascript" src="https://jsxgraph.org/distrib/jsxgraphcore.js"></script>
+</head>
+<style>
+	small {
+		font-size: 60%;
+	}
+
+	p,
+	small {
+		line-height: 150%;
+	}
+
+	p {
+		font-size: 80%;
+		font-family: 'Times New Roman', Times, serif;
+	}
+
+	/* to overwrite the thing that makes author go to the side */
+	.meta {
+		padding: 0;
+	}
+
+	.post>header .meta {
+		padding: 0;
+	}
+
+	.post {
+		max-width: 500px;
+
+	}
+
+	@media screen and (min-width: 760px) {
+		.post {
+			border-left: 0;
+			border-right: 0;
+			left: 7em;
+			width: calc(100% + (3em * 2));
+		}
+	}
+
+	.post>header .title {
+		text-align: center;
+	}
+
+	.post>header .meta {
+		border-left: 0;
+		margin-left: 0;
+		padding-left: 0;
+		flex-direction: row;
+		margin-bottom: 0;
+	}
+
+	.author {
+		flex-direction: row;
+	}
+</style>
+
+<body class="single">
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="../index.html">The Colour of loose metal</a></h1>
+			<nav class="links">
+				<ul>
+					<li><a href="../index.html">home</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+			<!-- Post -->
+			<article class="post">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">Universal Sentence Encoder and Locality Sensitive Hashing</a>
+						</h2>
+						<p>
+							improving search time and file size for sentence embedding
+							searches
+						</p>
+						<div class="meta">
+							<a href="#" class="author"><span class="name">Jess</span><img
+									src="../assets/futureimperfect/images/supremeC.jpg" alt="" /></a>
+						</div>
+					</div>
+				</header>
+				<!--<span class="image featured"><img href="https://www.flickr.com/photos/154787603@N05/36713774254/in/album-72157689104310685/lightbox/" alt="" /></span>-->
+				<!-- <span class="image featured"><a data-flickr-embed="true"  href="https://www.flickr.com/photos/154787603@N05/42695151302/in/dateposted-public/" title="Collage 2018-05-07 21_52_57"><img src="https://farm2.staticflickr.com/1722/42695151302_643cb8554f_o.jpg" alt="2017-10-23 12.53.27 1"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script> -->
+
+				<h4>universal sentence encoder</h4>
+
+				<p>
+					The Universal Sentence Encoder is a model trained on a variety of language
+					data sorces.<br><br> It is able to turn sentence into a 512 dimensional
+					vector (also called an embedding), with the goal of having sentences
+					which are similiar in meaning produce vectors which point in a similar direction.
+				<p>
+					Embeddings are a common way for neural nets to represent real higher dimension data and are
+					especially common in language processing.
+					<br>Consider how many possible word combinations there are in sentences, and the variety of
+					sentence length. It's hard to compare this information programatically.<br>
+					Embeddings are useful in this case because the model gives us a nice vector to work with.
+				</p>
+				<p>
+					So in other words a sentence goes in and an array of 512 numbers come
+					out which can be compared to other arrays created by other sentences
+					for a variety of natural language processing tasks but in our case to check how similiar
+					they are semantically.
+				</p>
+				<p>
+					The model is capible of doing this as it was trained on sentence
+					pairs which had their semantic textual similarity scored by humans.
+					Let's see how some sentences compare for fun
+				</p>
+				<p><small>The image below shows several sentences compared to eachother and scored based on their
+						semantic similarity using the univeral sentence encoder model.<br></small></p>
+				<br>
+				<span class="image featured"><img src="http://colourofloosemetal.com/DS/useHeatmap.jpg" alt="" /></span>
+
+				<a href="http://colourofloosemetal.com/DS/heatMap">Create your own heatmap here</a>
+				<br>
+				<br>
+
+
+
+				</p>
+
+				<h4>Comparing Embeddings</h4>
+				<p>
+					Let's take a look at an example embedding, this one is for the sentence, "praise the sun"
+				</p>
+				<p style="font-size: 5px;">
+					[ -0.01643446274101734, -0.047866735607385635, 0.01116135623306036, -0.032162975519895554,
+					-0.04119051992893219, -0.049514010548591614, 0.05056055262684822, 0.01861172914505005,
+					0.02079540677368641, 0.03788421303033829, 0.055882297456264496, 0.052787601947784424,
+					-0.04854540899395943, 0.0047414726577699184, -0.053531713783741, -0.017291227355599403,
+					0.053345393389463425, 0.05225902795791626, 0.044134367257356644, 0.034594688564538956,
+					0.02990477718412876, 0.01906985603272915, 0.04899447783827782, 0.055814746767282486,
+					-0.05602262541651726, 0.05459308251738548, 0.05091241002082825, -0.05024508386850357,
+					-0.05322225019335747, 0.020622193813323975, 0.022310415282845497, -0.05342493951320648,
+					-0.03910081088542938, -0.054072655737400055, 0.04943077266216278, -0.05404074117541313,
+					-0.05312085151672363, 0.048237964510917664, 0.052785295993089676, -0.04522813856601715,
+					0.053926967084407806, 0.03370456025004387, 0.05236560106277466, 0.0015304642729461193,
+					-0.044569939374923706, -0.04093872010707855, 0.0400158166885376, 0.05586504936218262,
+					0.040547121316194534, 0.0036303112283349037, 0.05467100441455841, -0.05315506085753441,
+					0.05460590869188309, -0.05341360718011856, 0.019216563552618027, 0.014945510774850845,
+					0.008523264899849892, -0.05486554652452469, -0.05196134373545647, -0.0503271222114563,
+					-0.054707158356904984, -0.03312518447637558, -0.05008922889828682, 0.0006174301961436868,
+					-0.03885316103696823, 0.05602826178073883, -0.05558229237794876, -0.03280400112271309,
+					0.0557483471930027, -0.020747335627675056, -0.04034963250160217, -0.05323438718914986,
+					0.05147049203515053, 0.05478457361459732, 0.050157900899648666, -0.05495397374033928,
+					0.040603939443826675, 0.056042611598968506, 0.043434031307697296, -0.0055681923404335976,
+					-0.03814433142542839, -0.03673834726214409, -0.05543023720383644, -0.05131136626005173,
+					-0.05583127215504646, 0.04594847932457924, 0.05276202782988548, -0.05573916807770729,
+					-0.022053785622119904, 0.0015039695426821709, -0.0377194806933403, 0.023686300963163376,
+					-0.04683661460876465, 0.04619279131293297, -0.04374907910823822, -0.027344444766640663,
+					0.038678839802742004, -0.020303141325712204, 0.051446061581373215, -0.021707113832235336,
+					-0.05371095985174179, 0.055392805486917496, 0.05516625568270683, 0.056031569838523865,
+					-0.046048443764448166, -0.052267421036958694, 0.036351095885038376, 0.042035214602947235,
+					-0.030406028032302856, -0.027976704761385918, -0.024354681372642517, -0.03456025943160057,
+					-0.048526324331760406, -0.054300062358379364, 0.03975285217165947, 0.03405265137553215,
+					-0.0008716466836631298, 0.04143061488866806, -0.017759624868631363, 0.04933466389775276,
+					0.04317356273531914, -0.05370345711708069, 0.046637848019599915, -0.05604122579097748,
+					-0.04903582111001015, -0.008755053393542767, 0.02665846049785614, 0.05143268033862114,
+					0.015641331672668457, 0.053754791617393494, 0.03222831338644028, -0.05548969656229019,
+					-0.05565796047449112, 0.05579647049307823, -0.025518905371427536, -0.05387597158551216,
+					0.02367117628455162, 0.043358735740184784, -0.032881706953048706, 0.04977487027645111,
+					-0.025500651448965073, -0.01830417476594448, 0.054875925183296204, 0.05603192746639252,
+					-0.0505065955221653, -0.023587802425026894, 0.028091568499803543, -0.05503155291080475,
+					0.03317264840006828, -0.05222945660352707, 0.0002477589878253639, -0.05411040037870407,
+					-0.04951809346675873, -0.003709644079208374, 0.05603909492492676, 0.00677878875285387,
+					0.03319043666124344, -0.052565574645996094, -0.05374324321746826, 0.05126998946070671,
+					-0.010412076488137245, -0.016527077183127403, 0.055314358323812485, -0.05408173426985741,
+					0.008594626560807228, 0.055709823966026306, 0.013491012156009674, -0.0006980478647165,
+					0.0053011467680335045, 0.045773740857839584, -0.05204932764172554, -0.023253854364156723,
+					-0.05288105458021164, 0.045529551804065704, -0.055810973048210144, 0.006248749326914549,
+					-0.052872903645038605, 0.012982008047401905, 0.04929075390100479, 0.051177412271499634,
+					0.024482639506459236, -0.0023270556703209877, 0.05582268536090851, -0.05187274515628815,
+					0.05578025430440903, -0.02887865900993347, -0.055860910564661026, 0.049252405762672424,
+					0.027567410841584206, 0.004360144957900047, -0.03805725648999214, 0.04781678318977356,
+					0.02349051833152771, -0.05355745181441307, -0.0010168420849367976, 0.019375935196876526,
+					-0.048489831387996674, 0.05290268734097481, -0.0514141209423542, -0.05219649523496628,
+					0.053786858916282654, 0.04703744500875473, -0.05548414960503578, -0.05426885187625885,
+					0.04358344152569771, -0.04335813596844673, 0.055667418986558914, -0.05191067233681679,
+					0.050331346690654755, 0.052997346967458725, -0.05290118604898453, 0.05595087260007858,
+					0.02919776737689972, 0.0279071107506752, -0.05300073325634003, -0.025899618864059448,
+					0.05566255375742912, 0.01740713231265545, 0.05597109720110893, 0.05386003479361534,
+					0.04719238728284836, -0.0413287952542305, 0.05515514686703682, -0.05304962396621704,
+					-0.0282291192561388, -0.016887780278921127, -0.02695431374013424, 0.018786640837788582,
+					0.05564965307712555, -0.05578072369098663, 0.02692331001162529, 0.042407725006341934,
+					-0.05515687167644501, 0.05270160362124443, -0.011442351154983044, 0.055934712290763855,
+					0.05354756489396095, 0.03316701203584671, 0.05588717758655548, 0.05604216828942299,
+					-0.008422136306762695, 0.043577276170253754, -0.008080055005848408, 0.016125492751598358,
+					0.046945225447416306, 0.043736327439546585, -0.023303015157580376, -0.050779227167367935,
+					0.04854461923241615, -0.0560176819562912, -0.04963786527514458, -0.054972484707832336,
+					0.051782578229904175, -0.05325941741466522, 0.01675291731953621, 0.05401768162846565,
+					-0.029279962182044983, 0.029603365808725357, 0.05384274199604988, 0.05026647076010704,
+					-0.05591430142521858, 0.014729233458638191, 0.004318914841860533, 0.04583499953150749,
+					-0.028199832886457443, 0.05517265945672989, 0.05195918306708336, 0.03361981362104416,
+					-0.005860268138349056, 0.054360758513212204, -0.04790390655398369, -0.04412402957677841,
+					0.05526090785861015, -0.04397204518318176, 0.0510873906314373, 0.054974354803562164,
+					-0.05430081859230995, 0.0511348582804203, -0.05075996369123459, -0.017456840723752975,
+					-0.054586976766586304, 0.04988223314285278, -0.031048662960529327, -0.0019140191143378615,
+					-0.00025244030985049903, -0.03073504939675331, -0.008409513160586357, 0.04650219529867172,
+					0.0459686703979969, -0.018416931852698326, -0.05508637800812721, 0.05005917325615883,
+					-0.03366953879594803, -0.02187909558415413, 0.041992828249931335, -0.05555545166134834,
+					0.05599233880639076, 0.03982987254858017, 0.04466022178530693, 0.04570598155260086,
+					0.055467091500759125, 0.05319790542125702, -0.05507420003414154, 0.055999744683504105,
+					-0.041691623628139496, -0.01942344382405281, -0.018287384882569313, 0.05570831894874573,
+					-0.028560396283864975, -0.052859265357255936, 0.02748016081750393, -0.05497709661722183,
+					0.05500137433409691, 0.0538204200565815, 0.05325619876384735, -0.05123851075768471,
+					-0.05441600829362869, -0.04787558317184448, 0.05543545261025429, 0.04792202636599541,
+					0.04059022665023804, -0.047015149146318436, 0.01801333576440811, -0.04497704282402992,
+					0.05537839233875275, -0.04872656241059303, -0.0498863160610199, -0.05248422548174858,
+					0.004491743631660938, -0.056007225066423416, 0.04945643991231918, -0.05558210611343384,
+					-0.053780682384967804, 0.036105845123529434, 0.05598032474517822, 0.053630754351615906,
+					-0.04550294950604439, 0.05588221922516823, -0.03173701465129852, 0.026102842763066292,
+					-0.032342758029699326, 0.054514095187187195, 0.05471456050872803, 0.0535542294383049,
+					0.024944543838500977, 0.022099237889051437, 0.05573274940252304, 0.03772395849227905,
+					-0.006928583141416311, 0.055451977998018265, 0.05255221948027611, -0.020383965224027634,
+					0.014840695075690746, -0.052972737699747086, 0.04729835316538811, 0.041253626346588135,
+					-0.04857562109827995, -0.03430145978927612, 0.030324283987283707, 0.051337189972400665,
+					0.05483871325850487, 0.05280350521206856, -0.024308906868100166, -0.055778954178094864,
+					-0.027072394266724586, -0.04774164780974388, 0.055680446326732635, -0.022918766364455223,
+					-0.031212477013468742, -0.055910054594278336, -0.022955654188990593, -0.0385383665561676,
+					0.04803907498717308, -0.050335753709077835, 0.0509420782327652, 0.05588535591959953,
+					-0.007357464637607336, 0.052812933921813965, 0.022859547287225723, 0.05572576820850372,
+					-0.003088396741077304, 0.03805335611104965, -0.05365729704499245, 0.05554977431893349,
+					0.00746613135561347, -0.05584201589226723, 0.05582189932465553, -0.008294692263007164,
+					-0.041224587708711624, -0.03395610302686691, -0.03327474743127823, -0.03447003290057182,
+					0.023300718516111374, 0.03380630537867546, 0.03800996020436287, 0.05538610741496086,
+					0.05519676208496094, -0.056026309728622437, -0.055212780833244324, 0.05570850148797035,
+					0.029411407187581062, 0.055867381393909454, -0.041572559624910355, 0.054851919412612915,
+					-0.04785359278321266, -0.041999075561761856, 0.042050108313560486, -0.023656176403164864,
+					0.01810332201421261, -0.028811370953917503, -0.04434119910001755, -0.022894995287060738,
+					-0.04691595211625099, 0.028853129595518112, 0.05067988112568855, -0.05385778471827507,
+					-0.05336437001824379, -0.028338856995105743, 0.055960699915885925, 0.0556451715528965,
+					0.053908269852399826, -0.05120284855365753, -0.03537750989198685, -0.055464960634708405,
+					-0.056009646505117416, -0.048401106148958206, 0.0520816408097744, 0.05341281741857529,
+					0.042371753603219986, -0.05149541050195694, 0.02432170696556568, -0.05589159578084946,
+					-0.0253126323223114, -0.055962808430194855, 0.05288317799568176, -0.055515848100185394,
+					-0.04950021579861641, 0.053132157772779465, 0.05560009181499481, -0.05382295697927475,
+					0.03887653723359108, 0.05554954335093498, 0.046343084424734116, 0.05601463466882706,
+					-0.046690721064805984, 0.05519827827811241, 0.05464799702167511, -0.054447636008262634,
+					0.05284092575311661, 0.054841265082359314, 0.03104795143008232, -0.055980488657951355,
+					0.054428581148386, -0.02225598320364952, -0.04590776562690735, -0.0538906455039978,
+					0.018541937693953514, -0.05409042909741402, -0.008213928900659084, 0.048824261873960495,
+					0.04403650760650635, -0.05584526062011719, -0.0467953197658062, 0.023316213861107826,
+					0.0553462840616703, 0.05479169264435768, -0.03851236775517464, 0.0545991025865078,
+					-0.050144799053668976, -0.052886318415403366, 0.05447651073336601, 0.04183284565806389,
+					0.03253893554210663, 0.04657915607094765, -0.046109311282634735, 0.05548405647277832,
+					0.05580862984061241, 0.03811436891555786, -0.05542745813727379, 0.03589120879769325,
+					0.00815376453101635, -0.055900316685438156, -0.05602550506591797, -0.006971255410462618,
+					-0.05076229199767113, 0.05467640981078148, 0.0029950763564556837, 0.04073617234826088,
+					-0.05401226133108139, 0.011864435859024525, -0.010817749425768852, 0.04748326912522316,
+					-0.007380371447652578, 0.04826263338327408, 0.05093942582607269, 0.004084303975105286,
+					0.05559725686907768, 0.016932904720306396, 0.025586623698472977, 0.05064704641699791,
+					-0.047627706080675125, 0.020730800926685333, -0.05533415824174881, 0.052814748138189316,
+					-0.04870741814374924, -0.05315487086772919, 0.05516745150089264, 0.012046034447848797,
+					-0.040742047131061554, -0.056016404181718826, 0.04769644886255264, 0.05575522035360336]
+				</p>
+
+				<p>
+					This array is a bit daunting to look at, so for our visualizations lets start with an array that has
+					a
+					lenght of 2 and not 512, much easier to plot on a chart.<br>
+					So lets use [2,3] to start.
+					<br><br>
+
+					check out the point below with x and y as our two dimensions, but we arent thinking of this array so
+					much as
+					a
+					point, but as more of a vector, with its direction and magnitude being it's lenght from 0 and
+					the angle it forms, click the button to visualize as a vector lol (@wy should i show the angle when
+					visualizing?)
+				</p>
+				<br>
+				<div id="visAsVec" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<button onclick="visualize_vector()">Visualize as vector</button>
+				<br>
+				<p>
+
+					lets call our point P, the length or magnitude of P would be √(P₁² + P₂²), or to consider it a point
+					in 2d space √(Px² + Py²), this is also
+					denoted as
+					|P|
+					<br>
+					<small>An example in 2D space is much easier to visualize than 512D which our embeddings are in,
+						but is very useful as the math remains the same at higher
+						dimensions. If P was a 512 dimensional vector the value of |P| would be √(P₁² + P₂² + ...
+						P₅₁₂²)</small>
+				</p>
+
+
+
+
+				<p>
+					The universal sentence encoder model was trained to have semantically similar sentences produce
+					embeddings
+					which have a high angular similarity (the angle between them is
+					small/they point in the same direction).<br>
+
+					Take a look at the 3 vectors below.
+
+
+					<span class="image featured"><img src="http://colourofloosemetal.com/DS/3VecEucVsAng.jpg"
+							alt="" /></span>
+
+
+					Though the euclidian distance between a and c is smaller, we are comparing the angle
+					between them as vectors, so a and b would be more similar than a and c.<br><br>
+
+					However it can be costly to compute the angular distance between embeddings
+					so it is more common to calculate their cosine similarity,
+					which is the same as the cosθ
+					of the angle between them.<br>
+					Like angular similarity, if two vectors have a high cosine
+					similarity they will be pointing in a similar direction.
+					<br>
+					<small>If you're like me and forget all basic triginomitry every few years, cosθ = adj/hyp for a
+						right angle triangle.
+						<!-- or using law of cosine cos(θ) = (a**2 + b**2 - c**2)/2ab -->
+						<br> And acos or on your calculators ussusally cos⁻¹ is the magic function we run cosθ
+						through
+						to get an angle.<br>
+						That acos function is the part which is costly to compute
+						so it is what we will skip when checking only cosine similarity
+					</small>
+					<br>
+					Take a look below at how cosθ or the cosine similarity compares to the actual angle between two
+					vectors.
+					drag the points around and see how the values change.
+				</p>
+
+				<!-- chart showing angle and cosine similarity goes here, no opp and hyp yet! -->
+				<div id="cosineDvsAngDchart" class="jxgbox" style="position: relative;
+						width: 60%;    height: 0;
+						padding-bottom: 60%;"></div>
+				<div id="cosineDvsAngD"></div>
+				<br>
+				<br>
+				<p>
+					So we can see that cosθ will range from 1 when the angle is 0 (high cosine and angular
+					similarity)
+					to -1 when the angle is 180 (low cosine and angular similarity).<br>
+					However cosθ doesnt scale linearly with the anglular distance @wy? so it is not a good measure of
+					the
+					strength of the assosication between two vectors but it works just
+					as well for proportional assosication (seeing how close vectors are
+					compared to other vectors) //this part is hard to explain , maybe dont even need to<br><br>
+
+
+					Now lets take a look at two vectors again, but we will lock one to 0 degrees and change its
+					magnitude to consistently create a
+					right angle triangle to show how we could calculate cosθ between them.
+				</p>
+
+				<div id="vecLockedTrianglechart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<br>
+
+
+
+				<p>
+					Of course it would be very easy to find the cosine similarity between vectors if they each formed
+					a nice right angle triangle with eachother, one vector would be the adjacent and the other the
+					hypotanuse,<br>
+					but sadly this isnt the case, like in the first example the vectors could have any magnitude and
+					we need a way to find the cosine similarity between vectors
+					regardless of their magnatudes, consider the image below. we need to
+					find L given only the location of p1 and p2
+				</p>
+				<span class="image featured"><img src="http://colourofloosemetal.com/DS/findL.jpg" alt="" /></span>
+				<p>
+					Here is an example where both vectors can be moved
+				</p>
+				
+				<div id="vecUnlockedTrianglechart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<br>
+
+				<p>
+					Fortunately there is a formula that allows us to find L and with that find cosθ
+					using something called the dot product.
+					The dot product of two vectors is dpformula
+
+					<!-- here is an excellent video explaining the dot product and its uses -->
+
+					a·b is equal to the length of p (or |p|) times |a|
+
+					so if we divide the dot product by |a| we are left with p, which is the adjacent side of our
+					triangle
+
+					divide that by |b| and we have adjacent/hypotanuse or cosθ, and there is our cosine similiarty
+					wooh.
+
+					we can write this out fully as a and b a · b = |a||b|cosθ, and for us to solve for cosθ a
+					· b/|a||b|= cosθ
+
+					<!-- lets review what each part of this
+					formula means |a| means the lebgth of vector a, recall pythagarssss
+					sqrt(Ax**2+Ay**2) = |a| a · b is the dot product, the formula for
+					which is ijewadpjpwa -->
+
+					when writing a program calculating the cosine similarity will usually be
+					done by a math library with a cosine similarity function, so you dont really need to understand the
+					math just have an idea of what it represents, but it is nice to
+					know, since geometry is fun, and remmeber, you need math (link).
+					<!-- but if you are just intersted in the optimizations for locality sensitive hashing skip down
+					below to the lsh section. -->
+
+					the dot product has a few interesting
+					properties, take a look below at how it changes based on where the
+					vectors are, it is negative if the vectors are more than
+					90degs appart and positive otherwise, this will come in handy later.
+
+					Also here is an excellent video on the dot product
+
+
+
+
+				</p>
+				<br />
+
+				<!-- <p>
+					So if you're like me when you see this formula you think thats kinda
+					neat, but how does it work? and why does it work to solve for p, lets
+					take a look below and show how the formula a·b = |a||b|cosθ
+					can be proved or explained with something more familiar, the law of
+					cosine, law of cosine goes here
+				</p>
+
+				mathy shit here then chart showing mathy shit that changes based on
+				chart //neato chart goes here -->
+
+				<p>
+					Now that we have an understanding of the universal sentence encoder
+					and how to compare embeddings created by it using their cosine
+					similarity, lets look into some issues with searching through
+					large sets of embeddings.
+					<br>
+					<br>
+
+					In elden ring players can create messages
+					given lists of words and templates with blank spaces for the words
+					to go in, see some examples below
+				</p>
+
+				<p>
+					there are 368 words and 25 templates, so for single sentences
+					(without getting into combining two sentences with conjunctions) we
+					have 368*25 = 9200 possible different sentences. note ** if you
+					arent an elden ring or dark souls fan dont worry ive also created
+					examples with sentences from the harry potter books and of course with dialogue from the show
+					sailor moon below. The embeddings are created ahead of time and
+					stored but when it's time to search that's 9200 arrays of 512
+					floats, to check the cosine similiarity of one against all of them
+					is not an outlandish task especially when utilizing a gpu, but
+					depending on the device running the search it can take upwards of a
+					minute, checking the magnitude and dot product of
+					vectors involves a lot of operations for vectors at higher
+					dimensions. Frotunately there is a way to narrow our search results before
+					comparing the embeddings.
+				</p>
+				<h4>Locality Sensitive Hashes</h4>
+
+				<p>
+					Locality sensitive hashing involves generating random vectors with
+					the same number of dimensions as our sentence embeddings and using them to
+					divide the embeddings into groups (or bins) lets take a look below
+					at some 2d images to help visualize this,
+				</p>
+
+				<p>
+					we divide embeddings into groups by checking if the dot product
+					betweeen the randomly generated vector (or projection) and the
+					sentence embedding is positive or negative, if two sentence
+					embeddings are closer together, they are more likely to end up in
+					the same bin, if the points are 180degs or have a cosine similarity
+					of -1, they will never be in the same bin, if they are 90degs or
+					cosine sim of 0, there is a 50* chance they will be in the same bin,
+					and 100% chance if they are 0 degs and have cosine sim of 1 the
+					formula for the probability of two hashes being in the same bin
+					would be 1-d/dc where d is the distance between the hashes and dc is
+					the max distance, so we could use angular distance for this and see
+					1-90/180 = 0.5 or 50% and so on for the other examples, *((98798(or
+					the probability of them not being divided by a bin since the prob of
+					that would be just d/dc) add this point in idk we can then use
+					multiple projections and group embeddings based on how they are
+					divided by each bin, we will do this by giving the embeddings a 1 or
+					0 for a positive or negative dot product (within 90 or not) for each
+					projection if vector a is within 90degs of p1(positive dot product)
+					we will add a 1 to its hash and then it is not within 90 of p2
+					(negative dot product), the number of projections we have will also
+					be our hash length since an embedding gets a 0 or 1 in its hash for
+					each projection the probability of two events happening is p1*p2,
+					like rolling a 4 on a 6 sided dice twice in a row would be 1/6* 1/6
+					so using the formula above 1-d/dc we can multiply it by itself for
+					the number of projections we have to see how the probabilty of two
+					embeddings being in the same bins based on their distance changes
+					this would give us (1-d/dc)^k where k is the number of projections,
+					increasing k reduces the chance of collision(two embedding having
+					the same hash) since there are more opportunities for a projection
+					to didvide them into seperate bins.
+				</p>
+				probability here for one hash chart
+
+				<p>
+					this will help us speed up searches by checking a new embedding (not
+					in our collection of sentences from elden ring or sailor moon) with
+					our projections and then only comparing it with embeddings that have
+					the same hash. We can adjust k to tune the probability of there
+					being a collsion based on the distance betweeen the embeddings we
+					can also created multiple hashes to increase the chance of
+					collision, since just one will give us a high chance of false
+					negatives, since even if two vectors have a fairly high angular similarity there is still a chance
+					for on of the projections to divide them, with several hashes
+					there is a much better chance that vectors that have higher angular similarity will have a bin
+					collision
+					, see vid and paper so looking at our formula (1-d/dc)^k is
+					our probability of collision Pc right now for one hash of length k,
+					1-Pc is the probability that we dont have a collision for a hash,
+					(1-pc)^L is the probability we dont have a collision for L number of
+					hashes, and finally 1-(1-pc)^L is the probability we do have a
+					collision, so thats 1-(1-(1-d/dc)^k)^L @wy is this right idk
+					proabbility anymore im going off this equation from this paper
+					https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation
+					see page 1116 visualizing this below helps us get a good idea for
+					probability based on distance and hash length and number of hashes.
+				</p>
+				prob for multipe hashes chjart
+
+				<p>
+					so as we increase the number of hashes we have more chances for
+					embeddings to fall into the same bin at least once, and embeddings
+					that are very close are likely to fall into the same bin even more
+					often. Which leads us to a finaly bit of optimization, we can
+					increase the number of hashes in our hashtable and use frequency of
+					bin collision as our similarity score to remove the need for
+					checking cosine similarity entirely, this also eliminates the need
+					to store the sentence embeddings to compare, we only need to create
+					an embedding for the search term and create a hash of it by checking
+					it with our projections. this will result in a loss of accuracy
+					since collision is probabilty based as we saw above, but with enough
+					tables we can achieve decent results which work well especially for
+					something as subjective as comparing sentences. Less disk space is
+					needed and search time is further improved.
+				</p>
+				<p>
+					now we have gone from checking the cosine similarity between our
+					search embedding with every one in our list, to just needing to
+					check it with our projections to generate a hash or multiple hashes
+					to check it between fewer of the embeddings, to only needing to
+					check it with our projections, **** this blurb is a ilttle
+					confusing, make concolusion clearer
+				</p>
+				***throw code in at different points **links to live examples
+
+				<footer></footer>
+			</article>
+		</div>
+
+		<!-- Footer -->
+		<section id="footer"></section>
+	</div>
+
+
+	<!-- Scripts -->
+
+
+	<script>
+
+
+
+		function getAng(x1, x2, y1, y2) {//(A,B,C)
+			dot = x1 * x2 + y1 * y2
+			det = x1 * y2 - y1 * x2
+			angle = Math.atan2(det, dot)
+			return (angle);
+		}
+		JXG.Options.point.snapToGrid = true;
+		JXG.Options.point.snapSizeX = 0.1;
+		JXG.Options.point.snapSizeY = 0.1;
+		JXG.Options.line.isDraggable = false;
+
+
+
+
+		function dotproduct(a, b) {
+			var n = 0, lim = Math.min(a.length, b.length);
+			for (var i = 0; i < lim; i++) n += a[i] * b[i];
+			return n;
+		}
+
+		function norm2(a) { var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i] * a[i]; return Math.sqrt(sumsqr); }
+
+		function similarity(a, b) { return dotproduct(a, b) / norm2(a) / norm2(b); }
+
+
+
+
+
+		var visVecChart = {};
+		visVecChart.chart = JXG.JSXGraph.initBoard('visAsVec', {
+			boundingbox: [-5, 5, 5, -5], axis: true
+		});
+		// create point
+		visVecChart.point = visVecChart.chart.create('point', [2, 3], { visible: true, fixed: false, name: "p0", label: { visible: true }, size: 5 });
+		visVecChart.vecLine = visVecChart.chart.create('line', [[0, 0], visVecChart.point], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		function visualize_vector() {
+			visVecChart.vecLine.setAttribute({
+				visible: true
+			});
+			visVecChart.chart.fullUpdate();
+		}
+
+		var cosineDvsAngDchart = {};
+		cosineDvsAngDchart.chart = JXG.JSXGraph.initBoard('cosineDvsAngDchart', {
+			boundingbox: [-5, 5, 5, -5], axis: true
+		});
+		cosineDvsAngDchart.p1 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "p1", label: { visible: false }, size: 5 });
+		cosineDvsAngDchart.p2 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "p2", label: { visible: false }, size: 5 });
+		cosineDvsAngDchart.l1 = cosineDvsAngDchart.chart.create('line', [[0, 0], cosineDvsAngDchart.p1], { visible: true, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		cosineDvsAngDchart.l2 = cosineDvsAngDchart.chart.create('line', [[0, 0], cosineDvsAngDchart.p2], { visible: true, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		cosineDvsAngDchart.p1Prev = cosineDvsAngDchart.p1.coords.usrCoords.slice(1);
+		cosineDvsAngDchart.p2Prev = cosineDvsAngDchart.p2.coords.usrCoords.slice(1);
+
+		function cosineDvsAngDchartGenHtml() {
+			// console.log("movein");
+			if (cosineDvsAngDchart.p1Prev.toString() != cosineDvsAngDchart.p1.coords.usrCoords.slice(1).toString() || cosineDvsAngDchart.p2Prev.toString() != cosineDvsAngDchart.p2.coords.usrCoords.slice(1).toString()) {
+				// console.log("p1 or p2 changed");
+				console.log(cosineDvsAngDchart.p1Prev);
+				console.log(cosineDvsAngDchart.p1.coords.usrCoords.slice(1));
+				sim = similarity(cosineDvsAngDchart.p1.coords.usrCoords.slice(1), cosineDvsAngDchart.p2.coords.usrCoords.slice(1))
+				// console.log(sim);
+				ang = Math.acos(sim);
+				ang = ang * 180 / Math.PI;
+				sim = sim.toPrecision(4)
+				ang = ang.toPrecision(4)
+				console.log(Math.PI)
+				document.getElementById("cosineDvsAngD").innerHTML = "Cosine similarity:" + String(sim) + "  Angular Distance:" + String(ang) + "°";
+				cosineDvsAngDchart.p1Prev = cosineDvsAngDchart.p1.coords.usrCoords.slice(1);
+				cosineDvsAngDchart.p2Prev = cosineDvsAngDchart.p2.coords.usrCoords.slice(1);
+			}
+		}
+		document.getElementById("cosineDvsAngDchart").addEventListener("mousemove", function (event) {
+			cosineDvsAngDchartGenHtml();
+		});
+		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
+		cosineDvsAngDchart.p1.coords.usrCoords[1] = 2;
+		cosineDvsAngDchartGenHtml();
+
+
+
+
+		var vecLockedTriangle = {};
+		var vecLockedTriangleBoard = JXG.JSXGraph.initBoard('vecLockedTrianglechart', {
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true
+		});
+		// p0 is an invisible point at 1,0
+		vecLockedTriangle.p0 = vecLockedTriangleBoard.create('point', [1, 0], { visible: false, fixed: false, name: "p0", label: { visible: false }, size: 5 });
+		//p1 is the huge blue point we drag around
+		vecLockedTriangle.p1 = vecLockedTriangleBoard.create('point', [1.1, 1], { fillColor: 'blue', name: "p1", label: { visible: true }, size: 17 });
+		// line from 0-p0 and 0-p1
+		li1 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p0], { visible: false, straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		li2 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
+		//line for the other point between the triangle for opp and adj to start at, the end of the projection
+		vecLockedTriangle.p001 = vecLockedTriangleBoard.create('point', [function () {
+			angFrom0 = getAng(1, vecLockedTriangle.p0.coords.usrCoords[1], 0, vecLockedTriangle.p0.coords.usrCoords[2])//similarity([1,0],vecLockedTriangle.p0.coords.usrCoords.slice(1))//getAng(1,vecLockedTriangle.p0.coords.usrCoords[1], 0,vecLockedTriangle.p0.coords.usrCoords[2]);
+			// console.log("p0from0: " + ((angFrom0)).toString())
+			// console.log((getAng(1,vecLockedTriangle.p0.coords.usrCoords[1], 0, vecLockedTriangle.p0.coords.usrCoords[2]).toString()));
+			p = (dotproduct(vecLockedTriangle.p0.coords.usrCoords.slice(1), vecLockedTriangle.p1.coords.usrCoords.slice(1))) / norm2(vecLockedTriangle.p0.coords.usrCoords.slice(1));
+			x = Math.cos(angFrom0) * p;
+			return (x);
+		}, function () {
+			angFrom0 = getAng(1, vecLockedTriangle.p0.coords.usrCoords[1], 0, vecLockedTriangle.p0.coords.usrCoords[2])//similarity([1,0],vecLockedTriangle.p0.coords.usrCoords.slice(1))//getAng(1,vecLockedTriangle.p0.coords.usrCoords[1], 0,vecLockedTriangle.p0.coords.usrCoords[2]);
+			p = (dotproduct(vecLockedTriangle.p0.coords.usrCoords.slice(1), vecLockedTriangle.p1.coords.usrCoords.slice(1))) / norm2(vecLockedTriangle.p0.coords.usrCoords.slice(1));
+			x = Math.cos(angFrom0) * p;
+			y = Math.sin(angFrom0) * p;
+			return (y);
+		}], { fixed: true, name: "p001", label: { visible: false }, size: 5 });
+		//create lines for opposite and adjacent
+		vecLockedTriangle.liOpp = vecLockedTriangleBoard.create('line', [[function () { return (vecLockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecLockedTriangle.p001.coords.usrCoords[2]); }], vecLockedTriangle.p1], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
+			vecLockedTriangle.liAdj = vecLockedTriangleBoard.create('line', [[0, 0], [function () { return (vecLockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecLockedTriangle.p001.coords.usrCoords[2]); }]], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
+			vecLockedTriangle.t = vecLockedTriangleBoard.create('text', [0, 0, function () { return (vecLockedTriangle.p1.coords.usrCoords[2].toFixed(3).toString()) }], { anchor: vecLockedTriangle.liOpp });
+		vecLockedTriangle.t2 = vecLockedTriangleBoard.create('text', [-0.1, 0.07, function () { return (vecLockedTriangle.p001.coords.usrCoords[1].toFixed(3).toString()) }], { anchor: vecLockedTriangle.liAdj });
+
+		//create two angles between p0 and p1, and change which one is shown based on which side of the angle is smaller, itll always
+		//show it rotating in the same direction but we want it to peak and 180 then switch to the other side
+		vecLockedTriangle.a1 = vecLockedTriangleBoard.create('angle', [vecLockedTriangle.p0, [0, 0], vecLockedTriangle.p1], {
+			label: { visible: false }, radius: 0.4, fixed: true, visible:
+				function () {
+					if (getAng(vecLockedTriangle.p0.coords.usrCoords[1], vecLockedTriangle.p1.coords.usrCoords[1], vecLockedTriangle.p0.coords.usrCoords[2], vecLockedTriangle.p1.coords.usrCoords[2]) < 0) { return (false) }
+					else { return (true) }
+				}
+		});
+		vecLockedTriangle.a2 = vecLockedTriangleBoard.create('angle', [vecLockedTriangle.p1, [0, 0], vecLockedTriangle.p0], {
+			label: { visible: false }, radius: 0.4, fixed: true, visible:
+				function () {
+					if (getAng(vecLockedTriangle.p0.coords.usrCoords[1], vecLockedTriangle.p1.coords.usrCoords[1], vecLockedTriangle.p0.coords.usrCoords[2], vecLockedTriangle.p1.coords.usrCoords[2]) > 0) { return (false) }
+					else { return (true) }
+				}
+		});
+
+
+
+
+
+
+		//object to hold all points and lines and stuff for this chart
+		var vecsUnlockedTriangle = {};
+		var vecsUnlockedTriangleBoard = JXG.JSXGraph.initBoard('vecUnlockedTrianglechart', {
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true
+		});
+		// p0 is an invisible point at 1,0
+		vecsUnlockedTriangle.p2 = vecsUnlockedTriangleBoard.create('point', [1, 0], { visible: true, fixed: false, name: "p2", label: { visible: true }, size: 5 });
+		//p1 is the huge blue point we drag around
+		vecsUnlockedTriangle.p1 = vecsUnlockedTriangleBoard.create('point', [0.5, 1], { fillColor: 'blue', name: "p1", label: { visible: true }, size: 17 });
+		// line from 0-p2 and 0-p1
+		li1 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p2], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		li2 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
+		//line for the other point between the triangle for opp and adj to start at, the end of the projection
+		vecsUnlockedTriangle.p001 = vecsUnlockedTriangleBoard.create('point', [function () {
+			angFrom0 = getAng(1, vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
+			// console.log("p2from0: " + ((angFrom0)).toString())
+			// console.log((getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2]).toString()));
+			p = (dotproduct(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1), vecsUnlockedTriangle.p1.coords.usrCoords.slice(1))) / norm2(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1));
+			x = Math.cos(angFrom0) * p;
+			return (x);
+		}, function () {
+			angFrom0 = getAng(1, vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
+			p = (dotproduct(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1), vecsUnlockedTriangle.p1.coords.usrCoords.slice(1))) / norm2(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1));
+			x = Math.cos(angFrom0) * p;
+			y = Math.sin(angFrom0) * p;
+			return (y);
+		}], { visible: false, fixed: true, name: "p001", label: { visible: false }, size: 5 });
+		//create lines for opposite and adjacent
+		vecsUnlockedTriangle.liOpp = vecsUnlockedTriangleBoard.create('line', [[function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[2]); }], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
+			vecsUnlockedTriangle.liAdj = vecsUnlockedTriangleBoard.create('line', [[0, 0], [function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[2]); }]], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
+			vecsUnlockedTriangle.t = vecsUnlockedTriangleBoard.create('text', [0, 0, function () { return (vecsUnlockedTriangle.p1.coords.usrCoords[2].toFixed(3).toString()) }], { anchor: vecsUnlockedTriangle.liOpp });
+		vecsUnlockedTriangle.t2 = vecsUnlockedTriangleBoard.create('text', [-0.1, 0.07, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1].toFixed(3).toString()) }], { anchor: vecsUnlockedTriangle.liAdj });
+		//create two angles between p2 and p1, and change which one is shown based on which side of the angle is smaller, itll always
+		//show it rotating in the same direction but we want it to peak and 180 then switch to the other side
+		vecsUnlockedTriangle.a1 = vecsUnlockedTriangleBoard.create('angle', [vecsUnlockedTriangle.p2, [0, 0], vecsUnlockedTriangle.p1], {
+			label: { visible: false }, radius: 0.4, fixed: true, visible:
+				function () {
+					if (getAng(vecsUnlockedTriangle.p2.coords.usrCoords[1], vecsUnlockedTriangle.p1.coords.usrCoords[1], vecsUnlockedTriangle.p2.coords.usrCoords[2], vecsUnlockedTriangle.p1.coords.usrCoords[2]) < 0) { return (false) }
+					else { return (true) }
+				}
+		});
+		vecsUnlockedTriangle.a2 = vecsUnlockedTriangleBoard.create('angle', [vecsUnlockedTriangle.p1, [0, 0], vecsUnlockedTriangle.p2], {
+			label: { visible: false }, radius: 0.4, fixed: true, visible:
+				function () {
+					if (getAng(vecsUnlockedTriangle.p2.coords.usrCoords[1], vecsUnlockedTriangle.p1.coords.usrCoords[1], vecsUnlockedTriangle.p2.coords.usrCoords[2], vecsUnlockedTriangle.p1.coords.usrCoords[2]) > 0) { return (false) }
+					else { return (true) }
+				}
+		});
+
+
+// 		window.addEventListener("load", function(){
+// 	console.log("loaded bb")
+//     cosineDvsAngDchartGenHtml();
+// });
+	</script>
+
+	<script src="../assets/futureimperfect/js/jquery.min.js"></script>
+	<script src="../assets/futureimperfect/js/browser.min.js"></script>
+	<script src="../assets/futureimperfect/js/breakpoints.min.js"></script>
+	<script src="../assets/futureimperfect/js/util.js"></script>
+	<!--[if lte IE 8
+      ]><script src="assets/js/ie/respond.min.js"></script
+    ><![endif]-->
+	<script src="../assets/futureimperfect/js/main.js"></script>
+</body>
+
+</html>
