@@ -25,7 +25,7 @@ for i in range(numberOfHashtables):
 print(len(projections))
 print(len(projections[1]))
 print(len(projections[1][1]))
-print(np.dot([2,2,3,4,5],[2,3,4,3,1]))
+print(np.dot([2,2,3,4,5],[2,3,4,3,1]))#test
 # input()
 print("okayyy")
 with open('.\\soapStoneTranslatorJs\\hp\\hpTensors.json') as f:
@@ -41,14 +41,14 @@ for i, t in enumerate(tensors):
         hash = '';
         for k in range(hashtableLength):
             if(np.dot(t ,projections[j][k]) >0):
-                hash += '1';
+                hash += '1'
 
             else:
                 hash += '0'
         if(hash in hashTables[j]):
-            hashTables[j][hash].append(i);
+            hashTables[j][hash].append(i)
         else:
-            hashTables[j][hash] = [i];
+            hashTables[j][hash] = [i]
 
 fnameAdd = str(numberOfHashtables) + "-" + str(hashtableLength)
 with open(fnameAdd+'hpProjections.json', 'w') as outfile:

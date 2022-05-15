@@ -25,13 +25,14 @@
 	<meta name="msapplication-TileColor" content="#ffffff" />
 	<meta name="msapplication-TileImage" content="../icon/ms-icon-144x144.png" />
 	<meta name="theme-color" content="#ffffff" />
-	<title>Granola</title>
+	<title>locality sensitive hashes</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lte IE 8
       ]><script src="assets/js/ie/html5shiv.js"></script
     ><![endif]-->
 	<link rel="stylesheet" href="../assets/futureimperfect/css/main.css" />
+	<link href="../assets/prism/prism.css" rel="stylesheet" />
 	<!--[if lte IE 9
       ]><link rel="stylesheet" href="assets/css/ie9.css"
     /><![endif]-->
@@ -39,7 +40,11 @@
       ]><link rel="stylesheet" href="assets/css/ie8.css"
     /><![endif]-->
 	<link rel="stylesheet" type="text/css" href="https://jsxgraph.org/distrib/jsxgraph.css" />
+	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 	<script type="text/javascript" src="https://jsxgraph.org/distrib/jsxgraphcore.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<script src="../assets/prism/prism.js"></script>
 </head>
 <style>
 	small {
@@ -116,12 +121,16 @@
 				<header>
 					<div class="title">
 						<h2>
-							<a href="#">Universal Sentence Encoder and Locality Sensitive Hashing</a>
+							<a href="#">The Universal Sentence Encoder and Locality Sensitive Hashing</a>
 						</h2>
 						<p>
 							improving search time and file size for sentence embedding
 							searches
 						</p>
+						<p style="font-size: 4px;">
+							(Yet another way to browse Sailor Moon)
+						</p>
+						<br>
 						<div class="meta">
 							<a href="#" class="author"><span class="name">Jess</span><img
 									src="../assets/futureimperfect/images/supremeC.jpg" alt="" /></a>
@@ -131,37 +140,38 @@
 				<!--<span class="image featured"><img href="https://www.flickr.com/photos/154787603@N05/36713774254/in/album-72157689104310685/lightbox/" alt="" /></span>-->
 				<!-- <span class="image featured"><a data-flickr-embed="true"  href="https://www.flickr.com/photos/154787603@N05/42695151302/in/dateposted-public/" title="Collage 2018-05-07 21_52_57"><img src="https://farm2.staticflickr.com/1722/42695151302_643cb8554f_o.jpg" alt="2017-10-23 12.53.27 1"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script> -->
 
-				<h4>universal sentence encoder</h4>
+				<h4>the universal sentence encoder</h4>
 
 				<p>
 					The Universal Sentence Encoder is a model trained on a variety of language
-					data sorces.<br><br> It is able to turn sentence into a 512 dimensional
+					data sources.<br><br> It is able to turn a sentence into a 512-dimensional
 					vector (also called an embedding), with the goal of having sentences
-					which are similiar in meaning produce vectors which point in a similar direction.
+					that are similar in meaning produce vectors that point in a similar direction.
 				<p>
 					Embeddings are a common way for neural nets to represent real higher dimension data and are
 					especially common in language processing.
 					<br>Consider how many possible word combinations there are in sentences, and the variety of
-					sentence length. It's hard to compare this information programatically.<br>
-					Embeddings are useful in this case because the model gives us a nice vector to work with.
+					sentence lengths. It's hard to compare this information programmatically.
+					Making embeddings especially useful.
 				</p>
 				<p>
-					So in other words a sentence goes in and an array of 512 numbers come
-					out which can be compared to other arrays created by other sentences
-					for a variety of natural language processing tasks but in our case to check how similiar
+					So a sentence goes in and an array of 512 numbers come
+					out that can be compared to other arrays created by other sentences
+					for a variety of natural language processing tasks but in our case to check how similar
 					they are semantically.
 				</p>
 				<p>
-					The model is capible of doing this as it was trained on sentence
-					pairs which had their semantic textual similarity scored by humans.
-					Let's see how some sentences compare for fun
+					The model is capable of doing this as it was trained on sentence
+					pairs that had their semantic textual similarity scored by humans.
+					Let's see how some sentences compare for fun.<br><br>JESSE MAYBE MAKE THIS THE LIVE VERSION SO CAN
+					HOVER
 				</p>
-				<p><small>The image below shows several sentences compared to eachother and scored based on their
-						semantic similarity using the univeral sentence encoder model.<br></small></p>
+				<p><small>The image below shows several sentences compared to each other and scored based on their
+						semantic similarity using the universal sentence encoder model.<br></small></p>
 				<br>
 				<span class="image featured"><img src="http://colourofloosemetal.com/DS/useHeatmap.jpg" alt="" /></span>
-
-				<a href="http://colourofloosemetal.com/DS/heatMap">Create your own heatmap here</a>
+				<a href="http://colourofloosemetal.com/DS/heatMap" target="_blank" rel="noopener noreferrer">Create your
+					own heatmap here</a>
 				<br>
 				<br>
 
@@ -305,17 +315,18 @@
 				</p>
 
 				<p>
-					This array is a bit daunting to look at, so for our visualizations lets start with an array that has
-					a
-					lenght of 2 and not 512, much easier to plot on a chart.<br>
-					So lets use [2,3] to start.
-					<br><br>
+					This array is a bit daunting to look at,
+					so for our visualizations, let's start with an array that has a
+					length of 2 and not 512, much easier to plot on a chart.<br>
+					<br>
 
-					check out the point below with x and y as our two dimensions, but we arent thinking of this array so
+					check out the point below with x and y as our two dimensions, but we aren't thinking of this array
+					so
 					much as
 					a
-					point, but as more of a vector, with its direction and magnitude being it's lenght from 0 and
-					the angle it forms, click the button to visualize as a vector lol (@wy should i show the angle when
+					point, but as more of a vector, with its direction and magnitude being its length from 0 and
+					the angle it forms, click the button to visualize as a vector lol (@wy should I show the angle and
+					actual length as a number as well when
 					visualizing?)
 				</p>
 				<br>
@@ -326,15 +337,17 @@
 				<br>
 				<p>
 
-					lets call our point P, the length or magnitude of P would be √(P₁² + P₂²), or to consider it a point
-					in 2d space √(Px² + Py²), this is also
+					Let's call our vector <i>a</i>, the length or magnitude of <i>a</i> would be √(<i>a₁² + a₂²</i>), or
+					to consider it
+					in 2d space √(<i>ax² + ay²</i>), this is also
 					denoted as
-					|P|
-					<br>
-					<small>An example in 2D space is much easier to visualize than 512D which our embeddings are in,
-						but is very useful as the math remains the same at higher
-						dimensions. If P was a 512 dimensional vector the value of |P| would be √(P₁² + P₂² + ...
-						P₅₁₂²)</small>
+					|<i>a</i>|
+					<br><br>
+					An example in 2D space is much easier to visualize than 512D which our embeddings are in,
+					but is very useful as the math remains the same at higher
+					dimensions. If <i>a</i> was a 512-dimensional vector the value of |<i>a</i>| would be √(<i>a</i>₁² +
+					<i>a</i>₂² + <i>a</i>₃² + ...
+					<i>a</i>₅₁₂²)
 				</p>
 
 
@@ -343,40 +356,43 @@
 				<p>
 					The universal sentence encoder model was trained to have semantically similar sentences produce
 					embeddings
-					which have a high angular similarity (the angle between them is
+					that have high angular similarity (the angle between them is
 					small/they point in the same direction).<br>
 
-					Take a look at the 3 vectors below.
+					Take a look at the 3 vectors below.<br>
 
 
 					<span class="image featured"><img src="http://colourofloosemetal.com/DS/3VecEucVsAng.jpg"
 							alt="" /></span>
 
 
-					Though the euclidian distance between a and c is smaller, we are comparing the angle
-					between them as vectors, so a and b would be more similar than a and c.<br><br>
+					The euclidian distance between then ends of <i>a</i> and <i>c</i> are smaller, but we are comparing
+					the angle
+					between them as vectors, so <i>a</i> and <i>b</i> would be more similar than <i>a</i> and
+					<i>c</i>.<br><br>
 
-					However it can be costly to compute the angular distance between embeddings
+					It can be costly to compute the angular similarity between embeddings
 					so it is more common to calculate their cosine similarity,
 					which is the same as the cosθ
 					of the angle between them.<br>
 					Like angular similarity, if two vectors have a high cosine
-					similarity they will be pointing in a similar direction.
+					similarity they will be pointing in a similar direction.<br>
 					<br>
-					<small>If you're like me and forget all basic triginomitry every few years, cosθ = adj/hyp for a
-						right angle triangle.
+					<small>If you're like me and forget all basic trigonometry every few years, cosθ = adj/hyp for a
+						right-angle triangle.
 						<!-- or using law of cosine cos(θ) = (a**2 + b**2 - c**2)/2ab -->
-						<br> And acos or on your calculators ussusally cos⁻¹ is the magic function we run cosθ
+						<br> And acos or on your calculators usually cos⁻¹ is the magic function we run cosθ
 						through
 						to get an angle.<br>
-						That acos function is the part which is costly to compute
+						That acos function is the part that is costly to compute
 						so it is what we will skip when checking only cosine similarity
 					</small>
 					<br>
 					Take a look below at how cosθ or the cosine similarity compares to the actual angle between two
 					vectors.
-					drag the points around and see how the values change.
+					Drag the points around and see how the values change.
 				</p>
+				<h2> note to self CHECK ON MOBILE MAKE INTERACTION WORK AND CHECK TEXT LOCATION FOR OTHER CHARTS</h2>
 
 				<!-- chart showing angle and cosine similarity goes here, no opp and hyp yet! -->
 				<div id="cosineDvsAngDchart" class="jxgbox" style="position: relative;
@@ -389,16 +405,16 @@
 					So we can see that cosθ will range from 1 when the angle is 0 (high cosine and angular
 					similarity)
 					to -1 when the angle is 180 (low cosine and angular similarity).<br>
-					However cosθ doesnt scale linearly with the anglular distance @wy? so it is not a good measure of
+					However cosθ doesn't scale linearly with the angular distance @wy? so it is not a good measure of
 					the
-					strength of the assosication between two vectors but it works just
-					as well for proportional assosication (seeing how close vectors are
-					compared to other vectors) //this part is hard to explain , maybe dont even need to<br><br>
+					strength of the association between two vectors but it works just
+					as well for proportional association (seeing how close vectors are
+					compared to other vectors) //@wy this part is hard to explain, maybe don't even need to<br><br>
 
 
-					Now lets take a look at two vectors again, but we will lock one to 0 degrees and change its
+					Now let's take a look at two vectors again, but we will lock one to 0 degrees and change its
 					magnitude to consistently create a
-					right angle triangle to show how we could calculate cosθ between them.
+					right-angle triangle to show how we could calculate cosθ between them.
 				</p>
 
 				<div id="vecLockedTrianglechart" class="jxgbox" style="position: relative;
@@ -410,59 +426,110 @@
 
 				<p>
 					Of course it would be very easy to find the cosine similarity between vectors if they each formed
-					a nice right angle triangle with eachother, one vector would be the adjacent and the other the
-					hypotanuse,<br>
-					but sadly this isnt the case, like in the first example the vectors could have any magnitude and
+					a nice right angle triangle with each other, one vector would be the adjacent and the other the
+					hypotenuse,<br>
+					but sadly this isn't the case, like in the first example the vectors could have any magnitude and
 					we need a way to find the cosine similarity between vectors
-					regardless of their magnatudes, consider the image below. we need to
-					find L given only the location of p1 and p2
+					regardless of their magnitudes, consider the image below. To find cosθ we need to
+					find the adjacent and hypotenuse of a right-angle triangle formed by our angle.<br>
+					In this image the hypotenuse is easy to find, it is |<i>a</i>|, but we need to find L given only the
+					information for <i>a</i> and <i>b</i>.
 				</p>
-				<span class="image featured"><img src="http://colourofloosemetal.com/DS/findL.jpg" alt="" /></span>
+				<span class="image featured"><img id="findL" src="http://colourofloosemetal.com/DS/findL.jpg"
+						alt="" /></span>
 				<p>
 					Here is an example where both vectors can be moved
 				</p>
-				
+
+				note to self check opposite and adjacent lengths soemthing seems off @jesse
+
 				<div id="vecUnlockedTrianglechart" class="jxgbox" style="position: relative;
 				width: 60%;    height: 0;
 				padding-bottom: 60%;"></div>
 				<br>
 
 				<p>
-					Fortunately there is a formula that allows us to find L and with that find cosθ
-					using something called the dot product.
-					The dot product of two vectors is dpformula
+					Fortunately, there is a formula that allows us to find cosθ and by that also find L
+					using something called the dot product.<br>
+					<!-- ₀₁₂₃₄₅₆₇₈₉ ₓᵧ -->
+					If we have two vectors of length 512, lets call them <i>a</i> and <i>b</i> again.<br>
+					<i>a</i> = [<i>a₁,a₂,a₃,… ,a₅₁₂</i>] and <i>b</i> = [<i>b₁,b₂,b₃,… ,b₅₁₂</i>] <br><br>
+					Then their dot product is given by:<br> <i>a</i>•<i>b</i> = <i>a₁b₁+a₂b₂+a₃b₃+………a₅₁₂b₅₁₂</i><br>
 
-					<!-- here is an excellent video explaining the dot product and its uses -->
+					For vectors of length 2, their dot product would be<br> <i>a₁b₁+a₂b₂</i> or <i>aₓbₓ+aᵧbᵧ</i><br>
+				</p>
+				<!-- use this to convert latex to html5 math equations -->
+				<!-- https://pandoc.org/try/?text=&from=latex&to=html5&standalone=0 -->
+				<p><span class="math display">\[\vec{a} \cdot \vec{b} =
+						{\sum_{i=1}^{n}(a_i b_i)}\]</span></p>
+				<small>The dot product is written using a dot "·" <i>a</i> · <i>b</i>, don't confuse this for a times
+					b.</small>
 
-					a·b is equal to the length of p (or |p|) times |a|
+
+				<p>The formula which relates two vectors and their dot product is<br> <i>a</i> · <i>b</i> =
+					|<i>a</i>||<i>b</i>|cos(θ)<br>
+					Where |<i>a</i>| and |<i>b</i>| are the lengths of <i>a</i> and <i>b</i> and theta is the angle
+					between them.</p>
+				<p>Remember cos(θ) is the adjacent over hypotenuse of a right-angle triangle formed by this angle so we
+					could write this as <br>
+					<i>a</i> · <i>b</i> = |<i>a</i>| × |<i>b</i>| × L/|<i>a</i>|, the |<i>a</i>|'s on the right cancel
+					out so we have<br> <i>a</i> · <i>b</i> = |<i>b</i>| × L, divide
+					both sides by |<i>b</i>| and we get<br> (<i>a</i> · <i>b</i>)/|<i>b</i>| = L
+					this would allow us to solve for L <a href="#findL">from this image</a>
+				</p>
+				<!-- <p>a · b = |a| × |b| × L/|a| so if we wanted to solve for L, the two |a|'s cancel out on the right side, and divide both sides by |b| we have a · b/|b| = L 
+					L again being the adjacent side of our triangle -->
+				</p>
+
+
+				<!-- here is an excellent video explaining the dot product and its uses -->
+				<p>
+					<!-- a·b is equal to the length of p (or |p|) times |b|
 
 					so if we divide the dot product by |a| we are left with p, which is the adjacent side of our
 					triangle
 
-					divide that by |b| and we have adjacent/hypotanuse or cosθ, and there is our cosine similiarty
+					divide that by |b| and we have adjacent/hypotenuse or cosθ, and there is our cosine similiarty
 					wooh.
 
 					we can write this out fully as a and b a · b = |a||b|cosθ, and for us to solve for cosθ a
-					· b/|a||b|= cosθ
+					· b/|a||b|= cosθ -->
+					Oh and of course we can solve for cosθ which is what we really need since that is our cosine
+					similarity: <i>a</i> · <i>b</i>/|<i>a</i>||<i>b</i>|= cosθ <br><br>
 
+					This formula can be proven with the law of cosine for 2d vectors if you wanted to relate it to
+					something more familiar like I always do, I swear if you @ me I just might write it out lol
+					<br><br>
 					<!-- lets review what each part of this
 					formula means |a| means the lebgth of vector a, recall pythagarssss
 					sqrt(Ax**2+Ay**2) = |a| a · b is the dot product, the formula for
 					which is ijewadpjpwa -->
 
-					when writing a program calculating the cosine similarity will usually be
-					done by a math library with a cosine similarity function, so you dont really need to understand the
-					math just have an idea of what it represents, but it is nice to
-					know, since geometry is fun, and remmeber, you need math (link).
+					When writing a program, calculating the cosine similarity will usually be
+					done by a math library with a cosine similarity function, so you don't really need to understand the
+					math, just have an idea of what it represents, but it is nice to
+					know, since geometry is fun, and remember,
+					<a href="https://soundcloud.com/wayne-gronny/what-are-we-arguing-about-you" target="_blank"
+						rel="noopener noreferrer">you need math</a>
+					(profanity warning)<br><br>
 					<!-- but if you are just intersted in the optimizations for locality sensitive hashing skip down
 					below to the lsh section. -->
+					The dot product has a few interesting
+					properties, one being that it is negative if the vectors are more than
+					90degs apart and positive otherwise, this will come in handy later.<br>
 
-					the dot product has a few interesting
-					properties, take a look below at how it changes based on where the
-					vectors are, it is negative if the vectors are more than
-					90degs appart and positive otherwise, this will come in handy later.
+					<small> note to self could do two vectors here you can move and show their dot product below to
+						illustrate but eh idk</small>
+					<!-- <div id="twoVecDPchart" class="jxgbox" style="position: relative;
+					width: 60%;    height: 0;
+					padding-bottom: 60%;"></div>
+					<div id="twoVecDP"></div> -->
+					<br><br>
 
-					Also here is an excellent video on the dot product
+					<a href="https://youtu.be/LyGKycYT2v0" target="_blank" rel="noopener noreferrer">Also here is an
+						excellent video on the dot product.</a> Highly recommend watching it.
+
+
 
 
 
@@ -480,127 +547,497 @@
 
 				mathy shit here then chart showing mathy shit that changes based on
 				chart //neato chart goes here -->
-
+				<h4>Searching/comparing embeddings</h4>
 				<p>
 					Now that we have an understanding of the universal sentence encoder
-					and how to compare embeddings created by it using their cosine
-					similarity, lets look into some issues with searching through
+					and how to compare the sentence embeddings it generates using their cosine
+					similarity, let's look into some issues with searching through
 					large sets of embeddings.
 					<br>
 					<br>
 
-					In elden ring players can create messages
+					In Elden Ring players can create messages
 					given lists of words and templates with blank spaces for the words
 					to go in, see some examples below
 				</p>
 
+				elden ring message pics go here
+
 				<p>
-					there are 368 words and 25 templates, so for single sentences
+					<b>If you
+						arent an Elden Ring or Dark Souls fan don't worry I've also created
+						examples with sentences from the Harry Potter books and of course with dialogue from the show
+						Sailor Moon, the links are at the end of this article.</b>
+				</p>
+
+				<p>
+					There are 368 words and 25 templates, so for single sentences in Elden Ring
 					(without getting into combining two sentences with conjunctions) we
-					have 368*25 = 9200 possible different sentences. note ** if you
-					arent an elden ring or dark souls fan dont worry ive also created
-					examples with sentences from the harry potter books and of course with dialogue from the show
-					sailor moon below. The embeddings are created ahead of time and
+					have 368*25 = 9200 possible different sentences. The embeddings are created ahead of time and
 					stored but when it's time to search that's 9200 arrays of 512
-					floats, to check the cosine similiarity of one against all of them
-					is not an outlandish task especially when utilizing a gpu, but
+					floats. To check the cosine similarity of one against all of them
+					is not an outlandish task, especially when utilizing the gpu, but
 					depending on the device running the search it can take upwards of a
 					minute, checking the magnitude and dot product of
 					vectors involves a lot of operations for vectors at higher
-					dimensions. Frotunately there is a way to narrow our search results before
+					dimensions.
+
+
+				</p>
+				<p>
+
+					Fortunately, there is a way to narrow our search results before
 					comparing the embeddings.
+					<br>
+
 				</p>
 				<h4>Locality Sensitive Hashes</h4>
 
 				<p>
 					Locality sensitive hashing involves generating random vectors with
 					the same number of dimensions as our sentence embeddings and using them to
-					divide the embeddings into groups (or bins) lets take a look below
-					at some 2d images to help visualize this,
+					divide the embeddings into groups or bins.
+				</p>
+				<p>
+					We divide embeddings into groups by checking if the dot product
+					between the randomly generated vector (or projection) and the
+					sentence embedding is positive or negative. Giving its hash a 1 or 0 respectively.<br>
+					Remember vectors with an angular difference of more than 90Degrees will have a negative dot product,
+					and a positive dot product otherwise<br>
+					Embeddings with different hashes are in different bins.<br><br>
+					Let's look at one embedding, <i>a</i>, and one projection, p1. @wy should projections be italic too,
+					probs right?<br>
+					Move them around to see how the hash for embedding <i>a</i> changes.
+
 				</p>
 
+				<div id="lshOneProjectionChart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<div id="lshOneProjectionHashExplain"></div>
+				<br>
+
 				<p>
-					we divide embeddings into groups by checking if the dot product
-					betweeen the randomly generated vector (or projection) and the
-					sentence embedding is positive or negative, if two sentence
-					embeddings are closer together, they are more likely to end up in
-					the same bin, if the points are 180degs or have a cosine similarity
-					of -1, they will never be in the same bin, if they are 90degs or
-					cosine sim of 0, there is a 50* chance they will be in the same bin,
-					and 100% chance if they are 0 degs and have cosine sim of 1 the
-					formula for the probability of two hashes being in the same bin
-					would be 1-d/dc where d is the distance between the hashes and dc is
-					the max distance, so we could use angular distance for this and see
-					1-90/180 = 0.5 or 50% and so on for the other examples, *((98798(or
-					the probability of them not being divided by a bin since the prob of
-					that would be just d/dc) add this point in idk we can then use
-					multiple projections and group embeddings based on how they are
-					divided by each bin, we will do this by giving the embeddings a 1 or
+					We can then use
+					multiple projections to group embeddings by the bins they are divided into, we will do this by again
+					giving the embeddings a 1 or
 					0 for a positive or negative dot product (within 90 or not) for each
-					projection if vector a is within 90degs of p1(positive dot product)
-					we will add a 1 to its hash and then it is not within 90 of p2
-					(negative dot product), the number of projections we have will also
+					projection. If an embedding is within 90degs of the first projection (positive dot product)
+					we will add a 1 to its hash and then if it is not within 90 of the 2nd projection
+					(negative dot product) we add a 0 to its hash, and so on, the number of projections we have will
 					be our hash length since an embedding gets a 0 or 1 in its hash for
-					each projection the probability of two events happening is p1*p2,
-					like rolling a 4 on a 6 sided dice twice in a row would be 1/6* 1/6
-					so using the formula above 1-d/dc we can multiply it by itself for
-					the number of projections we have to see how the probabilty of two
-					embeddings being in the same bins based on their distance changes
-					this would give us (1-d/dc)^k where k is the number of projections,
-					increasing k reduces the chance of collision(two embedding having
-					the same hash) since there are more opportunities for a projection
-					to didvide them into seperate bins.
+					each projection.<br>
+					Now let's look at two embeddings, <i>a</i></b> and <i>b</i></b>, and three projections p1,p2,p3
 				</p>
-				probability here for one hash chart
+
+				<div id="lshThreeProjectionChart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<div id="lshThreeProjectionHashExplain"></div>
+				<br>
+
+
+
+
+
 
 				<p>
-					this will help us speed up searches by checking a new embedding (not
-					in our collection of sentences from elden ring or sailor moon) with
+					If two sentence embeddings(vectors) point in a similar direction, they are more likely to end up in
+					the same bin. If the vectors are 180degs apart or have a cosine similarity
+					of -1, they will never be in the same bin, if they are 90degs apart or have a
+					cosine sim of 0, there is a 50% chance they will be in the same bin,
+					and 100% chance if they are 0 degs and have cosine similarity of 1.<br><br>
+					The formula for the probability of two vectors being in the same bin
+					would be 1-d/dc where d is the distance between the vectors and dc is
+					the max distance, d/dc is the probability they are in the same bin so 1-d/dc is the probability they
+					aren't.<br>
+					We could use angular distance for this and see
+					1-90/180 = 0.5 or 50%. And could also normalize this to a max distance of 1 to view more easily on a
+					graph.
+					<br><br> The probability of two events happening is (probability of event
+					1)X(probability of event 2)<br>
+					Like rolling a 4 on a 6 sided dice twice in a row would be 1/6 X 1/6<br>
+					So using the formula above 1-d/dc we can multiply it by itself for
+					the number of projections we have to see how the probability of two
+					embeddings being in the same bins based on their distance changes.
+					This would give us (1-d/dc)^k where k is the number of projections.<br>
+					Increasing k reduces the chance of collision(two embeddings having
+					the same hash) since there are more opportunities for a projection
+					to divide them into separate bins.<br>
+				</p>
+				<p>
+					Change the number of projections below to see how the probability of two embeddings being in the
+					same bin based on their distance changes.
+				</p>
+				<div id="probability1Chart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<div id="probability1"></div>
+
+				<label for="numberofprojections">Number of projections:</label>
+				<input type="number" id="probability1ChartNumberOfProjections" name="numberofprojections" min="1"
+					value="3">
+				<br>
+				<br>
+				<p>
+					This will help us speed up searches by checking a new embedding (not
+					in our collection of sentences from Elden Ring or Sailor Moon) with
 					our projections and then only comparing it with embeddings that have
 					the same hash. We can adjust k to tune the probability of there
-					being a collsion based on the distance betweeen the embeddings we
-					can also created multiple hashes to increase the chance of
-					collision, since just one will give us a high chance of false
-					negatives, since even if two vectors have a fairly high angular similarity there is still a chance
-					for on of the projections to divide them, with several hashes
-					there is a much better chance that vectors that have higher angular similarity will have a bin
-					collision
-					, see vid and paper so looking at our formula (1-d/dc)^k is
-					our probability of collision Pc right now for one hash of length k,
-					1-Pc is the probability that we dont have a collision for a hash,
-					(1-pc)^L is the probability we dont have a collision for L number of
-					hashes, and finally 1-(1-pc)^L is the probability we do have a
-					collision, so thats 1-(1-(1-d/dc)^k)^L @wy is this right idk
-					proabbility anymore im going off this equation from this paper
-					https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation
-					see page 1116 visualizing this below helps us get a good idea for
-					probability based on distance and hash length and number of hashes.
-				</p>
-				prob for multipe hashes chjart
+					being a collision based on the distance between the embeddings. <br>
+
+
 
 				<p>
-					so as we increase the number of hashes we have more chances for
+					Let's take a look at a rough python example we could use to create a hash table for our sentence
+					tensors
+				</p>
+
+				<pre><code class="language-python" style="font-size: 7px;">
+hashtableLength = 5 #will also be our number of projections
+inputArrayDims = 512
+projections = []
+hashTable = {}
+#these are our previously generated sentence embeddings
+with open('Tensors.json') as f:
+    tensors = json.load(f)
+
+#add an empty array to hold each projection
+for i in range(hashtableLength):
+	projections.append([])
+
+#to each empty projection array add 512(same length as our tensors) random floats
+for j in range(hashtableLength):
+	for k in range(inputArrayDims):
+		projections[j].append(np.random.randn())
+
+#now projections is a 2d array of shape hashtableLength*imputArrayDims
+#it is a set of made up projections/tensors/vectors, the same length as our sentence vectors
+
+#for each tensor
+for i, t in enumerate(tensors):
+    #create an empty string to hold our hash
+	hash = '';
+	#then compare it to each projection in the hash table
+	for k in range(hashtableLength):
+	    #positive dot product(less than 90degs distance) we add a '1'
+		if(np.dot(t ,projections[k]) > 0):
+			hash += '1'
+		#and negative (greater than 90degs distance) we add a '0'
+		else:
+			hash += '0'
+	#if the hash string is already in our hash table,
+	#add the index for this tensor to the list the hash points to
+	if(hash in hashTable):
+		hashTable[hash].append(i)
+	#otherwise create an empty list with just that index to start
+	else:
+		hashTable[hash] = [i]
+				</code></pre>
+				<p>
+					The 'hashTable' dictionary should now have each hash as a key and a list of the indices of the
+					tensors that have that hash, as the value.<br>
+					We would then save the hashtable dict and our projections, and use them to generate a hash for a
+					search term,<br>
+					then only check the cosine similarity of the search term tensor with the sentence tensors that have
+					the same hash,
+					we can get a list of those indices quickly since we have our hashtable dict.<br><br>
+					Let's look at an example of this in javascript<br>
+					<small>apologies for hopping between languages but it's easy to write utility programs in python and
+						then obvs I
+						want this to be a web app so all the other stuff is js
+					</small>
+				</p>
+				<pre><code class="language-js" style="font-size: 7px;">
+//generated from python file
+projections = [...] 
+hashTable = {}
+
+sentences = ["","",...]
+tensors = [[...],[...],...]
+
+searchTerm = document.getElementById("searchTerm").value;
+queryEmbedding = []
+queryEmbedding.push((await model.embed(searchTerm)).unstack()[0])
+
+//this need to match the length used in the python file
+hashtableLength = 5;
+inputArrayDims = 512;
+
+hash = '';
+//for each projection in the hashtable
+for(j = 0; j < hashtableLength; j+= 1){
+	//check the dot product of the search term embedding with the projection
+	if(math.dot(queryEmbedding[0].arraySync(),projections[j]) > 0){
+		//if positive(within 90degs) hash gets a '1'
+		hash += '1';
+	}
+	//otherwise if negative(not within 90degs) hash gets a '0'
+	else{
+		hash += '0';
+	}
+}
+
+//now we have built the hash for query embedding by running it through the same projections
+//we ran all the sentence embeddings through to create our hash table,
+//we can now use the hash to check our hash table for the indices that have the same hash!
+
+indicesToCompare = [];
+
+//there is a chance our search term dosen't share its hash with any of the tensors so we check the hash exists
+if(hash in hashTables[i]){
+	indicesToCompare = hashTable[hash];
+}
+
+//check cosine similarity for each tensor that had the same hash
+scores = new Array(tensors.length).fill(1);
+for(i = 0; i < indicesToCompare.length; i+= 1){
+    score = tf.losses.cosineDistance(tensors[indicesToCompare[i]], queryEmbedding[0], 0);
+    scores[indicesToCompare[i]] = score.arraySync();
+}
+</code></pre>
+				<p>
+					We will then have the 'scores' array which has the cosine similarity for each of the tensors from
+					the indices to compare list,
+					and the rest that we didn't compare will be a 1. We can sort these values to find the sentence
+					tensors that are closest to our search term.
+				</p>
+				</p><br>
+
+				<p>
+					<br>
+					We can also create multiple hash tables to increase the chance of
+					collision, since just one will give us a high chance of false
+					negatives, since even if two vectors have a fairly high angular similarity there is still a chance
+					for one of the projections to divide them, with several hashes
+					there is a much better chance that vectors that have higher angular similarity will have a bin
+					collision.<br><br>
+					Take a look at the <a href="#probability1Chart">chart above</a> and adjust the number of projections
+					to 5,
+					This gives us a good chance to not have a collision for embeddings with a distance greater than 0.6,
+					but ideally we would like to see the line shoot up more quickly after that, since at a distance of
+					0.2 which
+					is quite close there is still only slightly better than a 25% chance we will have a collision.<br>
+					We will be able to fix this with multiple hash tables.
+					<br>
+					<br>
+					So looking at our formula, (1-d/dc)^k is
+					our probability of collision (Pc) right now for one hash of length k,
+					1-Pc is the probability that we don't have a collision for a hash,
+					(1-pc)^L is the probability we don't have a collision for L number of
+					hashes, and finally 1-(1-pc)^L is the probability we do have a
+					collision, so thats 1-(1-(1-d/dc)^k)^L <br>@wy is this right idk
+					proabbility anymore im going off this equation from this paper
+					https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation
+					see page 1116.<br> visualizing this below helps us get a good idea for
+					probability based on distance, hash length and number of hashes.
+				</p>
+				<div id="probability2Chart" class="jxgbox" style="position: relative;
+				width: 60%;    height: 0;
+				padding-bottom: 60%;"></div>
+				<div id="probability2"></div>
+
+				<label for="numberofprojections">Number of projections:</label>
+				<input type="number" id="probability2ChartNumberOfProjections" name="numberofprojections" min="1"
+					value="3">
+				<label for="numberofHashtables">Number of hash tables:</label>
+				<input type="number" id="probability2ChartNumberOfHashTables" name="numberofHashtables" min="1"
+					value="1">
+				<br>
+				<br>
+				<p>
+					If we were to go with 20 projections and 2000 hash tables we are pretty much guaranteed to
+					have collisions for hashes with a distance less than 0.25, but the trade off is the information
+					for that many hash tables would take up a huge amount of space, so we still want to look for that
+					trade off between accuracy and performance.
+				</p>
+				<p>
+					Now let's look at some code examples similar to the ones above but adjusted to use multuple hash
+					tables<br>
+					first the python code to create the hash tables and projections.
+				</p>
+				<pre><code class="language-python" style="font-size: 7px;">
+numberOfHashtables = 16
+hashtableLength = 5
+inputArrayDims = 512
+projections = []
+hashTables = []
+
+for i in range(numberOfHashtables):
+    hashTables.append({})
+
+for i in range(numberOfHashtables):
+    projections.append([])
+    for j in range(hashtableLength):
+        projections[i].append([])
+
+for i in range(numberOfHashtables):
+    for j in range(hashtableLength):
+        for k in range(inputArrayDims):
+            projections[i][j].append(np.random.randn())
+
+
+with open('Tensors.json') as f:
+    tensors = json.load(f)
+
+for i, t in enumerate(tensors):
+    for j in range(numberOfHashtables):
+        hash = '';
+        for k in range(hashtableLength):
+            if(np.dot(t ,projections[j][k]) >0):
+                hash += '1'
+            else:
+                hash += '0'
+        if(hash in hashTables[j]):
+            hashTables[j][hash].append(i)
+        else:
+            hashTables[j][hash] = [i]
+				</code></pre>
+				<p>and the javascript</p>
+				<pre><code class="language-js" style="font-size: 7px;">
+//generated from python file
+projections = [...] 
+hashTables = {}
+
+sentences = ["","",...]
+tensors = [[...],[...],...]
+
+searchTerm = document.getElementById("searchTerm").value;
+queryEmbedding = []
+queryEmbedding.push((await model.embed(searchTerm)).unstack()[0])
+
+//these need to match the lenths used when generating the number 
+//of hash tables and length
+numberOfHashtables = 16;
+hashtableLength = 5;
+
+inputArrayDims = 512;
+
+queryHashes = [];
+for(i = 0; i < numberOfHashtables; i+= 1){
+    hash = '';
+    for(j = 0; j < hashtableLength; j+= 1){
+        if(math.dot(queryEmbedding[0].arraySync(),projections[i][j]) >0){
+            hash += '1';
+        }
+        else{
+            hash += '0';
+        }
+    }
+    queryHashes.push(hash);
+}
+
+indicesToCompare = [];
+for(i = 0; i < queryHashes.length; i+= 1){
+    if(queryHashes[i] in hashTables[i]){
+        indicesToCompare.push(...hashTables[i][queryHashes[i]]);
+    }
+}
+
+//turn the list into a set to remove duplicates
+indicesToCompare = [...new Set(indicesToCompare)];
+
+scores = new Array(tensors.length).fill(1);
+for(i = 0; i < indicesToCompare.length; i+= 1){
+    score = tf.losses.cosineDistance(tensors[indicesToCompare[i]], queryEmbedding[0], 0);
+    scores[indicesToCompare[i]] = score.arraySync();
+}
+			</code></pre>
+			<p>
+				I'll include all the full code that I used on this projects 
+				<a href="https://github.com/colourOfLooseMetal/DarkSoulsMessageTranslator" target="_blank" rel="noopener noreferrer">github page </a>
+				
+			</p>
+				<p><br>
+					So as we increase the number of hash tables we have more chances for
 					embeddings to fall into the same bin at least once, and embeddings
-					that are very close are likely to fall into the same bin even more
-					often. Which leads us to a finaly bit of optimization, we can
-					increase the number of hashes in our hashtable and use frequency of
+					that are close are likely to fall into the same bin even more
+					often. <br><br>
+					This leads us to a final bit of optimization, we can
+					increase the number hash tables and use the frequency of
 					bin collision as our similarity score to remove the need for
 					checking cosine similarity entirely, this also eliminates the need
 					to store the sentence embeddings to compare, we only need to create
-					an embedding for the search term and create a hash of it by checking
-					it with our projections. this will result in a loss of accuracy
-					since collision is probabilty based as we saw above, but with enough
-					tables we can achieve decent results which work well especially for
-					something as subjective as comparing sentences. Less disk space is
-					needed and search time is further improved.
+					an embedding for the search term and create hashes of it by checking
+					it with our projections for each hash table. 
 				</p>
+				<pre><code class="language-js" style="font-size: 7px;">
+
+projections = [...] 
+hashTables = {}
+
+sentences = ["","",...]
+
+searchTerm = document.getElementById("searchTerm").value;
+queryEmbedding = []
+queryEmbedding.push((await model.embed(searchTerm)).unstack()[0])
+
+
+numberOfHashtables = 300;
+hashtableLength = 5;
+inputArrayDims = 512;
+
+
+queryHashes = [];
+for(i = 0; i < numberOfHashtables; i+= 1){
+    hash = '';
+    for(j = 0; j < hashtableLength; j+= 1){
+        if(math.dot(queryEmbedding[0].arraySync(),projections[i][j]) >0){
+            hash += '1';
+        }
+        else{
+            hash += '0';
+        }
+    }
+    queryHashes.push(hash);
+}
+
+//we run the query through each hashtable and get the indices of the embeddings that it collides with
+//if two embeddings are very close they could collide for every hash table, then we would see them 500 times in indices to compare
+//or if two embeddings are very far apart we probably wont see them in the list at all
+indicesToCompare = [];
+for(i = 0; i < queryHashes.length; i+= 1){
+    if(queryHashes[i] in hashTables[i]){
+        indicesToCompare.push(...hashTables[i][queryHashes[i]]);
+    }
+}
+
+
+//this snazzy bit of js will take the indicies to compare list and return a dictionary called map
+//with each index that occured at least once as the key and the number of occurances as the value
+var map = indicesToCompare.reduce(function(p, c) {
+  p[c] = (p[c] || 0) + 1;
+  return p;
+}, {});
+
+//this will take that dictionary and sort the keys(the indices of the embeddings)
+// by the values(the number of times that embedding collided with our query hash in our hashtables)
+var results = Object.keys(map).sort(function(a, b) {
+  return map[b] - map[a];
+});
+
+//so now the results list is a list of the indeices of the sentence embeddings sorted descending by
+//the number of collisions they had with the query embedding, so sorted from best match going down
+//we can reference those indices back to our sentences list to display them
+
+res = ""
+table = document.getElementById("results");
+table.innerHTML = "";
+for(var i = 500; i >= 0; i-= 1){
+ var row = table.insertRow(0);
+  var cell1 = row.insertCell(0);
+  
+  cell1.innerHTML = sentences[results[i]];
+
+}
+			</code></pre>
 				<p>
-					now we have gone from checking the cosine similarity between our
-					search embedding with every one in our list, to just needing to
-					check it with our projections to generate a hash or multiple hashes
-					to check it between fewer of the embeddings, to only needing to
-					check it with our projections, **** this blurb is a ilttle
-					confusing, make concolusion clearer
+					This will result in a loss of accuracy
+					since collision is probability based as we saw above, but with enough
+					tables we can achieve decent results, especially for
+					something as subjective as comparing sentences. Less disk space is
+					needed and search time is further improved.<br><br>
+					Conclusion? idk
 				</p>
 				***throw code in at different points **links to live examples
 
@@ -650,10 +1087,11 @@
 
 		var visVecChart = {};
 		visVecChart.chart = JXG.JSXGraph.initBoard('visAsVec', {
-			boundingbox: [-5, 5, 5, -5], axis: true
+			boundingbox: [-5, 5, 5, -5], axis: true,
+			showZoom: false, showNavigation: false
 		});
 		// create point
-		visVecChart.point = visVecChart.chart.create('point', [2, 3], { visible: true, fixed: false, name: "p0", label: { visible: true }, size: 5 });
+		visVecChart.point = visVecChart.chart.create('point', [2, 3], { visible: true, fixed: false, name: "a", label: { visible: true }, size: 5 });
 		visVecChart.vecLine = visVecChart.chart.create('line', [[0, 0], visVecChart.point], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
 		function visualize_vector() {
 			visVecChart.vecLine.setAttribute({
@@ -666,8 +1104,8 @@
 		cosineDvsAngDchart.chart = JXG.JSXGraph.initBoard('cosineDvsAngDchart', {
 			boundingbox: [-5, 5, 5, -5], axis: true
 		});
-		cosineDvsAngDchart.p1 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "p1", label: { visible: false }, size: 5 });
-		cosineDvsAngDchart.p2 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "p2", label: { visible: false }, size: 5 });
+		cosineDvsAngDchart.p1 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "a", label: { visible: false }, size: 5 });
+		cosineDvsAngDchart.p2 = cosineDvsAngDchart.chart.create('point', [1, 3], { visible: true, fixed: false, name: "b", label: { visible: false }, size: 5 });
 		cosineDvsAngDchart.l1 = cosineDvsAngDchart.chart.create('line', [[0, 0], cosineDvsAngDchart.p1], { visible: true, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
 		cosineDvsAngDchart.l2 = cosineDvsAngDchart.chart.create('line', [[0, 0], cosineDvsAngDchart.p2], { visible: true, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
 		cosineDvsAngDchart.p1Prev = cosineDvsAngDchart.p1.coords.usrCoords.slice(1);
@@ -703,15 +1141,16 @@
 
 		var vecLockedTriangle = {};
 		var vecLockedTriangleBoard = JXG.JSXGraph.initBoard('vecLockedTrianglechart', {
-			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true,
+			showZoom: false, showNavigation: false
 		});
 		// p0 is an invisible point at 1,0
 		vecLockedTriangle.p0 = vecLockedTriangleBoard.create('point', [1, 0], { visible: false, fixed: false, name: "p0", label: { visible: false }, size: 5 });
 		//p1 is the huge blue point we drag around
-		vecLockedTriangle.p1 = vecLockedTriangleBoard.create('point', [1.1, 1], { fillColor: 'blue', name: "p1", label: { visible: true }, size: 17 });
+		vecLockedTriangle.p1 = vecLockedTriangleBoard.create('point', [1.1, 1], { fillColor: 'blue', name: "a", label: { visible: true }, size: 8 });
 		// line from 0-p0 and 0-p1
-		li1 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p0], { visible: false, straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
-		li2 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
+		vecLockedTriangle.li1 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p0], { visible: false, straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		vecLockedTriangle.li2 = vecLockedTriangleBoard.create('line', [[0, 0], vecLockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
 		//line for the other point between the triangle for opp and adj to start at, the end of the projection
 		vecLockedTriangle.p001 = vecLockedTriangleBoard.create('point', [function () {
 			angFrom0 = getAng(1, vecLockedTriangle.p0.coords.usrCoords[1], 0, vecLockedTriangle.p0.coords.usrCoords[2])//similarity([1,0],vecLockedTriangle.p0.coords.usrCoords.slice(1))//getAng(1,vecLockedTriangle.p0.coords.usrCoords[1], 0,vecLockedTriangle.p0.coords.usrCoords[2]);
@@ -758,15 +1197,16 @@
 		//object to hold all points and lines and stuff for this chart
 		var vecsUnlockedTriangle = {};
 		var vecsUnlockedTriangleBoard = JXG.JSXGraph.initBoard('vecUnlockedTrianglechart', {
-			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true,
+			showZoom: false, showNavigation: false
 		});
 		// p0 is an invisible point at 1,0
-		vecsUnlockedTriangle.p2 = vecsUnlockedTriangleBoard.create('point', [1, 0], { visible: true, fixed: false, name: "p2", label: { visible: true }, size: 5 });
+		vecsUnlockedTriangle.p2 = vecsUnlockedTriangleBoard.create('point', [1.3, 0.2], { visible: true, fixed: false, name: "b", label: { visible: true }, size: 5 });
 		//p1 is the huge blue point we drag around
-		vecsUnlockedTriangle.p1 = vecsUnlockedTriangleBoard.create('point', [0.5, 1], { fillColor: 'blue', name: "p1", label: { visible: true }, size: 17 });
+		vecsUnlockedTriangle.p1 = vecsUnlockedTriangleBoard.create('point', [0.7, 1], { fillColor: 'blue', name: "a", label: { visible: true }, size: 8 });
 		// line from 0-p2 and 0-p1
-		li1 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p2], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
-		li2 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
+		vecsUnlockedTriangle.li1 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p2], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		vecsUnlockedTriangle.li2 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
 		//line for the other point between the triangle for opp and adj to start at, the end of the projection
 		vecsUnlockedTriangle.p001 = vecsUnlockedTriangleBoard.create('point', [function () {
 			angFrom0 = getAng(1, vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
@@ -804,8 +1244,265 @@
 				}
 		});
 
+		//if dot product number is positive return true else return false, or 0 or 1 eh idk
+		function ZeroOrOneFromDP(dp) {
+			if (dp > 0) {
+				return (1)
+			}
+			else {
+				return (0)
+			}
+		}
 
-// 		window.addEventListener("load", function(){
+		//object to hold all points and lines and stuff for this chart
+		var lshOneProjection = {};
+
+		var lshOneProjectionBoard = JXG.JSXGraph.initBoard('lshOneProjectionChart', {
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true,
+			showZoom: false, showNavigation: false
+		});
+		lshOneProjection.pointA = lshOneProjectionBoard.create('point', [0.87, 0.74], { visible: true, fixed: false, name: "a", label: { visible: true }, size: 5 });
+		//  lshOneProjection.pointB = lshOneProjectionBoard.create('point', [-0.87,-0.24], {visible:true,fixed: false, name: "b",label:{visible:true},size:5});
+		lshOneProjection.projection1 = lshOneProjectionBoard.create('point', [1, 0.26], { visible: true, fixed: false, name: "p1", label: { visible: true }, size: 5 });
+
+		lshOneProjection.li1 = lshOneProjectionBoard.create('line', [[0, 0], lshOneProjection.pointA], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		//  li1 = lshOneProjectionBoard.create('line', [[0,0],lshOneProjection.pointB], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true})
+		lshOneProjection.li2 = lshOneProjectionBoard.create('line', [[0, 0], lshOneProjection.projection1], { straightFirst: false, straightLast: false, fixed: true })
+		//stringify the coordinates for all points in the object
+		var lshOneProjectionOldObj = JSON.stringify([lshOneProjection.pointA.coords.usrCoords, lshOneProjection.projection1.coords.usrCoords])
+		function lshOneProjectionChartGenHtml() {
+			console.log("movein");
+			// if the string dosent match the current string of all point coords then one changed and we update.
+			if (lshOneProjectionOldObj !== JSON.stringify([lshOneProjection.pointA.coords.usrCoords, lshOneProjection.projection1.coords.usrCoords])) {
+				console.log("something changed");
+
+				AP1 = dotproduct(lshOneProjection.pointA.coords.usrCoords.slice(1), lshOneProjection.projection1.coords.usrCoords.slice(1));
+				AP1 = ZeroOrOneFromDP(AP1);
+
+				s = "<p>embedding a is ";
+				if (AP1) {
+					s += "within 90 degrees of p1 (positive dot product) so its hash is \"1\""
+				}
+				else {
+					s += "not within 90 degrees of p1 (negative dot product) so its hash is \"0\""
+				}
+				s += "</p>"
+				document.getElementById("lshOneProjectionHashExplain").innerHTML = s;
+				lshOneProjectionOldObj = JSON.stringify([lshOneProjection.pointA.coords.usrCoords, lshOneProjection.projection1.coords.usrCoords])
+			}
+		}
+		// should add stuff for when mouse is down and for mobile
+		document.getElementById("lshOneProjectionChart").addEventListener("mousemove", function (event) {
+			lshOneProjectionChartGenHtml();
+		});
+		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
+		lshOneProjection.pointA.coords.usrCoords[1] = 0.88;
+		lshOneProjectionChartGenHtml();
+
+
+		var lshThreeProjection = {};
+
+		var lshThreeProjectionBoard = JXG.JSXGraph.initBoard('lshThreeProjectionChart', {
+			boundingbox: [-1.5, 1.5, 1.5, -1.5], axis: true,
+			showZoom: false, showNavigation: false
+		});
+		lshThreeProjection.pointA = lshThreeProjectionBoard.create('point', [0.87, 0.74], { visible: true, fixed: false, name: "a", label: { visible: true }, size: 5 });
+		lshThreeProjection.pointB = lshThreeProjectionBoard.create('point', [-0.87, 0.24], { visible: true, fixed: false, name: "b", label: { visible: true }, size: 5 });
+		lshThreeProjection.projection1 = lshThreeProjectionBoard.create('point', [1, -0.46], { visible: true, fixed: false, name: "p1", label: { visible: true }, size: 5 });
+		lshThreeProjection.projection2 = lshThreeProjectionBoard.create('point', [-0.7, 0.66], { visible: true, fixed: false, name: "p2", label: { visible: true }, size: 5 });
+		lshThreeProjection.projection3 = lshThreeProjectionBoard.create('point', [-0.7, -0.8], { visible: true, fixed: false, name: "p3", label: { visible: true }, size: 5 });
+
+		lshThreeProjection.li1 = lshThreeProjectionBoard.create('line', [[0, 0], lshThreeProjection.pointA], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		lshThreeProjection.li1 = lshThreeProjectionBoard.create('line', [[0, 0], lshThreeProjection.pointB], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true })
+		lshThreeProjection.li2 = lshThreeProjectionBoard.create('line', [[0, 0], lshThreeProjection.projection1], { straightFirst: false, straightLast: false, fixed: true })
+		lshThreeProjection.li2 = lshThreeProjectionBoard.create('line', [[0, 0], lshThreeProjection.projection2], { straightFirst: false, straightLast: false, fixed: true })
+		lshThreeProjection.li2 = lshThreeProjectionBoard.create('line', [[0, 0], lshThreeProjection.projection3], { straightFirst: false, straightLast: false, fixed: true })
+
+		var lshThreeProjectionOldObj = JSON.stringify([lshThreeProjection.pointA.coords.usrCoords, lshThreeProjection.pointB.coords.usrCoords, lshThreeProjection.projection1.coords.usrCoords, lshThreeProjection.projection2.coords.usrCoords, lshThreeProjection.projection3.coords.usrCoords])
+		function lshThreeProjectionChartGenHtml() {
+			// console.log("movein");
+			// if the string dosent match the current string of all point coords then one changed and we update.
+			if (lshThreeProjectionOldObj !== JSON.stringify([lshThreeProjection.pointA.coords.usrCoords, lshThreeProjection.pointB.coords.usrCoords, lshThreeProjection.projection1.coords.usrCoords, lshThreeProjection.projection2.coords.usrCoords, lshThreeProjection.projection3.coords.usrCoords])) {
+				console.log("something changed");
+
+				AP1 = dotproduct(lshThreeProjection.pointA.coords.usrCoords.slice(1), lshThreeProjection.projection1.coords.usrCoords.slice(1));
+				AP1 = ZeroOrOneFromDP(AP1);
+				AP2 = dotproduct(lshThreeProjection.pointA.coords.usrCoords.slice(1), lshThreeProjection.projection2.coords.usrCoords.slice(1));
+				AP2 = ZeroOrOneFromDP(AP2);
+				AP3 = dotproduct(lshThreeProjection.pointA.coords.usrCoords.slice(1), lshThreeProjection.projection3.coords.usrCoords.slice(1));
+				AP3 = ZeroOrOneFromDP(AP3);
+
+				BP1 = dotproduct(lshThreeProjection.pointB.coords.usrCoords.slice(1), lshThreeProjection.projection1.coords.usrCoords.slice(1));
+				BP1 = ZeroOrOneFromDP(BP1);
+				BP2 = dotproduct(lshThreeProjection.pointB.coords.usrCoords.slice(1), lshThreeProjection.projection2.coords.usrCoords.slice(1));
+				BP2 = ZeroOrOneFromDP(BP2);
+				BP3 = dotproduct(lshThreeProjection.pointB.coords.usrCoords.slice(1), lshThreeProjection.projection3.coords.usrCoords.slice(1));
+				BP3 = ZeroOrOneFromDP(BP3);
+
+				s = "";
+				s += "<p><small>embedding a is ";
+				if (AP1) {
+					s += "within 90 degrees of p1 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p1 (negative dot product) so its hash gets a 0"
+				}
+				s += "<br>embedding a is ";
+				if (AP2) {
+					s += "within 90 degrees of p2 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p2 (negative dot product) so its hash gets a 0"
+				}
+				s += "<br>embedding a is ";
+				if (AP3) {
+					s += "within 90 degrees of p3 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p3 (negative dot product) so its hash gets a 0"
+				}
+
+				s += "<br><br>embedding b is ";
+				if (BP1) {
+					s += "within 90 degrees of p1 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p1 (negative dot product) so its hash gets a 0"
+				}
+				s += "<br>embedding b is ";
+				if (BP2) {
+					s += "within 90 degrees of p2 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p2 (negative dot product) so its hash gets a 0"
+				}
+				s += "<br>embedding b is ";
+				if (BP3) {
+					s += "within 90 degrees of p3 (positive dot product) so its hash gets a 1"
+				}
+				else {
+					s += "not within 90 degrees of p3 (negative dot product) so its hash gets a 0"
+				}
+				s += "<br>";
+				aHash = AP1.toString() + AP2.toString() + AP3.toString();
+				bHash = BP1.toString() + BP2.toString() + BP3.toString();
+				s += "hash for a is \"" + aHash + "\", hash for b is \"" + bHash + "\"<br>";
+				if (aHash == bHash) {
+					s += "a and b are in the same bin"
+				}
+				else {
+					s += "a and b are in different bins"
+				}
+				s += "</small></p>"
+				document.getElementById("lshThreeProjectionHashExplain").innerHTML = s;
+				lshThreeProjectionOldObj = JSON.stringify([lshThreeProjection.pointA.coords.usrCoords, lshThreeProjection.pointB.coords.usrCoords, lshThreeProjection.projection1.coords.usrCoords, lshThreeProjection.projection2.coords.usrCoords, lshThreeProjection.projection3.coords.usrCoords]);
+			}
+		}
+		// should add stuff for when mouse is down and for mobile
+		document.getElementById("lshThreeProjectionChart").addEventListener("mousemove", function (event) {
+			lshThreeProjectionChartGenHtml();
+		});
+		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
+		lshThreeProjection.pointA.coords.usrCoords[1] = 0.88;
+		lshThreeProjectionChartGenHtml();
+
+		//object to hold all points and lines and stuff for this chart
+		var probability1 = {};
+		var probability1Board = JXG.JSXGraph.initBoard('probability1Chart', {
+			boundingbox: [-0.19, 1.1, 1.1, -0.19], axis: true,
+			//   axis labels kinda suck so will use text below to label them
+			// defaultAxes: {
+			// 	x : {
+			//     name: 'Distance',
+			//   	withLabel: true,
+			//     label: {
+			//     	position: 'urt',
+			//       offset: [-30, -15]
+			//     }
+			//   },
+			// 	y : {
+			//   	withLabel:true,
+			//     name: 'Probability of bin collision',
+			//     label: {
+			//     	position: 'urt',
+			//       offset: [-20, -10]
+			//     }
+			//   }
+			// },
+			showZoom: false, showNavigation: false
+		});
+		probability1Board.create('text', [-0.16, 0.3, 'Probability of bin collision'], {
+			highlightStrokeColor: 'red',
+			display: 'internal',
+			rotate: 90,
+			fontSize: 8
+		});
+		probability1Board.create('text', [0.42, -0.1, 'Distance'], {
+			highlightStrokeColor: 'red',
+			display: 'internal',
+			fontSize: 8
+		});
+
+		var p1plots = [];
+		function probability1ChartPlot() {
+			for (f of p1plots) {
+				probability1Board.removeObject(f);
+			}
+			k = document.getElementById("probability1ChartNumberOfProjections").value;
+			var f = probability1Board.jc.snippet('(1-x/1)^' + k, true, 'x', false);
+			p1plots.push(probability1Board.create('functiongraph', [f, 0, 1]));
+		}
+		probability1ChartPlot();
+		const message = document.querySelector('#probability1ChartNumberOfProjections');
+		message.addEventListener('input', function () {
+			probability1ChartPlot();
+		});
+
+
+
+		//object to hold all points and lines and stuff for this chart
+		var probability2 = {};
+		var probability2Board = JXG.JSXGraph.initBoard('probability2Chart', {
+			boundingbox: [-0.19, 1.1, 1.1, -0.19], axis: true,
+			showZoom: false, showNavigation: false
+		});
+		probability2Board.create('text', [-0.16, 0.3, 'Probability of bin collision'], {
+			highlightStrokeColor: 'red',
+			display: 'internal',
+			rotate: 90,
+			fontSize: 8
+		});
+		probability2Board.create('text', [0.42, -0.1, 'Distance'], {
+			highlightStrokeColor: 'red',
+			display: 'internal',
+			fontSize: 8
+		});
+
+		var p2plots = [];
+		function probability2ChartPlot() {
+			for (f of p2plots) {
+				probability2Board.removeObject(f);
+			}
+			k = document.getElementById("probability2ChartNumberOfProjections").value;
+			l = document.getElementById("probability2ChartNumberOfHashTables").value;
+			var f = probability2Board.jc.snippet('1-(1-(1-x/1)^' + k + ')^' + l, true, 'x', false);
+			p2plots.push(probability2Board.create('functiongraph', [f, 0, 1]));//0, 1 are the range
+		}
+		probability2ChartPlot();
+		const kUpdate = document.querySelector('#probability2ChartNumberOfProjections');
+		kUpdate.addEventListener('input', function () {
+			probability2ChartPlot();
+		});
+		const lUpdate = document.querySelector('#probability2ChartNumberOfHashTables');
+		lUpdate.addEventListener('input', function () {
+			probability2ChartPlot();
+		});
+
+
+
+
+
+		 // 		window.addEventListener("load", function(){
 // 	console.log("loaded bb")
 //     cosineDvsAngDchartGenHtml();
 // });
