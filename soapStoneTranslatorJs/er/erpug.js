@@ -318,28 +318,82 @@
     return gBase64;
     }));
 
+    //weird that this isnt a native js function
+    //insert an item at an index
+    Array.prototype.insert = function ( index, item ) {
+        this.splice( index, 0, item );
+    };
 
-    function fit_text_to_rect(text, x1, y1, width, height) {
+    //we will also scale the image in this function, that is new
+    function fit_text_to_rect(text, x1, y1, width, height, imScale, firstRun) {
+        var canvas = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgba(161, 160, 155, 1)';
+		ctx.strokeStyle = 'rgba(40, 40, 40, 1)';
+        if (firstRun){
+            OGx1 = x1;
+            OGy1 = y1;
+            OGwidth = width;
+            OGheight = height;
+        }
 		function get_lines(){
 			lines = [];
 			linesIter = 0;
 			line = '';
 			const words = text.split(" ");
+            //turn any <br>s into seperate words if theyre not already
+            for (i = 0; i < words.length; i++) {
+                if ((words[i].match(/<br>/g) || []).length != 0){
+                    //hacky way to check if it is just a <br>
+                    if(words[i].length > 4){
+                        // splitBreaks = words[i].split(/<br\s*?>/i); /(、)/g
+                        splitBreaks = words[i].split(/(<br>)/g);
+                        //current word will be first split
+                        words[i] = splitBreaks[0];
+                        //then start at one and insert remaining splits
+                        for(e = 1; e < splitBreaks.length; e++) {
+                            words.insert(i+e, splitBreaks[e]);
+                        }
+                    }
+                }
+               
+            }
             //check if any words are wider than max width, and split em if they are
             for (i = 0; i < words.length; i++) {
-                if (ctx.measureText(word).width > width){
+                //if any word is longer than the width we will split it
+                if (ctx.measureText(words[i]).width > width){
+                    //get the length of characters
+                    wordLetterIndex = words[i].length
+                    //reduce until it fits
+                    while(ctx.measureText(words[i].slice(0, wordLetterIndex)).width > width){
+                        wordLetterIndex -= 1
+                    }
+                    //copy of word[i] since we will be changing it but need it for the letters that dont fit
+                    currentWord = words[i]
+                    //the word becomes the shortened word
+                    words[i] = currentWord.slice(0, wordLetterIndex)
+                    //the remaining characters after we make the word fit are the next word
+                    words.insert(i+1, currentWord.slice(wordLetterIndex, currentWord.length));
+
                     
                 }
             }
+            // console.log(words)
 			for (i = 0; i < words.length; i++) {
 				testline = line + words[i] + " ";
 				//check length of row of words
 				textWidth = ctx.measureText(testline).width
 				// if testline is greater than width, append line which is testline without the word that pushed us over
-				if (textWidth > width) {
+				if (textWidth > width || words[i] == "<br>") {
 					lines[linesIter] = line;
-					//then restart the line with the current word that pushed us over
-					line = words[i] + " ";
+                    //dont restart with br and space if it was a br
+                    line = "";
+                    if(words[i] != "<br>"){
+                        //restart the line with the current word that pushed us over, unless it was a br
+                        line = words[i] + " ";
+                    }
+					
+
 					linesIter += 1;
 				}
 				// if testline isnt too long then it becomes line and we continue
@@ -349,46 +403,86 @@
 			}
 			// the for loop will finish with a line that is not to width, add this final line
 			lines[linesIter] = line;
+            // console.log(lines);
 			return(lines)
 		}
 		//idk how to check this, but i guess its font size ish
-        var canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d');
+
         // ctx.scale(.5, .5);
         ctx.font = '30px GaramondPremierER';
 		textHeight = 30;
 		//total text width in px
 		textWidth = ctx.measureText(text).width
-		console.log(textWidth)
-        console.log(width)
         //if one line will fit on the image, it wont because we check earlier before calling fit text to rect but w.e
-		if (textWidth < width) {
-			// ctx.fillText(text, x1 + (width - textWidth) / 2, y1 + height / 2 - textHeight / 2); for centered
-            //for align left
-            ctx.fillText(text, x1, y1 + height / 2 - textHeight / 2);
-		}
-		else {
+		// if (textWidth < width) {
+        //     console.log("one line ok");
+        //     void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
+		// 	// ctx.fillText(text, x1 + (width - textWidth) / 2, y1 + height / 2 - textHeight / 2); for centered
+        //     //for align left
+        //     ctx.strokeText(text, x1, y1 + height / 2 - textHeight / 2);
+        //     ctx.fillText(text, x1, y1 + height / 2 - textHeight / 2);
+		// }
+		// else {
 			lines = get_lines();
 			while(1){
 				// if the lines at the current height fit in the meme text space, break
+                // console.log("TExt height:", lines.length*textHeight, " height " , height)
 				if(lines.length*textHeight < height){
 					break;
 				}
 				// otherwise reduce textheight and font size by 2 and get lines again
 				else{
 				textHeight -= 2;
-                console.log(textHeight)
+                //lol ok so if we end up smaller than 8, we are going to recursively call this function, but after it runs successfully we will return
+                returnPls = false;
+                if(textHeight < 8){
+                    //ok so i ran a few large text length trials and found a relationship between the textheight/height at size 8, and the final scale size
+                    //(textHeight/height)^0.43 gets us close but still below, so lets do ^0.45 on first run then scale up by .1 each time
+                    if(firstRun){
+                        //we go text height +2 since the relationship is for at 8px not 6, once we have gone under
+                        imScale = Math.pow((lines.length*(textHeight+2)/height), 0.43);
+                        // console.log(lines.length*textHeight/height);
+                        // console.log(imScale);
+                        // console.log("firstrunscale");
+                    }
+                    //each time we will scale the image and everything up a little
+                    else{
+                    imScale = imScale + 0.1
+                    }
+                    // console.log("im scaled ", imScale);
+                    fit_text_to_rect(text, OGx1*imScale, OGy1*imScale, OGwidth*imScale, OGheight*imScale, imScale, false)
+                    //this way, only the function that successfully gets the image big enough will be able to run to the drawing text part,
+                    //all the previous ones will be on a return train
+                    returnPls = true;
+                }
+                if(returnPls){
+                    return;
+                }
+                // console.log(textHeight)
 				ctx.font = String(textHeight) + 'px GaramondPremierER'
 				lines = get_lines();
 				}
 			}
+            //messing with this resets font and fillstyle stuff
+            canvas.width = 1149*imScale;
+            canvas.height = 254*imScale;
+            //so we set it all again
+            ctx.font = String(textHeight) + 'px GaramondPremierER'
+            ctx.fillStyle = 'rgba(161, 160, 155, 1)';
+            ctx.strokeStyle = 'rgba(40, 40, 40, 1)';
+
+            console.log("scaled to *:",imScale)
+            void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149 * imScale, 254 * imScale);
 			//starting y for drawing text is half the text block height above center of y(height) since half below the center half above
 			y = height / 2 - Math.round((linesIter) / 2 * textHeight);
 			for (i = 0; i < lines.length; i++) {
+                ctx.lineWidth = 2/imScale;
+                ctx.strokeText(lines[i], x1, y1 + y);
 				ctx.fillText(lines[i], x1, y1 + y);
+                
 				y += textHeight;
 			}
-		}
+		// }
 	}
 
 window.onload = (event) => {
@@ -396,12 +490,21 @@ window.onload = (event) => {
     make_meme();
 
   };
+  function download_meme() {
+    var canvas = document.getElementById('canvas')
+    // var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+    // window.location.href = image; // it will save locally
+    var link = document.getElementById('dlLink');
+    link.setAttribute('download', 'eldenRingMessage.png');
+    link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    link.click();
+}
 
 
 	function make_meme() {
         function draw(topText, bottomText, msgType) {
             base_image1 = new Image();
-            base_image1.src = 'http://colourofloosemetal.com/DS/blankMessageTemplate.png';
+            base_image1.src = 'http://www.colourofloosemetal.com/DS/blankMessageTemplate.png';
             // base_image2.src = 'http://colourofloosemetal.com/smcs/memePics/sm1Ye.jpg';
             //white background for text since its a png
             base_image1.onload = function () {
@@ -422,13 +525,15 @@ window.onload = (event) => {
                 }
                 else if (msgType == "custom"){
                     //note custom will only ever have "toptext"
-                    void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
+                    // void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
                     //if there are one or two lins of reasonable length we will draw them like the normal template
                     //if there are no line break characters
                     if ((topText.match(/<br>/g) || []).length == 0){
                         //816 is the max reasonable width for normal template text, it's about the length of "all the more o you dont have the right o you dont have the right"
                         //for the base size image
                         if (ctx.measureText(topText).width < 816){
+                            console.log("single line template style fits")
+                            void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
                             ctx.strokeText(topText, 234, 76);
                             ctx.fillText(topText, 234, 76);
                             return;
@@ -439,6 +544,8 @@ window.onload = (event) => {
                         tt = topText.split("<br>")[0];
                         bt = topText.split("<br>")[1];
                         if (ctx.measureText(tt).width < 816 && ctx.measureText(bt).width < 816){
+                            console.log("double line template style fits")
+                            void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
                             ctx.strokeText(tt, 234, 76);
                             ctx.fillText(tt, 234, 76);
                             ctx.strokeText(bt, 234, 130);
@@ -447,7 +554,7 @@ window.onload = (event) => {
                         }
                     }
                     //the text lines are too long or there are more than 2 lines
-                    fit_text_to_rect(topText,195,14,932,172)
+                    fit_text_to_rect(topText,195,14,932,172,1, true)
 
                 }
                     // if(msg3 == "supersmol"){
@@ -523,10 +630,13 @@ window.onload = (event) => {
         else{
             bottomText = Base64.decode(bottomText);
         }
+
+        topText = topText.replace("fl", "f l");
+        
 		ctx.fillStyle = "rgba(0, 0, 0, 0)";
     	ctx.clearRect(0, 0, canvas.width, canvas.height);
 		//for text
-
+        
 		ctx.fillStyle = 'rgba(161, 160, 155, 1)';
 		ctx.strokeStyle = 'rgba(40, 40, 40, 1)';
 		ctx.lineWidth = 2;
