@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<!--
+	A modification of
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<script>
+
+
+
+	</script>
+	<link rel="apple-touch-icon" sizes="57x57" href="icon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="icon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="icon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="icon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="icon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="icon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="icon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="icon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="icon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="icon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+	<link rel="manifest" href="icon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="icon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<title>EldenRing Message Maker</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+
+
+
+	<style type="text/css">
+		body {
+  background-color:  black;
+    color: palegoldenrod;
+}
+		@font-face {
+			font-family: "GaramondPremierER";
+			src: url(http://colourofloosemetal.com/DS/GaramondPremier.ttf) format("truetype");
+			src: url("http://colourofloosemetal.com/DS/GaramondPremier.eot");
+			src: url("http://colourofloosemetal.com/DS/GaramondPremier.woff") format("woff"),
+			url("http://colourofloosemetal.com/DS/GaramondPremier.otf") format("opentype"),
+			url("http://colourofloosemetal.com/DS/GaramondPremier.svg") format("svg");
+			}
+		p.customfont { 
+			font-family: "GaramondPremierER";
+		}
+		</style>
+	<style>
+		
+		/* canvas#canvas { border: 1px solid white; width: 900px; height: 900px; } */
+	</style>
+
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<title>meme</title>
+</head>
+
+<body class="single">
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="http://colourofloosemetal.com/">The Colour of loose metal</a></h1>
+		</header>
+
+		<div id="main">
+			<p style="font-family: 'GaramondPremierER'; color: black;">egg</p>
+
+			<article class="post">
+				<!-- <header>
+					<div class="title">
+
+
+					</div>
+				</header> -->
+					<div>
+						<label>Top Text</label><input type="input" class="form-control input-lg"
+							id="topText" placeholder="">
+						<br>
+						<label>Bottom Text</label><input type="input" class="form-control input-lg"
+							id="bottomText" placeholder="">
+						<br>
+						<br>
+						<button onclick="make_meme()">Make Meme</button>
+						<br>
+						<br>
+						<button id="downloader" onclick="download_meme()">download</button>
+					</div>
+						<canvas id="canvas" width="1149" height="254" style="width: 80vw; height: 100%;"></canvas>
+					
+					<a style="display:none;" id="dlLink"></a>
+
+					<!-- <footer>
+				</footer> -->
+
+			</article>
+		</div>
+	</div>
+</body>
+
+<!-- Scripts -->
+<script>
+	//its a pain on mobile to download the canvas
+	function download_meme() {
+		var canvas = document.getElementById('canvas')
+		// var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+		// window.location.href = image; // it will save locally
+		var link = document.getElementById('dlLink');
+		link.setAttribute('download', 'erMessageMeme.png');
+		link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+		link.click();
+	}
+	function combine_words(arrayOfWords) {
+		combinedWords = "";
+		for (i = 0; i < len(arrayOfWords); i++) {
+			combinedWords += arrayOfWords[i];
+			if (i != len(arrayOfWords - 1)) {
+				combinedWords += " ";
+			}
+		}
+		return (combinedWords);
+	}
+	function fit_text_to_rect(text, x1, y1, width, height) {
+		function get_lines(){
+			lines = [];
+			linesIter = 0;
+			line = '';
+			const words = text.split(" ");
+			for (i = 0; i < words.length; i++) {
+				testline = line + words[i] + " ";
+				//check length of row of words
+				textWidth = ctx.measureText(testline).width
+				// if testline is greater than width, append line which is testline without the word that pushed us over
+				if (textWidth > width) {
+					lines[linesIter] = line;
+					//then restart the line with the current word that pushed us over
+					line = words[i] + " ";
+					linesIter += 1;
+				}
+				// if testline isnt too long then it becomes line and we continue
+				else {
+					line = testline;
+				}
+			}
+			// the for loop will finish with a line that is not to width, add this final line
+			lines[linesIter] = line;
+			return(lines)
+		}
+		//idk how to check this, but i guess its font size ish
+		ctx.font = '48px GaramondPremierER';
+		textHeight = 48;
+		//total text width in px
+		textWidth = ctx.measureText(text).width
+		// console.log(textWidth)
+		if (textWidth < width) {
+			ctx.fillText(text, x1 + (width - textWidth) / 2, y1 + height / 2 - textHeight / 2);
+		}
+		else {
+			lines = get_lines();
+			while(1){
+				// if the lines at the current height fit in the meme text space, break
+				if(lines.length*textHeight < height){
+					break;
+				}
+				// otherwise reduce textheight and font size by 2 and get lines again
+				else{
+				textHeight -= 2;
+				ctx.font = String(textHeight) + 'px arial'
+				lines = get_lines();
+				}
+			}
+			//starting y for drawing text is half the text block height above center of y(height) since half below the center half above
+			y = height / 2 - Math.round((linesIter) / 2 * textHeight);
+			for (i = 0; i < lines.length; i++) {
+				ctx.fillText(lines[i], x1, y1 + y);
+				y += textHeight;
+			}
+		}
+	}
+
+	// function applyTextToImagesAndDisplay(){
+	var canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d');
+	// ctx.scale(.5, .5);
+	ctx.font = '30px GaramondPremierER';
+
+	function make_meme() {
+		ctx.fillStyle = "white";
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		topText = document.getElementById("topText").value;
+		bottomText = document.getElementById("bottomText").value;
+		ctx.fillStyle = "rgba(0, 0, 0, 0)";
+    	ctx.clearRect(0, 0, canvas.width, canvas.height);
+		//for text
+
+		ctx.fillStyle = 'rgba(161, 160, 155, 1)';
+		ctx.strokeStyle = 'rgba(40, 40, 40, 1)';
+		ctx.lineWidth = 2;
+		make_base(topText, bottomText);
+	}
+
+
+	function make_base(topText, bottomText) {
+		base_image1 = new Image();
+		base_image2 = new Image();
+		base_image1.src = 'http://colourofloosemetal.com/DS/blankMessageTemplate.png';
+		// base_image2.src = 'http://colourofloosemetal.com/smcs/memePics/sm1Ye.jpg';
+		//white background for text since its a png
+		base_image1.onload = function () {
+			void ctx.drawImage(base_image1, 0, 0, 1149, 254, 0, 0, 1149, 254);
+			//for one line
+			if(bottomText == ""){				
+			ctx.strokeText(topText, 235, 95);
+			ctx.fillText(topText, 235, 95);
+			}
+
+			//for two lines
+			else{
+				ctx.strokeText(topText, 234, 76);
+			ctx.fillText(topText, 234, 76);
+			ctx.strokeText(bottomText, 235, 130);
+			ctx.fillText(bottomText, 235, 130);
+			}
+
+
+		}
+	}
+
+	window.addEventListener("keyup", function (event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			// Cancel the default action, if needed
+			event.preventDefault();
+			// Trigger the button element with a click
+			make_meme();
+		}
+	});
+
+
+</script>
+<!-- <script src="../assets/futureimperfect/js/jquery.min.js"></script> -->
+<script src="../assets/futureimperfect/js/breakpoints.min.js"></script>
+<script src="../assets/futureimperfect/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="../assets/futureimperfect/js/main.js"></script>
+
+<style>
+</style>
+
+</html>

@@ -25,3 +25,4 @@ f = open('./soapstoneTranslatorER-LSH3-696HashOnly.html.br', 'wb')
 f.write(compressed)
 f.close()
 
+

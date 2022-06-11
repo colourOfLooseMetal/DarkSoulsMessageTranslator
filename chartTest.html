@@ -1,0 +1,122 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="https://jsxgraph.org/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://jsxgraph.org/distrib/jsxgraphcore.js"></script>
+</head>
+
+<div id="cosineDvsAngDchart" class="jxgbox" style="width:500px; height:500px;"></div>
+<div id="cosineDistanceCalc"></div>
+<script type="text/javascript">
+// JXG.Options.point.snapToGrid = true;
+// JXG.Options.point.snapSizeX = 0.1;
+// JXG.Options.point.snapSizeY = 0.1;
+// var board = JXG.JSXGraph.initBoard('jxgbox', { 
+//     boundingbox: [-8, 8, 8, -8], axis:true
+// });
+
+// var p1 = board.create('point', [1,1], {name: "p1",label:{visible:true}});
+// var p2 = board.create('point', [3,1], {fillColor: 'blue', name: "p2",label:{visible:true}});
+
+// function dotproduct(a,b) {
+//     var n = 0, lim = Math.min(a.length,b.length);
+//     for (var i = 0; i < lim; i++) n += a[i] * b[i];
+//     return n;
+//  }
+
+// function norm2(a) {var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i]*a[i]; return Math.sqrt(sumsqr);}
+
+// function similarity(a, b) {return dotproduct(a,b)/norm2(a)/norm2(b);}
+
+// window.addEventListener("click", function(event) {
+//     console.log("click");
+//     console.log(p1.coords.usrCoords,p2.coords.usrCoords)
+//     sim = similarity(p1.coords.usrCoords.slice(1), p2.coords.usrCoords.slice(1))
+//     console.log(sim);
+//     document.getElementById("cosineDistanceCalc").innerHTML = String(sim);
+// });
+
+
+
+
+
+
+// first attempt
+// #########********# maybe make a class to hold all the shit for each board idk
+
+		//add labels for the points on the unit circle, and points yeah
+
+
+        function getAng(x1, x2, y1, y2) {//(A,B,C)
+			dot = x1 * x2 + y1 * y2
+			det = x1 * y2 - y1 * x2
+			angle = Math.atan2(det, dot)
+			return (angle);
+		}
+
+        
+		function dotproduct(a, b) {
+			var n = 0, lim = Math.min(a.length, b.length);
+			for (var i = 0; i < lim; i++) n += a[i] * b[i];
+			return n;
+		}
+
+		function norm2(a) { var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i] * a[i]; return Math.sqrt(sumsqr); }
+
+		function similarity(a, b) { return dotproduct(a, b) / norm2(a) / norm2(b); }
+
+		//object to hold all points and lines and stuff for this chart
+		var vecsUnlockedTriangle = {};
+
+		 var vecsUnlockedTriangleBoard = JXG.JSXGraph.initBoard('cosineDvsAngDchart', { 
+		 	boundingbox: [-1.5, 1.5, 1.5, -1.5], axis:true
+		 });
+		 // p0 is an invisible point at 1,0
+		 vecsUnlockedTriangle.p2 = vecsUnlockedTriangleBoard.create('point', [1,0], {visible:true,fixed: false, name: "b",label:{visible:true},size:5});
+		 //p1 is the huge blue point we drag around
+		 vecsUnlockedTriangle.p1 = vecsUnlockedTriangleBoard.create('point', [0.5,1], {fillColor: 'blue', name: "a",label:{visible:true}, size:17});
+		 // line from 0-p2 and 0-p1
+		 li1 = vecsUnlockedTriangleBoard.create('line', [[0,0],vecsUnlockedTriangle.p2], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true})
+		 li2 = vecsUnlockedTriangleBoard.create('line', [[0,0],vecsUnlockedTriangle.p1], {straightFirst:false, straightLast:false,lastArrow:true, fixed: true})
+
+		 //line for the other point between the triangle for opp and adj to start at, the end of the projection
+		 vecsUnlockedTriangle.p001 = vecsUnlockedTriangleBoard.create('point', [function(){
+		 	angFrom0 = getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
+            // console.log("p2from0: " + ((angFrom0)).toString())
+            // console.log((getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2]).toString()));
+		 	p = (dotproduct(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1), vecsUnlockedTriangle.p1.coords.usrCoords.slice(1)))/norm2(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1));
+		 	x = Math.cos(angFrom0)*p;
+		 	return(x);
+		 },function(){
+		 	angFrom0 = getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
+		 	p = (dotproduct(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1), vecsUnlockedTriangle.p1.coords.usrCoords.slice(1)))/norm2(vecsUnlockedTriangle.p2.coords.usrCoords.slice(1));
+		 	x = Math.cos(angFrom0)*p;
+		 	y = Math.sin(angFrom0)*p;
+		 	return(y);
+		 }], {visible: false, fixed: true, name: "p001",label:{visible:false},size:5});
+
+         
+		
+		 //create lines for opposite and adjacent
+		 vecsUnlockedTriangle.liOpp = vecsUnlockedTriangleBoard.create('line', [[function(){return(vecsUnlockedTriangle.p001.coords.usrCoords[1]);},function(){return(vecsUnlockedTriangle.p001.coords.usrCoords[2]);}],vecsUnlockedTriangle.p1], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true}),
+		//  vecsUnlockedTriangle.liAdj = vecsUnlockedTriangleBoard.create('line', [[0,0],[function(){return(vecsUnlockedTriangle.p001.coords.usrCoords[1]);},function(){return(vecsUnlockedTriangle.p001.coords.usrCoords[2]);}]], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true}),
+		//  vecsUnlockedTriangle.t = vecsUnlockedTriangleBoard.create('text',[0, 0,function(){return(vecsUnlockedTriangle.p1.coords.usrCoords[2].toFixed(3).toString())}], {anchor: vecsUnlockedTriangle.liOpp});
+        //  vecsUnlockedTriangle.t2 = vecsUnlockedTriangleBoard.create('text',[-0.1, 0.07,function(){return(vecsUnlockedTriangle.p001.coords.usrCoords[1].toFixed(3).toString())}], {anchor: vecsUnlockedTriangle.liAdj});
+
+		 //create two angles between p2 and p1, and change which one is shown based on which side of the angle is smaller, itll always
+		 //show it rotating in the same direction but we want it to peak and 180 then switch to the other side
+		 vecsUnlockedTriangle.a1 = vecsUnlockedTriangleBoard.create('angle', [vecsUnlockedTriangle.p2, [0,0], vecsUnlockedTriangle.p1], {label:{visible:false}, radius:0.4,fixed: true, visible:
+		 function(){
+		 	if(getAng(vecsUnlockedTriangle.p2.coords.usrCoords[1],vecsUnlockedTriangle.p1.coords.usrCoords[1],vecsUnlockedTriangle.p2.coords.usrCoords[2],vecsUnlockedTriangle.p1.coords.usrCoords[2])<0){return(false)}
+		 	else{return(true)}
+		 } 
+		 });
+		 vecsUnlockedTriangle.a2 = vecsUnlockedTriangleBoard.create('angle', [vecsUnlockedTriangle.p1, [0,0], vecsUnlockedTriangle.p2], {label:{visible:false}, radius:0.4,fixed: true, visible:
+		 	function(){
+		 		if(getAng(vecsUnlockedTriangle.p2.coords.usrCoords[1],vecsUnlockedTriangle.p1.coords.usrCoords[1],vecsUnlockedTriangle.p2.coords.usrCoords[2],vecsUnlockedTriangle.p1.coords.usrCoords[2])>0){return(false)}
+		 		else{return(true)}
+		 	} 
+		 	});
+
+
+		//  console.log(a2.Value())
+		 // console.log(a3.Value())
+</script>

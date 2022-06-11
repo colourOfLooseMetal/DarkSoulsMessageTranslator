@@ -1,0 +1,105 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="https://jsxgraph.org/distrib/jsxgraph.css" />
+    <script type="text/javascript" src="https://jsxgraph.org/distrib/jsxgraphcore.js"></script>
+</head>
+
+<div id="probability2Chart" class="jxgbox" style="width:500px; height:500px;"></div>
+<div id="probability2"></div>
+
+<label for="numberofprojections">Number of projections:</label>
+<input type="number" id="probability2ChartNumberOfProjections" name="numberofprojections" min="1" value="3">
+<label for="numberofHashtables">Number of hash tables:</label>
+<input type="number" id="probability2ChartNumberOfHashTables" name="numberofHashtables" min="1" value="1">
+<script type="text/javascript">
+// JXG.Options.point.snapToGrid = true;
+// JXG.Options.point.snapSizeX = 0.1;
+// JXG.Options.point.snapSizeY = 0.1;
+// var board = JXG.JSXGraph.initBoard('jxgbox', { 
+//     boundingbox: [-8, 8, 8, -8], axis:true
+// });
+
+// var p1 = board.create('point', [1,1], {name: "p1",label:{visible:true}});
+// var p2 = board.create('point', [3,1], {fillColor: 'blue', name: "p2",label:{visible:true}});
+
+// function dotproduct(a,b) {
+//     var n = 0, lim = Math.min(a.length,b.length);
+//     for (var i = 0; i < lim; i++) n += a[i] * b[i];
+//     return n;
+//  }
+
+// function norm2(a) {var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i]*a[i]; return Math.sqrt(sumsqr);}
+
+// function similarity(a, b) {return dotproduct(a,b)/norm2(a)/norm2(b);}
+
+// window.addEventListener("click", function(event) {
+//     console.log("click");
+//     console.log(p1.coords.usrCoords,p2.coords.usrCoords)
+//     sim = similarity(p1.coords.usrCoords.slice(1), p2.coords.usrCoords.slice(1))
+//     console.log(sim);
+//     document.getElementById("cosineDistanceCalc").innerHTML = String(sim);
+// });
+
+
+
+
+
+
+// first attempt
+// #########********# maybe make a class to hold all the shit for each board idk
+
+		//add labels for the points on the unit circle, and points yeah
+
+
+        function getAng(x1, x2, y1, y2) {//(A,B,C)
+			dot = x1 * x2 + y1 * y2
+			det = x1 * y2 - y1 * x2
+			angle = Math.atan2(det, dot)
+			return (angle);
+		}
+
+        
+		function dotproduct(a, b) {
+			var n = 0, lim = Math.min(a.length, b.length);
+			for (var i = 0; i < lim; i++) n += a[i] * b[i];
+			return n;
+		}
+
+		function norm2(a) { var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i] * a[i]; return Math.sqrt(sumsqr); }
+
+		function similarity(a, b) { return dotproduct(a, b) / norm2(a) / norm2(b); }
+
+		//object to hold all points and lines and stuff for this chart
+		var probability2 = {};
+		 var probability2Board = JXG.JSXGraph.initBoard('probability2Chart', { 
+		 	boundingbox: [-0.1, 1.1, 1.1, -0.1], axis:true
+		 });
+		 var plots = [];
+		 function probability2ChartPlot(){
+		for (f of plots) {
+			probability2Board.removeObject(f);
+    	}
+		 k = document.getElementById("probability2ChartNumberOfProjections").value;
+		 l = document.getElementById("probability2ChartNumberOfHashTables").value;
+		 var f = probability2Board.jc.snippet('1-(1-(1-x/1)^'+k+')^'+l, true, 'x', false);
+    	plots.push(probability2Board.create('functiongraph', [f]));
+		 }
+		 probability2ChartPlot();
+		const kUpdate = document.querySelector('#probability2ChartNumberOfProjections');
+        kUpdate.addEventListener('input', function () {
+            probability2ChartPlot();
+        });
+		const lUpdate = document.querySelector('#probability2ChartNumberOfHashTables');
+        lUpdate.addEventListener('input', function () {
+            probability2ChartPlot();
+        });
+
+		//  probability2.pointA = probability2Board.create('point', [0.87,0.74], {visible:true,fixed: false, name: "a",label:{visible:true},size:5});
+		// //  probability2.pointB = probability2Board.create('point', [0.87,0.74], {visible:true,fixed: false, name: "b",label:{visible:true},size:5});
+		//  probability2.projection1 = probability2Board.create('point', [1,0.26], {visible:true,fixed: false, name: "p1",label:{visible:true},size:5});
+		 
+		//  li1 = probability2Board.create('line', [[0,0],probability2.pointA], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true})
+		// //  li1 = probability2Board.create('line', [[0,0],probability2.pointB], {straightFirst:false, straightLast:false,strokeColor:'black', lastArrow:true, fixed: true})
+		//  li2 = probability2Board.create('line', [[0,0],probability2.projection1], {straightFirst:false, straightLast:false, fixed: true})
+
+
+</script>

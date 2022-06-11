@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+<script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+</head>
+  <div>
+            <h2>
+          Generate a heat map from word embeddings using universal sentence encoder
+            </h2>
+            
+            <input type="input" class="form-control input-lg"
+        id="s1" value="praise the sun">
+        <input type="input" class="form-control input-lg"
+        id="s2" value="nice weather">
+        <input type="input" class="form-control input-lg"
+        id="s3" value="I am tired">
+        <input type="input" class="form-control input-lg"
+        id="s4" value="let's sleep">
+        <input type="input" class="form-control input-lg"
+        id="s5" value="evening boat ride">
+        <input type="input" class="form-control input-lg"
+        id="s6" value="It is so hot outside">
+        <input type="input" class="form-control input-lg"
+        id="s7" value="long live the queen">
+        <input type="input" class="form-control input-lg"
+        id="s8" value="bread is deicious">
+        <input type="input" class="form-control input-lg"
+        id="s9" value="sourdough">
+        <input type="input" class="form-control input-lg"
+        id="s10" value="sailor moon">
+        <br>
+        <button onclick="generate_heatmap()">Generate heatMap</button>
+        <p id="results"></p>
+        <div id='heatmap'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+<style>
+    /* #heatmap{
+        padding: 8em;
+        margin: 8em;
+    } */
+</style>
+<script>
+
+window.addEventListener("keyup", function (event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			// Cancel the default action, if needed
+			event.preventDefault();
+			// Trigger the button element with a click
+			// compareTerm();
+		}
+	});
+
+
+
+function generate_heatmap(){
+    //add each of the searchterms from the input boxes to a list
+    searchTerms = []
+    searchTerms.push(document.getElementById("s1").value);
+    searchTerms.push(document.getElementById("s2").value);
+    searchTerms.push(document.getElementById("s3").value);
+    searchTerms.push(document.getElementById("s4").value);
+    searchTerms.push(document.getElementById("s5").value);
+    searchTerms.push(document.getElementById("s6").value);
+    searchTerms.push(document.getElementById("s7").value);
+    searchTerms.push(document.getElementById("s8").value);
+    searchTerms.push(document.getElementById("s9").value);
+    searchTerms.push(document.getElementById("s10").value);
+(async() => {
+    // searching message
+    document.getElementById("results").innerHTML = "<br> generating heatmap...";
+const model = await use.load();
+
+queryEmbeddings = []
+//generate tensors for all 10 sentences
+for(i = 0; i < searchTerms.length; i+= 1){
+    queryEmbeddings.push((await model.embed(searchTerms[i])).unstack()[0])
+}
+//create 10 by 10 array
+var scores = new Array(10); // create an empty array of length n
+for (var i = 0; i < 10; i++) {
+    scores[i] = new Array(10).fill(-99); // make each element an array filled with -99
+}
+// console.log(scores)
+// c = 0
+for(i = 0; i < queryEmbeddings.length; i+= 1){
+    for(e = 0; e < queryEmbeddings.length; e+= 1){
+        if(scores[i][e] == -99){
+        score = tf.losses.cosineDistance(queryEmbeddings[i], queryEmbeddings[e], 0);
+        scores[i][e] = score.arraySync();
+        // since its a map comparing the same 10 elements 3,4 = 4,3 and same for all
+        //that's why above we filled with -99s and then only calculate cosineSim if there isnt one yet
+        scores[e][i] = score.arraySync();
+        // c += 1
+        }
+        // console.log(c);
+    }
+}
+// console.log("count", c);
+// convert cos theta to actual angle
+for (var i = 0; i < 10; i++) {
+    for (var e = 0; e < 10; e++) {
+    s = Math.acos(scores[i][e])
+    s = s/(Math.PI/2);
+    // console.log(s)
+    scores[i][e] = s
+    }
+}
+
+//nice pretty plasma heatmap
+var data = [
+  {
+    z: scores,
+    x: searchTerms,
+    y: searchTerms,
+    colorscale: [
+    ['0.0', 'rgb(13,8,135)'],
+    ['0.14', 'rgb(84,2,163)'],
+    ['0.29', 'rgb(139,10,165)'],
+    ['0.43', 'rgb(185,50,137)'],
+    ['0.57', 'rgb(219,92,104)'],
+    ['0.71', 'rgb(244,136,73)'],
+    ['0.86', 'rgb(254,188,43)'],
+    ['1.0', 'rgb(240,219,33)']
+    ],
+    type: 'heatmap',
+    hoverongaps: false,
+    
+  }
+];
+//scale to be square by which is smaller, window width or height
+if (window.innerWidth< window.innerHeight){
+    csize = window.innerWidth;
+}
+else{
+    csize = window.innerHeight;
+}
+var layout = { 
+    height: csize*0.8,
+    width: csize*0.9,
+    yaxis: {scaleanchor: "x", constrain: "domain",automargin: true},
+    xaxis:{automargin:true}
+};
+
+var config = {responsive: true}
+
+Plotly.newPlot('heatmap', data, layout, config );
+
+// clear searching message
+document.getElementById("results").innerHTML = "";
+
+})()  }
+
+
+</script>
+</html>

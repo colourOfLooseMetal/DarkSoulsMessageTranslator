@@ -1,0 +1,13 @@
+/colmV7
+/.idea
+/universal-sentence-encoder-large3
+/universal-sentence-encoder_4
+*.gz
+*.json
+*.BLB
+*.br
+*oldOld*
+*oldText*
+*hpTxt*
+*.idea*
+*books*

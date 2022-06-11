@@ -50,6 +50,27 @@ templates = [
 words = enemies + people + things + battleTactics + actions + situations + places + directions + bodyParts + affinities + concepts + phrases
 #print(len(words))#368
 #print(len(templates))#25
+
+#save dict for js selector
+# jsDict = {}
+# jsDict["enemies"] = enemies
+# jsDict["people"] = people
+# jsDict["things"] = things
+# jsDict["battleTactics"] = battleTactics
+# jsDict["actions"] = actions
+# jsDict["situations"] = situations
+# jsDict["places"] = places
+# jsDict["directions"] = directions
+# jsDict["bodyParts"] = bodyParts
+# jsDict["affinities"] = affinities
+# jsDict["concepts"] = concepts
+# jsDict["phrases"] = phrases
+#
+#
+# with open('jsErWordsDict.json', 'w') as outfile:
+#     json.dump(jsDict, outfile)
+
+print("dictDone")
 input()
 sentences = []
 for template in templates:

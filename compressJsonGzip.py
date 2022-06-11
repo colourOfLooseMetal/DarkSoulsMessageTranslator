@@ -1,11 +1,13 @@
 import gzip
 import json
 
-with open('./soapStoneTranslatorJs/er/soapstoneTranslatorER-LSH3-696HashOnly.html', 'rb') as f:
-    hashTables = f.read()
-    print(len(hashTables))
-    compressed = gzip.compress(hashTables, 9)
-    # f1 = f.encode('ascii')
+# with open('./soapStoneTranslatorJs/er/soapstoneTranslatorER-LSH3-696HashOnly.html', 'rb') as f:
+#     hashTables = f.read()
+#     print(len(hashTables))
+#     compressed = gzip.compress(hashTables, 9)
+#     # f1 = f.encode('ascii')
+
+
 
 # # Decompress a Brotli-compressed payload in one go.
 # decompressed_data = brotli.decompress(compressed_data)
