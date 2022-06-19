@@ -20,6 +20,8 @@ html
     meta(name='theme-color', content='#ffffff')
     meta(charset='UTF-8')
     link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+    script(src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs")
+    script(src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity")
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com//assets/futureimperfect/js/breakpoints.min.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com//assets/futureimperfect/js/util.js')
@@ -36,8 +38,13 @@ html
 div
   <canvas id="canvas" width="1149" height="254" style="width: 80vw;"></canvas>
   <p style="font-family: 'GaramondPremierER'; color: black;">egg</p>
+  <p id="loading">loading...<p>
   <button id="downloader" onclick="download_meme()">download image</button>
   <a style="display:none;" id="dlLink"></a>
+  <br><br>
+  <small>
+  <a href="http://www.colourofloosemetal.com/DS/erMessageMaker">Click here to make your own</a>
+  </small>
     
 
 style.
@@ -53,9 +60,7 @@ style.
       font-family: "GaramondPremierER";
       src: url(http://www.colourofloosemetal.com/DS/GaramondPremier.ttf) format("truetype");
       src: url("http://www.colourofloosemetal.com/DS/GaramondPremier.eot");
-      src: url("http://www.colourofloosemetal.com/DS/GaramondPremier.woff") format("woff"),
-      url("http://www.colourofloosemetal.com/DS/GaramondPremier.otf") format("opentype"),
-      url("http://www.colourofloosemetal.com/DS/GaramondPremier.svg") format("svg");
+      src: url("http://www.colourofloosemetal.com/DS/GaramondPremier.woff") format("woff");
       }
       p.customfont { 
       font-family: "GaramondPremierER";

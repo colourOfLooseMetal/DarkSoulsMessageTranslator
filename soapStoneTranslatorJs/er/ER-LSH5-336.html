@@ -25,7 +25,8 @@
 	<meta name="msapplication-TileColor" content="#ffffff" />
 	<meta name="msapplication-TileImage" content="../icon/ms-icon-144x144.png" />
 	<meta name="theme-color" content="#ffffff" />
-	<title>locality sensitive hashes</title>
+	<title>Elden Ring message translator</title>
+	<!-- er lsh 5-336 -->
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lte IE 8
@@ -626,20 +627,6 @@ sentences = ["enemy ahead", "weak foe ahead", "strong foe ahead", "monster ahead
 // console.log(tensors.length);
 
 
-function generateToolTipText(sentenceIndex){
-	toolTipString = ""
-	for(i = Math.max(sentenceIndex-10, 0); i < Math.min(sentences.length, sentenceIndex + 10); i+= 1){
-		if(i == sentenceIndex){
-			toolTipString += "<b>" + sentences[i] + "</b>" + " ";
-		}
-		else{
-			toolTipString += sentences[i] + " ";
-		}
-	}
-	return(toolTipString);
-}
-
-
 function compareTerm(){
     console.time('doSomething')
 	console.log(sentences.length);
@@ -701,7 +688,7 @@ table.innerHTML = "";
 for(var i = 120; i >= 0; i-= 1){
  var row = table.insertRow(0);
   var cell1 = row.insertCell(0);
-  link = "http://colourofloosemetal.com/erMessageGen/1/"+Base64.encode(sentences[results[i]])+"/1/1/1/1"
+  link = "http://colourofloosemetal.com/erMessageGen/"+Base64.encode(sentences[results[i]])+"/1/"+Base64.encode("fromTemplates");
   resultHtml = "<a href="+link+" target='_blank' rel='noopener noreferrer'>"+sentences[results[i]]+"</a>"
   
   cell1.innerHTML = resultHtml;	
