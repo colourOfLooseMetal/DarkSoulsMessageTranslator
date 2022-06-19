@@ -2081,11 +2081,19 @@ const isYikes = async (
 
 yikes_or_nah = {
 };
-yikes_or_nah.specialAllowCases = [];
+yikes_or_nah.specialAllowCases = {};//add each type to this so we can not do push below maybe
 yikes_or_nah.check = isYikes();
                       //OK maybe there is a better way to write this but
                       //allow toxicity up to 0.99, if insult is less than 0.8 and threat less than 0.8
-yikes_or_nah.specialAllowCases["generalToxicity"].push("allowUpTo", 0.99, ["insult", 0.8, "threat", 0.8]);//["toxicity", 0.99, ["insult", 0.8, "threat", 0.8]])
-yikes_or_nah.specialAllowCases = function () {
-  
-}
+yikes_or_nah.specialAllowCases["generalToxicity"] = function (scores) {
+  if(scores["generalToxicity"] < 0.99 && (scores["insult"] > 0.8 && scores["insult"] > 0.8)){
+    return(true);
+  }
+  else{
+    return(false);
+  }
+  }
+  //.push("allowUpTo", 0.99, ["insult", 0.8, "threat", 0.8]);//["toxicity", 0.99, ["insult", 0.8, "threat", 0.8]])
+// yikes_or_nah.specialAllowCases = function () {
+
+// }
