@@ -2085,4 +2085,7 @@ yikes_or_nah.specialAllowCases = [];
 yikes_or_nah.check = isYikes();
                       //OK maybe there is a better way to write this but
                       //allow toxicity up to 0.99, if insult is less than 0.8 and threat less than 0.8
-yikes_or_nah.specialAllowCases.push(["toxicity", 0.99, ["insult", 0.8, "threat", 0.8]])
+yikes_or_nah.specialAllowCases["generalToxicity"].push("allowUpTo", 0.99, ["insult", 0.8, "threat", 0.8]);//["toxicity", 0.99, ["insult", 0.8, "threat", 0.8]])
+yikes_or_nah.specialAllowCases = function () {
+  
+}
