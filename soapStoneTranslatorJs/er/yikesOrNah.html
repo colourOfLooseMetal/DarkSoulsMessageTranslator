@@ -1,3 +1,9 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+<script>
 //maybe look up more to add
 // self.CHARS_MAPPING = {
 //     "a": ("a", "@", "*", "4"),
@@ -10,6 +16,8 @@
 //     "s": ("s", "$", "5"),
 //     "t": ("t", "7"),
 // }
+yikes_or_nah = {
+};
 bannedWords = [
   "ZmFnMXQ",
   "ZmFnZXQ",
@@ -1938,19 +1946,158 @@ Latinise.convert = function (s) {
 //         });
 //       });}
 
-yikes_or_nah.buildAllowCases = function () {
-  for(i = 0; i < yikes_or_nah.specialAllowCases.length; i++) {
+
+yikes_or_nah.tweakAllowPhrases = [
+  "fuck yeah that's the good shit",
+  "that's the good shit mmmhhmmmm",
+  "I like that shit",
+  "that shit is nice",
+  "good shit, good shit",
+  "fuck that is nice",
+  "awhhhhh fuck no, that sucks",
+  "fuck yeah bud",
+  "fuck no bud",
+  "I love you",
+  "marry me",
+  "lets do butt stuff",
+  "you are so dumb",
+  "you are so silly",
+  "fuck me gently please",
+  "lick my balls"
+];
+yikes_or_nah.tweakDisallowPhrases = [
+  "I fucking hate you",
+  "fuck you",
+  "you piece of shit",
+  "I'm going to kick your ass",
+  "you fucking dead",
+  "I'll kill you",
+  "go kill yourself",
+  "you're a cunt",
+  "you are a moron",
+  "you are a stupid whore",
+  "I'll fuck your ass",
+  "you are so fucking stupid",
+  "you are a fag"
+];
+
+categories = ["identity","insult","obscene", "severeToxicity","secuallyExplicit", "threat", "generalToxicity"];
+
+yikes_or_nah.buildAllowCases = async function () {
+  allowfalsePositives = false;
+  disallowRes = [];
+  allowRes = [];
+  softDissalow = [1,1,1,1,1,1,1];
+    console.log("egg")
+    r = await getResForTestBuildCases(yikes_or_nah.tweakDisallowPhrases);
+    disallowRes = r
+    console.log("eggg")
+    r = await getResForTestBuildCases(yikes_or_nah.tweakAllowPhrases);
+    allowRes = r
+  //set up soft disallows
+  for(i = 0; i < disallowRes.length; i++) {
+
+    if(disallowRes[i] != "nono"){
+      //get the max certainty of bad trait score for each
+      max = Math.max(...disallowRes[i]);
+      index = disallowRes[i].indexOf(max);
+      // console.log(disallowRes[i][index])
+      //if it is lower then set, this way softDissalow will disallow all dissalowed phrases
+        if(disallowRes[i][index] < softDissalow[index]){
+          softDissalow[index] = disallowRes[i][index] - 0.01;
+        }
+      }
 
   }
+  //the idea here was to get the max for each trait that didnt have a score but eh this will be covered in soft rules i think
+  // for(i = 0; i < softDissalow.length; i++){
+  //   if(softDissalow[i] == 1){
+  //     softDissalow[i] = 0;
+
+  //     for(sentenceIter = 0; sentenceIter < disallowRes.length; sentenceIter++) {
+  //       if(disallowRes[sentenceIter]!= "nono"){
+  //         if(disallowRes[sentenceIter][i] > softDissalow[i]){
+  //           softDissalow[i] = disallowRes[sentenceIter][i]
+  //         }
+  //       }
+  //     }
+
+  //   }
+  // }
+  console.log(softDissalow);
+    specialRules = [[],[],[],[],[],[],[]];
+    //ok now special rules to allow all allowed phrases
+    //lets check stuff out first
+    for(i = 0; i < allowRes.length; i++) {
+      for(j = 0; j < allowRes[i].length; j++) {
+        if(allowRes[i][j] > softDissalow[j]){
+          console.log(yikes_or_nah.tweakAllowPhrases[i], categories[j], allowRes[i][j])
+        }
+
+      }
+    }
+
+
+
 }
 
-const isYikes = async (
+const getResForTestBuildCases = async (
+  sentences
+) => {
+  const model = await toxicity.load();
+
+  //check for big nonos
+  res = []
+  for (i = 0; i < sentences.length; i++) {
+    res.push([]);
+  }
+  for (i = 0; i < sentences.length; i++) {
+      contains = bannedWords.some((element) => {
+      el = Base64.decode(element);
+      if (sentences[0].includes(el)) {
+        return true;
+      }
+      return false;
+    });
+    if (contains) {
+      // console.log("contains a banned word/phrase, direct match");
+      // res[i] = "nono";
+    }
+  }
+
+  predictions = await model.classify(sentences);
+
+  // `predictions` is an array of objects, one for each prediction head,
+  // that contains the raw probabilities for each input along with the
+  // final prediction in `match` (either `true` or `false`).
+  // If neither prediction exceeds the threshold, `match` is `null`.
+
+  //predictions is 0-7 for each and res res object has the number for each sentence
+  for (i = 0; i < predictions.length; i++) {
+    for(j = 0; j < sentences.length; j++) {
+      if(res[j] != "nono"){
+        res[j].push(predictions[i].results[j].probabilities[1])
+      } 
+    }
+  }
+  console.log(sentences, res)
+  return(res);
+};
+
+
+
+
+
+
+
+
+yikes_or_nah.checkEm = async function (
   sentences,
   callback,
   consoleLog = false,
   params = 1,
   customParams = 0
-) => {
+) {
   const model = await toxicity.load();
 
   // specialAllowCases = {};
@@ -1969,18 +2116,18 @@ const isYikes = async (
     ];
   }
 
-  topTextCheck = Latinise.convert(topText.toLowerCase());
-  bottomTextCheck = Latinise.convert(bottomText.toLowerCase());
+  // topTextCheck = Latinise.convert(topText.toLowerCase());
+  // bottomTextCheck = Latinise.convert(bottomText.toLowerCase());
 
   //check for big nonos
   const contains = bannedWords.some((element) => {
     el = Base64.decode(element);
-    if (topTextCheck.includes(el)) {
+    if (sentences[0].includes(el)) {
       return true;
     }
-    if (bottomTextCheck.includes(el)) {
-      return true;
-    }
+    // if (bottomTextCheck.includes(el)) {
+    //   return true;
+    // }
     return false;
   });
   if (contains) {
@@ -2015,15 +2162,6 @@ const isYikes = async (
           " :",
           predictions[i].results[0].match
         );
-        if (bottomText != "") {
-          console.log(
-            predictions[i].label,
-            ": ",
-            predictions[i].results[1].probabilities,
-            " :",
-            predictions[i].results[1].match
-          );
-        }
       }
     }
     if ([0, 3, 4, 5].includes(i)) {
@@ -2039,15 +2177,6 @@ const isYikes = async (
           " :",
           predictions[i].results[0].match
         );
-        if (bottomText != "") {
-          console.log(
-            predictions[i].label,
-            ": ",
-            predictions[i].results[1].probabilities,
-            " :",
-            predictions[i].results[1].match
-          );
-        }
       }
     }
   }
@@ -2057,7 +2186,7 @@ const isYikes = async (
   }
 
   if (yikes == false) {
-    make_meme(topText, bottomText, messageType);
+    callback();
   }
   /*
         prints:
@@ -2079,21 +2208,27 @@ const isYikes = async (
          */
 };
 
-yikes_or_nah = {
-};
-yikes_or_nah.specialAllowCases = {};//add each type to this so we can not do push below maybe
-yikes_or_nah.check = isYikes();
+function hello(){
+  console.log("hello world");
+}
+// yikes_or_nah.checkEm(["you such balls shithead", "1"], hello)
+yikes_or_nah.buildAllowCases();
+// yikes_or_nah.specialAllowCases = {};//add each type to this so we can not do push below maybe
+// yikes_or_nah.check = isYikes();
                       //OK maybe there is a better way to write this but
                       //allow toxicity up to 0.99, if insult is less than 0.8 and threat less than 0.8
-yikes_or_nah.specialAllowCases["generalToxicity"] = function (scores) {
-  if(scores["generalToxicity"] < 0.99 && (scores["insult"] > 0.8 && scores["insult"] > 0.8)){
-    return(true);
-  }
-  else{
-    return(false);
-  }
-  }
+// yikes_or_nah.specialAllowCases["generalToxicity"] = function (scores) {
+//   if(scores["generalToxicity"] < 0.99 && (scores["insult"] > 0.8 && scores["insult"] > 0.8)){
+//     return(true);
+//   }
+//   else{
+//     return(false);
+//   }
+//   }
   //.push("allowUpTo", 0.99, ["insult", 0.8, "threat", 0.8]);//["toxicity", 0.99, ["insult", 0.8, "threat", 0.8]])
 // yikes_or_nah.specialAllowCases = function () {
 
 // }
+</script>
+</head>
+</html>
