@@ -698,17 +698,25 @@
                 word1 = document.getElementById('allWords1').value;
                 word2 = document.getElementById('allWords2').value;
             }
-            conjunction = document.getElementById('conjunction').value;
-            msg1 = template1.replaceAll('****', word1)
-            if (conjunction != "") {
-                msg2 = template2.replaceAll('****', word2);
-                if (conjunction != ", ") {
-                    msg2 = conjunction + msg2;
-                }
-                else {
-                    msg1 = msg1 + conjunction
-                }
 
+
+            template1Index = String(templates.indexOf(template1));
+            template1Index = template1Index.padStart(2, "0");
+            word1Index = String(allWordsSorted.indexOf(word1));
+            word1Index = word1Index.padStart(3, "0");
+            
+            msg1 = template1Index+word1Index;
+
+            conjunction = document.getElementById('conjunction').value;
+            if (conjunction != "") {
+                conjunctionIndex = String(conjunctions.indexOf(conjunction));
+                conjunctionIndex = conjunctionIndex.padStart(2, "0");
+                template2Index = String(templates.indexOf(template2));
+                template2Index = template2Index.padStart(2, "0");
+                word2Index = String(allWordsSorted.indexOf(word2));
+                word2Index = word2Index.padStart(3, "0");
+            
+            msg2 = conjunctionIndex+template2Index+word2Index;
             }
             else {
                 msg2 = ""

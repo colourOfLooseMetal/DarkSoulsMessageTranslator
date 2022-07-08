@@ -20,12 +20,13 @@ html
     meta(name='theme-color', content='#ffffff')
     meta(charset='UTF-8')
     link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
-    script(src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs")
-    script(src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity")
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com//assets/futureimperfect/js/breakpoints.min.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com//assets/futureimperfect/js/util.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com//assets/futureimperfect/js/main.js')
+    script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs")
+    script(type='text/javascript', src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity")
+    script(type='text/javascript', src='http://www.colourofloosemetal.com/DS/yikesOrNah.js')
     script(type='text/javascript', src='http://www.colourofloosemetal.com/DS/erpug.js')
     
 
@@ -38,9 +39,11 @@ html
 div
   <canvas id="canvas" width="1149" height="254" style="width: 80vw;"></canvas>
   <p style="font-family: 'GaramondPremierER'; color: black;">egg</p>
-  <p id="loading">loading...<p>
+  <p id="loading">loading<p>
   <button id="downloader" onclick="download_meme()">download image</button>
+  <button id="copyLinkButton" onclick="copy_link()">copy link</button>
   <a style="display:none;" id="dlLink"></a>
+    //- <a id="downloadAnchorElem" style="display:none"></a>
   <br><br>
   <small>
   <a href="http://www.colourofloosemetal.com/DS/erMessageMaker">Click here to make your own</a>
@@ -48,6 +51,9 @@ div
     
 
 style.
+      #copyLinkButton{
+        margin-left: 80px;
+      }
       .base64strings {
       color: black;
       display: none;
