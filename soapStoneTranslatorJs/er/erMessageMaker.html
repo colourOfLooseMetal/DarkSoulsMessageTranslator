@@ -16,6 +16,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="../icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
     <!-- <link rel="manifest" href="../icon/manifest.json"> idkkkkkkkkkkkkkkkkkkkkkkkkk -->
+    <title>Elden Ring message maker</title>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../icon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -405,7 +406,10 @@
         <textarea id="customText" name="customText"></textarea><br>
         <p>
             use "&lt;br&gt;" for new line, or just hit enter <br> Can handle up to around 50k characters (about the
-            length of the bee movie script) and then it breaks
+            length of 
+            <a href="https://gist.githubusercontent.com/SevenworksGD/7f5baff048d05db03a75f68b555b86ef/raw/5cea9ecd86d63e7b69bfd73623939b631853a256/bee-movie-script.txt" target="_blank">the bee movie script</a>)
+            ) and then it breaks
+            
         </p>
     </div>
 
@@ -500,7 +504,22 @@
         'and then ', 'or ', 'but ', 'therefore ', 'in short ', 'except ', 'by the way ', 'so to speak ', 'all the more ', ', '
     ];
 
-    window.addEventListener("load", function () {
+    function onload(){
+        console.log("eggggggggggggggggggggggg");
+
+        // wsoChange(document.getElementById("wso"));
+        // categoryChange(document.getElementById("category1"))
+        // categoryChange(document.getElementById("category2"))
+        // conjunction_change(document.getElementById("conjunction"))
+        // selectElement('category1', 'things')
+        // selectElement('template1', 'Behold, ****!')
+        // selectElement('category2', 'concepts')
+        // selectElement('template2', 'Try ****')
+        // categoryChange(category1)
+        // categoryChange(category2)
+        // selectElement('word1', 'flower')
+        // selectElement('word2', 'hope')
+
         document.getElementById("messageType").style.fontSize = ".9em"
         document.getElementById("wso").style.fontSize = ".7em"
         //scale up stuff if on mobile
@@ -523,6 +542,11 @@
 
         // console.log("loaded page")
         // fill_options()
+    }
+
+    window.addEventListener("load", function () {
+        onload();
+
     });
     var select1 = document.getElementById("template1");
     var select2 = document.getElementById("template2");
@@ -681,6 +705,17 @@
             document.getElementById('allWords2').disabled = false;
         }
     }
+
+    //    if(String(window.performance.getEntriesByType("navigation")[0].type) === "back_forward"){
+    //         // Actions here, such as refresh page, etc.
+    //         // onload();
+    //         console.log("you went back");
+    //         wsoChange(document.getElementById("wso"));
+    //         categoryChange(document.getElementById("category1"))
+    //         categoryChange(document.getElementById("category2"))
+    //         conjunction_change(document.getElementById("conjunction"))
+    //         // alert("From back / forward cache.");
+    //     }
 
 
     function make_link() {

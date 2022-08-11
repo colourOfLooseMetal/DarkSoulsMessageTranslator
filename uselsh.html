@@ -48,7 +48,7 @@
 </head>
 <style>
 	small {
-		font-size: 60%;
+		font-size: 75%;
 	}
 
 	p,
@@ -56,8 +56,9 @@
 		line-height: 150%;
 	}
 
+
 	p {
-		font-size: 80%;
+		/* font-size: 110%; */
 		font-family: 'Times New Roman', Times, serif;
 	}
 
@@ -70,19 +71,30 @@
 		padding: 0;
 	}
 
-	.post {
-		max-width: 500px;
+	/* .post {
+		max-width: 1220px;
+
+	} */
+	@media screen and (max-width: 16890px) {
+
+		body,
+		input,
+		select,
+		textarea {
+			font-size: 12pt;
+		}
 
 	}
 
-	@media screen and (min-width: 760px) {
+
+	/* @media screen and (min-width: 760px) {
 		.post {
 			border-left: 0;
 			border-right: 0;
 			left: 7em;
 			width: calc(100% + (3em * 2));
 		}
-	}
+	} */
 
 	.post>header .title {
 		text-align: center;
@@ -98,7 +110,11 @@
 
 	.author {
 		flex-direction: row;
-	}
+		align-items: center;
+		position: absolute;
+		left: 43%;
+		margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
+		}
 </style>
 
 <body class="single">
@@ -135,6 +151,7 @@
 							<a href="#" class="author"><span class="name">Jess</span><img
 									src="../assets/futureimperfect/images/supremeC.jpg" alt="" /></a>
 						</div>
+						<br>
 					</div>
 				</header>
 				<!--<span class="image featured"><img href="https://www.flickr.com/photos/154787603@N05/36713774254/in/album-72157689104310685/lightbox/" alt="" /></span>-->
@@ -144,32 +161,33 @@
 
 				<p>
 					The Universal Sentence Encoder is a model trained on a variety of language
-					data sources.<br><br> It is able to turn a sentence into a 512-dimensional
-					vector (also called an embedding), with the goal of having sentences
-					that are similar in meaning produce vectors that point in a similar direction.
+					data sources. It is able to turn a sentence into a 512-dimensional
+					vector (also called an embedding). The goal is to have semantically similar sentences produce 
+					vectors that point in a similar direction.
 				<p>
 					Embeddings are a common way for neural nets to represent real higher dimension data and are
 					especially common in language processing.
-					<br>Consider how many possible word combinations there are in sentences, and the variety of
+					Consider how many possible word combinations there are in sentences, and the variety of
 					sentence lengths. It's hard to compare this information programmatically.
 					Making embeddings especially useful.
 				</p>
 				<p>
-					So a sentence goes in and an array of 512 numbers come
-					out that can be compared to other arrays created by other sentences
-					for a variety of natural language processing tasks but in our case to check how similar
-					they are semantically.
+					So a sentence is fed into the network and an array of 512 numbers is produced, 
+					which can be compared to other arrays created from other sentences.
+					These embeddings can be used for a variety of natural language processing tasks, 
+					but in this case to compare sentence similarity.
 				</p>
 				<p>
-					The model is capable of doing this as it was trained on sentence
-					pairs that had their semantic textual similarity scored by humans.
+					The neural network is capable of doing this as it was trained on sentence
+					pairs that had their semantic textual similarity scored by humans.<br><br>
 					Let's see how some sentences compare for fun.<br><br>JESSE MAYBE MAKE THIS THE LIVE VERSION SO CAN
 					HOVER
 				</p>
 				<p><small>The image below shows several sentences compared to each other and scored based on their
 						semantic similarity using the universal sentence encoder model.<br></small></p>
 				<br>
-				<span class="image featured"><img src="http://colourofloosemetal.com/DS/useHeatmap.jpg" alt="" /></span>
+				<span class="image featured"><img src="http://colourofloosemetal.com/DS/useHeatmap.jpg" alt=""
+						style="max-width: 1000px;" /></span>
 				<a href="http://colourofloosemetal.com/DS/heatMap" target="_blank" rel="noopener noreferrer">Create your
 					own heatmap here</a>
 				<br>
@@ -183,7 +201,7 @@
 				<p>
 					Let's take a look at an example embedding, this one is for the sentence, "praise the sun"
 				</p>
-				<p style="font-size: 5px;">
+				<p style="font-size: 40%;">
 					[ -0.01643446274101734, -0.047866735607385635, 0.01116135623306036, -0.032162975519895554,
 					-0.04119051992893219, -0.049514010548591614, 0.05056055262684822, 0.01861172914505005,
 					0.02079540677368641, 0.03788421303033829, 0.055882297456264496, 0.052787601947784424,
@@ -320,7 +338,7 @@
 					length of 2 and not 512, much easier to plot on a chart.<br>
 					<br>
 
-					check out the point below with x and y as our two dimensions, but we aren't thinking of this array
+					Check out the point below with x and y as our two dimensions, but we aren't thinking of this array
 					so
 					much as
 					a
@@ -362,8 +380,8 @@
 					Take a look at the 3 vectors below.<br>
 
 
-					<span class="image featured"><img src="http://colourofloosemetal.com/DS/3VecEucVsAng.jpg"
-							alt="" /></span>
+					<span class="image featured"><img src="http://colourofloosemetal.com/DS/3VecEucVsAng.jpg" alt=""
+							style="max-width: 766px;" /></span>
 
 
 					The euclidian distance between then ends of <i>a</i> and <i>c</i> are smaller, but we are comparing
@@ -412,7 +430,7 @@
 					compared to other vectors) //@wy this part is hard to explain, maybe don't even need to<br><br>
 
 
-					Now let's take a look at two vectors again, but we will lock one to 0 degrees and change its
+					Now let's take a look at two vectors again, but we will lock one to 0° and change its
 					magnitude to consistently create a
 					right-angle triangle to show how we could calculate cosθ between them.
 				</p>
@@ -435,8 +453,8 @@
 					In this image the hypotenuse is easy to find, it is |<i>a</i>|, but we need to find L given only the
 					information for <i>a</i> and <i>b</i>.
 				</p>
-				<span class="image featured"><img id="findL" src="http://colourofloosemetal.com/DS/findL.jpg"
-						alt="" /></span>
+				<span class="image featured"><img id="findL" src="http://colourofloosemetal.com/DS/findL.jpg" alt=""
+						style="max-width: 602px;" /></span>
 				<p>
 					Here is an example where both vectors can be moved
 				</p>
@@ -516,7 +534,7 @@
 					below to the lsh section. -->
 					The dot product has a few interesting
 					properties, one being that it is negative if the vectors are more than
-					90degs apart and positive otherwise, this will come in handy later.<br>
+					90° apart and positive otherwise, this will come in handy later.<br>
 
 					<small> note to self could do two vectors here you can move and show their dot product below to
 						illustrate but eh idk</small>
@@ -602,10 +620,10 @@
 					We divide embeddings into groups by checking if the dot product
 					between the randomly generated vector (or projection) and the
 					sentence embedding is positive or negative. Giving its hash a 1 or 0 respectively.<br>
-					Remember vectors with an angular difference of more than 90Degrees will have a negative dot product,
+					Remember vectors with an angular difference of more than 90°s will have a negative dot product,
 					and a positive dot product otherwise<br>
 					Embeddings with different hashes are in different bins.<br><br>
-					Let's look at one embedding, <i>a</i>, and one projection, p1. @wy should projections be italic too,
+					Let's look at one embedding, <i>a</i>, and one projection, p₁. @wy should projections be italic too,
 					probs right?<br>
 					Move them around to see how the hash for embedding <i>a</i> changes.
 
@@ -622,7 +640,7 @@
 					multiple projections to group embeddings by the bins they are divided into, we will do this by again
 					giving the embeddings a 1 or
 					0 for a positive or negative dot product (within 90 or not) for each
-					projection. If an embedding is within 90degs of the first projection (positive dot product)
+					projection. If an embedding is within 90° of the first projection (positive dot product)
 					we will add a 1 to its hash and then if it is not within 90 of the 2nd projection
 					(negative dot product) we add a 0 to its hash, and so on, the number of projections we have will
 					be our hash length since an embedding gets a 0 or 1 in its hash for
@@ -643,10 +661,10 @@
 
 				<p>
 					If two sentence embeddings(vectors) point in a similar direction, they are more likely to end up in
-					the same bin. If the vectors are 180degs apart or have a cosine similarity
-					of -1, they will never be in the same bin, if they are 90degs apart or have a
+					the same bin. If the vectors are 180° apart or have a cosine similarity
+					of -1, they will never be in the same bin, if they are 90° apart or have a
 					cosine sim of 0, there is a 50% chance they will be in the same bin,
-					and 100% chance if they are 0 degs and have cosine similarity of 1.<br><br>
+					and 100% chance if they are 0° and have cosine similarity of 1.<br><br>
 					The formula for the probability of two vectors being in the same bin
 					would be 1-d/dc where d is the distance between the vectors and dc is
 					the max distance, d/dc is the probability they are in the same bin so 1-d/dc is the probability they
@@ -663,7 +681,9 @@
 					This would give us (1-d/dc)^k where k is the number of projections.<br>
 					Increasing k reduces the chance of collision(two embeddings having
 					the same hash) since there are more opportunities for a projection
-					to divide them into separate bins.<br>
+					to divide them into separate bins. 
+					With LSH the idea is that we have a good chance to end up with embeddings that are close to eachother in the same bin, 
+					though with only one hashtable there is a chance embeddings which are close could be divided by a projection. We will look at multiple hashtables to deal with this soon.<br>
 				</p>
 				<p>
 					Change the number of projections below to see how the probability of two embeddings being in the
@@ -693,7 +713,7 @@
 					tensors
 				</p>
 
-				<pre><code class="language-python" style="font-size: 7px;">
+				<pre><code class="language-python" style="font-size: 80%;">
 hashtableLength = 5 #will also be our number of projections
 inputArrayDims = 512
 projections = []
@@ -720,10 +740,10 @@ for i, t in enumerate(tensors):
 	hash = '';
 	#then compare it to each projection in the hash table
 	for k in range(hashtableLength):
-	    #positive dot product(less than 90degs distance) we add a '1'
+	    #positive dot product(less than 90° distance) we add a '1'
 		if(np.dot(t ,projections[k]) > 0):
 			hash += '1'
-		#and negative (greater than 90degs distance) we add a '0'
+		#and negative (greater than 90° distance) we add a '0'
 		else:
 			hash += '0'
 	#if the hash string is already in our hash table,
@@ -748,7 +768,7 @@ for i, t in enumerate(tensors):
 						want this to be a web app so all the other stuff is js
 					</small>
 				</p>
-				<pre><code class="language-js" style="font-size: 7px;">
+				<pre><code class="language-js" style="font-size: 80%;">
 //generated from python file
 projections = [...] 
 hashTable = {}
@@ -769,10 +789,10 @@ hash = '';
 for(j = 0; j < hashtableLength; j+= 1){
 	//check the dot product of the search term embedding with the projection
 	if(math.dot(queryEmbedding[0].arraySync(),projections[j]) > 0){
-		//if positive(within 90degs) hash gets a '1'
+		//if positive(within 90°) hash gets a '1'
 		hash += '1';
 	}
-	//otherwise if negative(not within 90degs) hash gets a '0'
+	//otherwise if negative(not within 90°) hash gets a '0'
 	else{
 		hash += '0';
 	}
@@ -856,7 +876,7 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
 					tables<br>
 					first the python code to create the hash tables and projections.
 				</p>
-				<pre><code class="language-python" style="font-size: 7px;">
+				<pre><code class="language-python" style="font-size: 80%;">
 numberOfHashtables = 16
 hashtableLength = 5
 inputArrayDims = 512
@@ -894,7 +914,7 @@ for i, t in enumerate(tensors):
             hashTables[j][hash] = [i]
 				</code></pre>
 				<p>and the javascript</p>
-				<pre><code class="language-js" style="font-size: 7px;">
+				<pre><code class="language-js" style="font-size: 80%;">
 //generated from python file
 projections = [...] 
 hashTables = {}
@@ -943,11 +963,12 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
     scores[indicesToCompare[i]] = score.arraySync();
 }
 			</code></pre>
-			<p>
-				I'll include all the full code that I used on this projects 
-				<a href="https://github.com/colourOfLooseMetal/DarkSoulsMessageTranslator" target="_blank" rel="noopener noreferrer">github page </a>
-				
-			</p>
+				<p>
+					I'll include all the full code that I used on this projects
+					<a href="https://github.com/colourOfLooseMetal/DarkSoulsMessageTranslator" target="_blank"
+						rel="noopener noreferrer">github page </a>
+
+				</p>
 				<p><br>
 					So as we increase the number of hash tables we have more chances for
 					embeddings to fall into the same bin at least once, and embeddings
@@ -959,9 +980,9 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
 					checking cosine similarity entirely, this also eliminates the need
 					to store the sentence embeddings to compare, we only need to create
 					an embedding for the search term and create hashes of it by checking
-					it with our projections for each hash table. 
+					it with our projections for each hash table.
 				</p>
-				<pre><code class="language-js" style="font-size: 7px;">
+				<pre><code class="language-js" style="font-size: 80%;">
 
 projections = [...] 
 hashTables = {}
@@ -1036,7 +1057,9 @@ for(var i = 500; i >= 0; i-= 1){
 					since collision is probability based as we saw above, but with enough
 					tables we can achieve decent results, especially for
 					something as subjective as comparing sentences. Less disk space is
-					needed and search time is further improved.<br><br>
+					needed and search time is further improved. I don't have a fantastic way to decide what values to 
+					use to achieve that but for but from looking at the charts and trying things out I've found around 200-300 hashtables
+					with a length of 5 each produces good search results for searching with hashes only for my sentence sets.<br><br>
 					Conclusion? idk
 				</p>
 				***throw code in at different points **links to live examples
@@ -1093,8 +1116,22 @@ for(var i = 500; i >= 0; i-= 1){
 		// create point
 		visVecChart.point = visVecChart.chart.create('point', [2, 3], { visible: true, fixed: false, name: "a", label: { visible: true }, size: 5 });
 		visVecChart.vecLine = visVecChart.chart.create('line', [[0, 0], visVecChart.point], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		visVecChart.xLine = visVecChart.chart.create('line', [[0, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); },0]], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		visVecChart.yLine = visVecChart.chart.create('line', [[function () { return (visVecChart.point.coords.usrCoords[1]); }, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); },function () { return (visVecChart.point.coords.usrCoords[2]); }]], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		visVecChart.a1 = visVecChart.chart.create('angle', [[2,0], [0, 0], visVecChart.point], {
+			label: { visible: false }, radius: function () { return (Math.sqrt(Math.pow(visVecChart.point.coords.usrCoords[1],2)+Math.pow(visVecChart.point.coords.usrCoords[2],2))/2); }, fixed: true, visible:false
+			});
 		function visualize_vector() {
 			visVecChart.vecLine.setAttribute({
+				visible: true
+			});
+			visVecChart.a1.setAttribute({
+				visible: true
+			});
+			visVecChart.xLine.setAttribute({
+				visible: true
+			});
+			visVecChart.yLine.setAttribute({
 				visible: true
 			});
 			visVecChart.chart.fullUpdate();
@@ -1281,10 +1318,10 @@ for(var i = 500; i >= 0; i-= 1){
 
 				s = "<p>embedding a is ";
 				if (AP1) {
-					s += "within 90 degrees of p1 (positive dot product) so its hash is \"1\""
+					s += "within 90° of p1 (positive dot product) so its hash is \"1\""
 				}
 				else {
-					s += "not within 90 degrees of p1 (negative dot product) so its hash is \"0\""
+					s += "not within 90° of p1 (negative dot product) so its hash is \"0\""
 				}
 				s += "</p>"
 				document.getElementById("lshOneProjectionHashExplain").innerHTML = s;
@@ -1342,46 +1379,46 @@ for(var i = 500; i >= 0; i-= 1){
 				s = "";
 				s += "<p><small>embedding a is ";
 				if (AP1) {
-					s += "within 90 degrees of p1 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p1 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p1 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p1 (negative dot product) so its hash gets a 0"
 				}
 				s += "<br>embedding a is ";
 				if (AP2) {
-					s += "within 90 degrees of p2 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p2 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p2 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p2 (negative dot product) so its hash gets a 0"
 				}
 				s += "<br>embedding a is ";
 				if (AP3) {
-					s += "within 90 degrees of p3 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p3 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p3 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p3 (negative dot product) so its hash gets a 0"
 				}
 
 				s += "<br><br>embedding b is ";
 				if (BP1) {
-					s += "within 90 degrees of p1 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p1 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p1 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p1 (negative dot product) so its hash gets a 0"
 				}
 				s += "<br>embedding b is ";
 				if (BP2) {
-					s += "within 90 degrees of p2 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p2 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p2 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p2 (negative dot product) so its hash gets a 0"
 				}
 				s += "<br>embedding b is ";
 				if (BP3) {
-					s += "within 90 degrees of p3 (positive dot product) so its hash gets a 1"
+					s += "within 90° of p3 (positive dot product) so its hash gets a 1"
 				}
 				else {
-					s += "not within 90 degrees of p3 (negative dot product) so its hash gets a 0"
+					s += "not within 90° of p3 (negative dot product) so its hash gets a 0"
 				}
 				s += "<br>";
 				aHash = AP1.toString() + AP2.toString() + AP3.toString();
@@ -1501,12 +1538,30 @@ for(var i = 500; i >= 0; i-= 1){
 
 
 
+		const ratio = 1.1;
+		function changeFontSize(element) {
+			var originalSize = element.getAttribute("data-orgFontSize");
+			const currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+			if (!originalSize) {
+				originalSize = currentSize;
+				element.setAttribute("data-orgFontSize", currentSize);
+			}
 
+			if (originalSize) {
+				const size = parseFloat(originalSize.replace("px", ""));
+				element.style.fontSize = (size * ratio) + "px";
+				for (var i = 0; i < element.children.length; i++) {
+					changeFontSize(element.children[i]);
+				}
+			}
+		}
+		changeFontSize(document.body);
 		 // 		window.addEventListener("load", function(){
 // 	console.log("loaded bb")
 //     cosineDvsAngDchartGenHtml();
 // });
 	</script>
+
 
 	<script src="../assets/futureimperfect/js/jquery.min.js"></script>
 	<script src="../assets/futureimperfect/js/browser.min.js"></script>
