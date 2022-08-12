@@ -113,8 +113,9 @@
 		align-items: center;
 		position: absolute;
 		left: 43%;
-		margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
-		}
+		margin: -25px 0 0 -25px;
+		/* Apply negative top and left margins to truly center the element */
+	}
 </style>
 
 <body class="single">
@@ -162,7 +163,7 @@
 				<p>
 					The Universal Sentence Encoder is a model trained on a variety of language
 					data sources. It is able to turn a sentence into a 512-dimensional
-					vector (also called an embedding). The goal is to have semantically similar sentences produce 
+					vector (also called an embedding). The goal is to have semantically similar sentences produce
 					vectors that point in a similar direction.
 				<p>
 					Embeddings are a common way for neural nets to represent real higher dimension data and are
@@ -172,9 +173,9 @@
 					Making embeddings especially useful.
 				</p>
 				<p>
-					So a sentence is fed into the network and an array of 512 numbers is produced, 
+					So a sentence is fed into the network and an array of 512 numbers is produced,
 					which can be compared to other arrays created from other sentences.
-					These embeddings can be used for a variety of natural language processing tasks, 
+					These embeddings can be used for a variety of natural language processing tasks,
 					but in this case to compare sentence similarity.
 				</p>
 				<p>
@@ -459,7 +460,6 @@
 					Here is an example where both vectors can be moved
 				</p>
 
-				note to self check opposite and adjacent lengths soemthing seems off @jesse
 
 				<div id="vecUnlockedTrianglechart" class="jxgbox" style="position: relative;
 				width: 60%;    height: 0;
@@ -681,9 +681,11 @@
 					This would give us (1-d/dc)^k where k is the number of projections.<br>
 					Increasing k reduces the chance of collision(two embeddings having
 					the same hash) since there are more opportunities for a projection
-					to divide them into separate bins. 
-					With LSH the idea is that we have a good chance to end up with embeddings that are close to eachother in the same bin, 
-					though with only one hashtable there is a chance embeddings which are close could be divided by a projection. We will look at multiple hashtables to deal with this soon.<br>
+					to divide them into separate bins.
+					With LSH the idea is that we have a good chance to end up with embeddings that are close to
+					eachother in the same bin,
+					though with only one hashtable there is a chance embeddings which are close could be divided by a
+					projection. We will look at multiple hashtables to deal with this soon.<br>
 				</p>
 				<p>
 					Change the number of projections below to see how the probability of two embeddings being in the
@@ -1057,9 +1059,15 @@ for(var i = 500; i >= 0; i-= 1){
 					since collision is probability based as we saw above, but with enough
 					tables we can achieve decent results, especially for
 					something as subjective as comparing sentences. Less disk space is
-					needed and search time is further improved. I don't have a fantastic way to decide what values to 
-					use to achieve that but for but from looking at the charts and trying things out I've found around 200-300 hashtables
-					with a length of 5 each produces good search results for searching with hashes only for my sentence sets.<br><br>
+					needed and search time is further improved. I don't have a fantastic way to decide what values to
+					use to achieve that but for but from looking at the charts and trying things out I've found around
+					200-300 hashtables
+					with a length of 5 each produces good search results for searching with hashes only, for my sentence
+					sets.<br>
+					**link back to the hash table and num of hashes chart**
+					Take a look back at this chart for hash table length and number of hash tables vs vector similarity and probability of matching,
+					Put the number of projections(length of each hash table) to 5, and the number of hash tables to 1 and take a look at the curve formed, vectors with a distance and then the number of hash tables to 200
+					<br>
 					Conclusion? idk
 				</p>
 				***throw code in at different points **links to live examples
@@ -1099,7 +1107,7 @@ for(var i = 500; i >= 0; i-= 1){
 			for (var i = 0; i < lim; i++) n += a[i] * b[i];
 			return n;
 		}
-
+		//pass this a list like [2,2] as in x y and it will return sqrt(2**2 + 2**2)
 		function norm2(a) { var sumsqr = 0; for (var i = 0; i < a.length; i++) sumsqr += a[i] * a[i]; return Math.sqrt(sumsqr); }
 
 		function similarity(a, b) { return dotproduct(a, b) / norm2(a) / norm2(b); }
@@ -1116,11 +1124,11 @@ for(var i = 500; i >= 0; i-= 1){
 		// create point
 		visVecChart.point = visVecChart.chart.create('point', [2, 3], { visible: true, fixed: false, name: "a", label: { visible: true }, size: 5 });
 		visVecChart.vecLine = visVecChart.chart.create('line', [[0, 0], visVecChart.point], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
-		visVecChart.xLine = visVecChart.chart.create('line', [[0, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); },0]], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
-		visVecChart.yLine = visVecChart.chart.create('line', [[function () { return (visVecChart.point.coords.usrCoords[1]); }, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); },function () { return (visVecChart.point.coords.usrCoords[2]); }]], { visible: false, straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
-		visVecChart.a1 = visVecChart.chart.create('angle', [[2,0], [0, 0], visVecChart.point], {
-			label: { visible: false }, radius: function () { return (Math.sqrt(Math.pow(visVecChart.point.coords.usrCoords[1],2)+Math.pow(visVecChart.point.coords.usrCoords[2],2))/2); }, fixed: true, visible:false
-			});
+		visVecChart.xLine = visVecChart.chart.create('line', [[0, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); }, 0]], { visible: false, strokeColor: 'grey', straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		visVecChart.yLine = visVecChart.chart.create('line', [[function () { return (visVecChart.point.coords.usrCoords[1]); }, 0], [function () { return (visVecChart.point.coords.usrCoords[1]); }, function () { return (visVecChart.point.coords.usrCoords[2]); }]], { visible: false, strokeColor: 'grey', straightFirst: false, straightLast: false, lastArrow: true, fixed: true });
+		visVecChart.a1 = visVecChart.chart.create('angle', [[2, 0], [0, 0], visVecChart.point], {
+			label: { visible: false }, radius: function () { return (Math.sqrt(Math.pow(visVecChart.point.coords.usrCoords[1], 2) + Math.pow(visVecChart.point.coords.usrCoords[2], 2)) / 2); }, fixed: true, visible: false
+		});
 		function visualize_vector() {
 			visVecChart.vecLine.setAttribute({
 				visible: true
@@ -1152,15 +1160,15 @@ for(var i = 500; i >= 0; i-= 1){
 			// console.log("movein");
 			if (cosineDvsAngDchart.p1Prev.toString() != cosineDvsAngDchart.p1.coords.usrCoords.slice(1).toString() || cosineDvsAngDchart.p2Prev.toString() != cosineDvsAngDchart.p2.coords.usrCoords.slice(1).toString()) {
 				// console.log("p1 or p2 changed");
-				console.log(cosineDvsAngDchart.p1Prev);
-				console.log(cosineDvsAngDchart.p1.coords.usrCoords.slice(1));
+				// console.log(cosineDvsAngDchart.p1Prev);
+				// console.log(cosineDvsAngDchart.p1.coords.usrCoords.slice(1));
 				sim = similarity(cosineDvsAngDchart.p1.coords.usrCoords.slice(1), cosineDvsAngDchart.p2.coords.usrCoords.slice(1))
 				// console.log(sim);
 				ang = Math.acos(sim);
 				ang = ang * 180 / Math.PI;
 				sim = sim.toPrecision(4)
 				ang = ang.toPrecision(4)
-				console.log(Math.PI)
+				// console.log(Math.PI)
 				document.getElementById("cosineDvsAngD").innerHTML = "Cosine similarity:" + String(sim) + "  Angular Distance:" + String(ang) + "°";
 				cosineDvsAngDchart.p1Prev = cosineDvsAngDchart.p1.coords.usrCoords.slice(1);
 				cosineDvsAngDchart.p2Prev = cosineDvsAngDchart.p2.coords.usrCoords.slice(1);
@@ -1246,6 +1254,7 @@ for(var i = 500; i >= 0; i-= 1){
 		vecsUnlockedTriangle.li2 = vecsUnlockedTriangleBoard.create('line', [[0, 0], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, lastArrow: true, fixed: true })
 		//line for the other point between the triangle for opp and adj to start at, the end of the projection
 		vecsUnlockedTriangle.p001 = vecsUnlockedTriangleBoard.create('point', [function () {
+			//
 			angFrom0 = getAng(1, vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2])//similarity([1,0],vecsUnlockedTriangle.p2.coords.usrCoords.slice(1))//getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0,vecsUnlockedTriangle.p2.coords.usrCoords[2]);
 			// console.log("p2from0: " + ((angFrom0)).toString())
 			// console.log((getAng(1,vecsUnlockedTriangle.p2.coords.usrCoords[1], 0, vecsUnlockedTriangle.p2.coords.usrCoords[2]).toString()));
@@ -1262,8 +1271,12 @@ for(var i = 500; i >= 0; i-= 1){
 		//create lines for opposite and adjacent
 		vecsUnlockedTriangle.liOpp = vecsUnlockedTriangleBoard.create('line', [[function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[2]); }], vecsUnlockedTriangle.p1], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
 			vecsUnlockedTriangle.liAdj = vecsUnlockedTriangleBoard.create('line', [[0, 0], [function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1]); }, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[2]); }]], { straightFirst: false, straightLast: false, strokeColor: 'black', lastArrow: true, fixed: true }),
-			vecsUnlockedTriangle.t = vecsUnlockedTriangleBoard.create('text', [0, 0, function () { return (vecsUnlockedTriangle.p1.coords.usrCoords[2].toFixed(3).toString()) }], { anchor: vecsUnlockedTriangle.liOpp });
-		vecsUnlockedTriangle.t2 = vecsUnlockedTriangleBoard.create('text', [-0.1, 0.07, function () { return (vecsUnlockedTriangle.p001.coords.usrCoords[1].toFixed(3).toString()) }], { anchor: vecsUnlockedTriangle.liAdj });
+			vecsUnlockedTriangle.t = vecsUnlockedTriangleBoard.create('text', [0, 0, function () {
+				opLenX = Math.abs(vecsUnlockedTriangle.p001.coords.usrCoords[1]-vecsUnlockedTriangle.p1.coords.usrCoords[1])
+				opLenY = Math.abs(vecsUnlockedTriangle.p001.coords.usrCoords[2]-vecsUnlockedTriangle.p1.coords.usrCoords[2])
+				return (norm2([opLenX,opLenY]).toFixed(3).toString())
+			}], { anchor: vecsUnlockedTriangle.liOpp });
+		vecsUnlockedTriangle.t2 = vecsUnlockedTriangleBoard.create('text', [-0.1, 0.07, function () { return (norm2([vecsUnlockedTriangle.p001.coords.usrCoords[1],vecsUnlockedTriangle.p001.coords.usrCoords[2]]).toFixed(3).toString()) }], { anchor: vecsUnlockedTriangle.liAdj });
 		//create two angles between p2 and p1, and change which one is shown based on which side of the angle is smaller, itll always
 		//show it rotating in the same direction but we want it to peak and 180 then switch to the other side
 		vecsUnlockedTriangle.a1 = vecsUnlockedTriangleBoard.create('angle', [vecsUnlockedTriangle.p2, [0, 0], vecsUnlockedTriangle.p1], {
@@ -1308,10 +1321,10 @@ for(var i = 500; i >= 0; i-= 1){
 		//stringify the coordinates for all points in the object
 		var lshOneProjectionOldObj = JSON.stringify([lshOneProjection.pointA.coords.usrCoords, lshOneProjection.projection1.coords.usrCoords])
 		function lshOneProjectionChartGenHtml() {
-			console.log("movein");
+			// console.log("movein");
 			// if the string dosent match the current string of all point coords then one changed and we update.
 			if (lshOneProjectionOldObj !== JSON.stringify([lshOneProjection.pointA.coords.usrCoords, lshOneProjection.projection1.coords.usrCoords])) {
-				console.log("something changed");
+				// console.log("something changed");
 
 				AP1 = dotproduct(lshOneProjection.pointA.coords.usrCoords.slice(1), lshOneProjection.projection1.coords.usrCoords.slice(1));
 				AP1 = ZeroOrOneFromDP(AP1);
@@ -1360,7 +1373,7 @@ for(var i = 500; i >= 0; i-= 1){
 			// console.log("movein");
 			// if the string dosent match the current string of all point coords then one changed and we update.
 			if (lshThreeProjectionOldObj !== JSON.stringify([lshThreeProjection.pointA.coords.usrCoords, lshThreeProjection.pointB.coords.usrCoords, lshThreeProjection.projection1.coords.usrCoords, lshThreeProjection.projection2.coords.usrCoords, lshThreeProjection.projection3.coords.usrCoords])) {
-				console.log("something changed");
+				// console.log("something changed");
 
 				AP1 = dotproduct(lshThreeProjection.pointA.coords.usrCoords.slice(1), lshThreeProjection.projection1.coords.usrCoords.slice(1));
 				AP1 = ZeroOrOneFromDP(AP1);
@@ -1557,7 +1570,7 @@ for(var i = 500; i >= 0; i-= 1){
 		}
 		changeFontSize(document.body);
 		 // 		window.addEventListener("load", function(){
-// 	console.log("loaded bb")
+	// console.log("loaded bb")
 //     cosineDvsAngDchartGenHtml();
 // });
 	</script>
