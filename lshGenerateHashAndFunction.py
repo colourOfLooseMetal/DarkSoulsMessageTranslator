@@ -1,7 +1,7 @@
 import json
 import numpy as np
 
-numberOfHashtables = 336
+numberOfHashtables = 256
 hashtableLength = 5
 inputArrayDims = 512
 projections = []

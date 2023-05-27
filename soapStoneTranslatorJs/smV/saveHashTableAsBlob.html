@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+</head>
+
+
+<script>
+//list
+function exportToJsonFile(jsonData, fname) {
+    // this doesent work for extremely large strings
+    // let dataStr = JSON.stringify(jsonData);
+    let dataStr = "[" + jsonData.map(el => JSON.stringify(el)).join(",") + "]";
+    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = fname+'.json';
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+
+function downloadObjectAsJson(exportObj, exportName){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    // document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+
+
+
+
+
+
+
+
+
+
+myHashTables = 
+
+myArr = []
+
+dictLengthLists = []
+for (var i = 0; i < myHashTables.length; i++) {
+    dictLengthList = []
+    // console.log("hashtableNUmber: ",i)
+    for (const [key, value] of Object.entries(myHashTables[i])) {
+    // console.log(key, value);
+    //console.log(key);
+    dictLengthList.push([key,myHashTables[i][key].length])
+    myArr.push.apply(myArr, myHashTables[i][key]);
+    }
+    dictLengthLists.push(dictLengthList)
+}
+console.log(myArr.length);
+var typedArray = new Int32Array(myArr);
+
+
+fname = "SMv5-256hashTables";
+async function makeBlob(){
+    console.log("egg");
+    var blob = new Blob([typedArray], {type: "octet/stream"});
+    var blobURL = URL.createObjectURL(blob);
+
+    let linkElement = document.createElement('a');
+    linkElement.setAttribute('href', blobURL);
+    let exportFileDefaultName = fname+'.BLB';
+    // linkElement.innerHTML = "<a href=" + blobURL + " download=" + filename + "/a>";
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+}
+
+
+
+
+makeBlob();
+// exportToJsonFile(myHashTables, "myHashTables");
+downloadObjectAsJson(dictLengthLists, "erDictLengthList");
+
+
+
+
+</script>
+</html>

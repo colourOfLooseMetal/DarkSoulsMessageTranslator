@@ -685,13 +685,21 @@ var results = Object.keys(map).sort(function(a, b) {
 res = ""
 table = document.getElementById("results");
 table.innerHTML = "";
+//ugh sry im jut gonna do these as custom, lazy i know
 for(var i = 120; i >= 0; i-= 1){
- var row = table.insertRow(0);
-  var cell1 = row.insertCell(0);
-  link = "http://colourofloosemetal.com/erMessageGen/"+Base64.encode(sentences[results[i]])+"/1/"+Base64.encode("fromTemplates");
-  resultHtml = "<a href="+link+" target='_blank' rel='noopener noreferrer'>"+sentences[results[i]]+"</a>"
-  
-  cell1.innerHTML = resultHtml;	
+	var row = table.insertRow(0);
+	var cell1 = row.insertCell(0);
+	url = "http://colourofloosemetal.com/erMessageGen/"
+
+	url += Base64.encodeURL(sentences[results[i]]);
+	url += "/";
+	url += "1";//msg 2
+	url += "/";
+	url += Base64.encodeURL("custom");
+//   link = "http://colourofloosemetal.com/erMessageGen/"+Base64.encode(sentences[results[i]])+"/1/"+Base64.encode("fromTemplates");
+	resultHtml = "<a href="+url+" target='_blank' rel='noopener noreferrer'>"+sentences[results[i]]+"</a>"
+	
+	cell1.innerHTML = resultHtml;	
 }
   
 console.timeEnd('doSomething')

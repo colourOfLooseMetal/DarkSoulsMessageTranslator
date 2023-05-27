@@ -116,6 +116,15 @@
 		margin: -25px 0 0 -25px;
 		/* Apply negative top and left margins to truly center the element */
 	}
+	a.button {
+	font-size: 40%;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
 </style>
 
 <body class="single">
@@ -158,6 +167,7 @@
 				<!--<span class="image featured"><img href="https://www.flickr.com/photos/154787603@N05/36713774254/in/album-72157689104310685/lightbox/" alt="" /></span>-->
 				<!-- <span class="image featured"><a data-flickr-embed="true"  href="https://www.flickr.com/photos/154787603@N05/42695151302/in/dateposted-public/" title="Collage 2018-05-07 21_52_57"><img src="https://farm2.staticflickr.com/1722/42695151302_643cb8554f_o.jpg" alt="2017-10-23 12.53.27 1"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script> -->
 
+					<a href="#demos" class="button">Skip nerd shit and show me cool examples</a><br><br>
 				<h4>the universal sentence encoder</h4>
 
 				<p>
@@ -181,8 +191,7 @@
 				<p>
 					The neural network is capable of doing this as it was trained on sentence
 					pairs that had their semantic textual similarity scored by humans.<br><br>
-					Let's see how some sentences compare for fun.<br><br>JESSE MAYBE MAKE THIS THE LIVE VERSION SO CAN
-					HOVER
+					Let's see how some sentences compare for fun.<br><br>
 				</p>
 				<p><small>The image below shows several sentences compared to each other and scored based on their
 						semantic similarity using the universal sentence encoder model.<br></small></p>
@@ -344,9 +353,9 @@
 					much as
 					a
 					point, but as more of a vector, with its direction and magnitude being its length from 0 and
-					the angle it forms, click the button to visualize as a vector lol (@wy should I show the angle and
-					actual length as a number as well when
-					visualizing?)
+					the angle it forms, click the button to visualize as a vector lol<br><br>
+
+					<small style="color: gray">All graphs created using <a href="https://jsxgraph.uni-bayreuth.de/wp/index.html" target="_blank" rel="noopener noreferrer" style="font-size: 75%;">jsxGraph</a> which is honestly worth a write up of its own</small>
 				</p>
 				<br>
 				<div id="visAsVec" class="jxgbox" style="position: relative;
@@ -411,7 +420,6 @@
 					vectors.
 					Drag the points around and see how the values change.
 				</p>
-				<h2> note to self CHECK ON MOBILE MAKE INTERACTION WORK AND CHECK TEXT LOCATION FOR OTHER CHARTS</h2>
 
 				<!-- chart showing angle and cosine similarity goes here, no opp and hyp yet! -->
 				<div id="cosineDvsAngDchart" class="jxgbox" style="position: relative;
@@ -424,11 +432,15 @@
 					So we can see that cosθ will range from 1 when the angle is 0 (high cosine and angular
 					similarity)
 					to -1 when the angle is 180 (low cosine and angular similarity).<br>
-					However cosθ doesn't scale linearly with the angular distance @wy? so it is not a good measure of
+					This can be sen in a plot of the cosine function.<br>
+					<span class="image featured"><img src="http://colourofloosemetal.com/DS/cosPlot.png" alt=""
+						style="max-width: 500px;" /></span>
+					<br>
+					However cosθ doesn't scale linearly with the angular distance so it is not a good measure of
 					the
 					strength of the association between two vectors but it works just
 					as well for proportional association (seeing how close vectors are
-					compared to other vectors) //@wy this part is hard to explain, maybe don't even need to<br><br>
+					compared to other vectors)<br><br>
 
 
 					Now let's take a look at two vectors again, but we will lock one to 0° and change its
@@ -516,7 +528,7 @@
 					similarity: <i>a</i> · <i>b</i>/|<i>a</i>||<i>b</i>|= cosθ <br><br>
 
 					This formula can be proven with the law of cosine for 2d vectors if you wanted to relate it to
-					something more familiar like I always do, I swear if you @ me I just might write it out lol
+					something more familiar like I always do, I swear if you @ me I just might write it out
 					<br><br>
 					<!-- lets review what each part of this
 					formula means |a| means the lebgth of vector a, recall pythagarssss
@@ -536,8 +548,8 @@
 					properties, one being that it is negative if the vectors are more than
 					90° apart and positive otherwise, this will come in handy later.<br>
 
-					<small> note to self could do two vectors here you can move and show their dot product below to
-						illustrate but eh idk</small>
+					<!-- <small> note to self could do two vectors here you can move and show their dot product below to
+						illustrate but eh idk</small> -->
 					<!-- <div id="twoVecDPchart" class="jxgbox" style="position: relative;
 					width: 60%;    height: 0;
 					padding-bottom: 60%;"></div>
@@ -575,12 +587,28 @@
 					<br>
 
 					In Elden Ring players can create messages
-					given lists of words and templates with blank spaces for the words
-					to go in, see some examples below
+					given lists of words and templates, see some examples below
 				</p>
-
-				elden ring message pics go here
-
+				<div class="column">
+					<div class="row">
+						<span class="image featured"><img src="./erMsgPics/thingRequiredAheadTemp.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/tryBlank.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/tryHope.jpg"style="max-width: 100%;" /></span>
+					</div>
+					<p>Messages often provide insight into the surrouding envirnment, though more often than not they are just someone being silly</p>
+					<div class="row">
+						<span class="image featured"><img src="./erMsgPics/ambushAhead.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/giantRat.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/grass.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/giant.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./erMsgPics/flower.jpg"style="max-width: 100%;" /></span>
+					</div>
+					<p>And sometimes they can make surprisingly clever use of the limited template system</p>
+				  
+				  <div class="row">
+					<span class="image featured"><img src="./erMsgPics/slugButHouse.jpg"style="max-width: 100%;" /></span>
+				</div>
+			</div>
 				<p>
 					<b>If you
 						arent an Elden Ring or Dark Souls fan don't worry I've also created
@@ -623,8 +651,7 @@
 					Remember vectors with an angular difference of more than 90°s will have a negative dot product,
 					and a positive dot product otherwise<br>
 					Embeddings with different hashes are in different bins.<br><br>
-					Let's look at one embedding, <i>a</i>, and one projection, p₁. @wy should projections be italic too,
-					probs right?<br>
+					Let's look at one embedding, <i>a</i>, and one projection, <i>p</i>₁<br>
 					Move them around to see how the hash for embedding <i>a</i> changes.
 
 				</p>
@@ -667,8 +694,8 @@
 					and 100% chance if they are 0° and have cosine similarity of 1.<br><br>
 					The formula for the probability of two vectors being in the same bin
 					would be 1-d/dc where d is the distance between the vectors and dc is
-					the max distance, d/dc is the probability they are in the same bin so 1-d/dc is the probability they
-					aren't.<br>
+					the max distance (d/dc is the probability they are in the same bin so 1-d/dc is the probability they
+					aren't)<br>
 					We could use angular distance for this and see
 					1-90/180 = 0.5 or 50%. And could also normalize this to a max distance of 1 to view more easily on a
 					graph.
@@ -703,7 +730,7 @@
 				<br>
 				<p>
 					This will help us speed up searches by checking a new embedding (not
-					in our collection of sentences from Elden Ring or Sailor Moon) with
+					in our collection of sentences from Elden Ring, Harry Potter, or Sailor Moon) with
 					our projections and then only comparing it with embeddings that have
 					the same hash. We can adjust k to tune the probability of there
 					being a collision based on the distance between the embeddings. <br>
@@ -833,7 +860,7 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
 					negatives, since even if two vectors have a fairly high angular similarity there is still a chance
 					for one of the projections to divide them, with several hashes
 					there is a much better chance that vectors that have higher angular similarity will have a bin
-					collision.<br><br>
+					collision in at least one hash table.<br><br>
 					Take a look at the <a href="#probability1Chart">chart above</a> and adjust the number of projections
 					to 5,
 					This gives us a good chance to not have a collision for embeddings with a distance greater than 0.6,
@@ -852,7 +879,7 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
 					proabbility anymore im going off this equation from this paper
 					https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation
 					see page 1116.<br> visualizing this below helps us get a good idea for
-					probability based on distance, hash length and number of hashes.
+					probability based on distance, hash length, and number of hashes.
 				</p>
 				<div id="probability2Chart" class="jxgbox" style="position: relative;
 				width: 60%;    height: 0;
@@ -1063,14 +1090,41 @@ for(var i = 500; i >= 0; i-= 1){
 					use to achieve that but for but from looking at the charts and trying things out I've found around
 					200-300 hashtables
 					with a length of 5 each produces good search results for searching with hashes only, for my sentence
-					sets.<br>
-					**link back to the hash table and num of hashes chart**
-					Take a look back at this chart for hash table length and number of hash tables vs vector similarity and probability of matching,
-					Put the number of projections(length of each hash table) to 5, and the number of hash tables to 1 and take a look at the curve formed, vectors with a distance and then the number of hash tables to 200
-					<br>
-					Conclusion? idk
+					sets.<br><br>
+					Another way to understand this idea of scoring results by hash collisions only is to first take a look back <a href="#probability2Chart">at this chart</a> <br>
+					and change the number of projections(length of each hash table) to 5, and the number of hash tables to 1 <br>
+					Take a look at the curve formed showing the probability of getting one match with our one hash table.<br>
+					Then change the number of hash tables to 100, this curve shows the probability of getting at least one match, but we could get up to 100, you can think of it as stacking the probability of the last curve 100 times.<br>
+					For this last method of scoring by just checking frequency of bin/hashtable collision as our similarity score, we are just checking the 100 randomly generated hashtables, 
+					each one with the probability you saw for the first curve (5 projections 1 table)<br>
+					and adding up how many times we get a hash collision as our score.
+					<br><br><br>
+					If you're curious about this blog or still dont fully understand, feel free to shoot me an email at colourofloosemetal@gmail.com, I would be happy to chat about this project.
 				</p>
-				***throw code in at different points **links to live examples
+				<br>
+				<br>
+				<h4 id="demos">Live Demos</h4>
+				
+				<a href="http://colourofloosemetal.com/DS/ER-LSH5-336">Elden Ring Messages</a><p> If you've played elden ring this is fantastic for finding messages, but with less than 10k messages to search from the results can be lacking</p>
+				<a href="http://colourofloosemetal.com/DS/HP-LSH5-248HashOnlyStyle3">Harry Potter books</a> <p>with close to 10x the results of the elden ring messages there are some interesting sentence to be found</p><br>
+				<a href="http://colourofloosemetal.com/DS/SailorMoonLSH">Sailor Moon in the works</a> <p>💯</p><br>
+				here are some interestng results from each searcher
+				<div class="column">
+					<p>Starting with Elden Ring</p>
+					<div class="row">
+						<span class="image featured"><img src="./erMsgPics/thingRequiredAheadTemp.jpg"style="max-width: 100%;" /></span>
+					</div>
+					<p>Harry Potter</p>
+					<div class="row">
+						<span class="image featured"><img src="./erMsgPics/ambushAhead.jpg"style="max-width: 100%;" /></span>
+					</div>
+					<p>And of course Sailor Moon</p>
+				  
+				  <div class="row">
+					<span class="image featured"><img src="./erMsgPics/slugButHouse.jpg"style="max-width: 100%;" /></span>
+				</div>
+			</div>
+				
 
 				<footer></footer>
 			</article>
@@ -1157,9 +1211,9 @@ for(var i = 500; i >= 0; i-= 1){
 		cosineDvsAngDchart.p2Prev = cosineDvsAngDchart.p2.coords.usrCoords.slice(1);
 
 		function cosineDvsAngDchartGenHtml() {
-			// console.log("movein");
+			console.log("movein");
 			if (cosineDvsAngDchart.p1Prev.toString() != cosineDvsAngDchart.p1.coords.usrCoords.slice(1).toString() || cosineDvsAngDchart.p2Prev.toString() != cosineDvsAngDchart.p2.coords.usrCoords.slice(1).toString()) {
-				// console.log("p1 or p2 changed");
+				console.log("p1 or p2 changed");
 				// console.log(cosineDvsAngDchart.p1Prev);
 				// console.log(cosineDvsAngDchart.p1.coords.usrCoords.slice(1));
 				sim = similarity(cosineDvsAngDchart.p1.coords.usrCoords.slice(1), cosineDvsAngDchart.p2.coords.usrCoords.slice(1))
@@ -1175,6 +1229,9 @@ for(var i = 500; i >= 0; i-= 1){
 			}
 		}
 		document.getElementById("cosineDvsAngDchart").addEventListener("mousemove", function (event) {
+			cosineDvsAngDchartGenHtml();
+		});
+		document.getElementById("cosineDvsAngDchart").addEventListener('touchend', (event) => {
 			cosineDvsAngDchartGenHtml();
 		});
 		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
@@ -1345,6 +1402,9 @@ for(var i = 500; i >= 0; i-= 1){
 		document.getElementById("lshOneProjectionChart").addEventListener("mousemove", function (event) {
 			lshOneProjectionChartGenHtml();
 		});
+		document.getElementById("lshOneProjectionChart").addEventListener('touchend', (event) => {
+			lshOneProjectionChartGenHtml();
+		});
 		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
 		lshOneProjection.pointA.coords.usrCoords[1] = 0.88;
 		lshOneProjectionChartGenHtml();
@@ -1450,6 +1510,9 @@ for(var i = 500; i >= 0; i-= 1){
 		}
 		// should add stuff for when mouse is down and for mobile
 		document.getElementById("lshThreeProjectionChart").addEventListener("mousemove", function (event) {
+			lshThreeProjectionChartGenHtml();
+		});
+		document.getElementById("lshThreeProjectionChart").addEventListener('touchend', (event) => {
 			lshThreeProjectionChartGenHtml();
 		});
 		// move the point so that update will be triggered for initial angle calc in cosineDvsAngDchartGenHtml
