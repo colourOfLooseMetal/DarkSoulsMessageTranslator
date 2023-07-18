@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.2/math.js" integrity="sha512-6q5sXPMxpoSt9FYL1BtwBFqzIsu75X90/zWkaz7wxsB0+n68hEvKDAKsHbdBuYmH/WZuMm5sYWStJli++GS/SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<div id="loading">
+    loading page...
+  </div>
+  <div>
+            <h2>
+          Translate sentences to soapstone messages.
+            </h2>
+            <p>
+                <b> the page will take a while to load </b><br><b>Searches are especially slow on mobile, sometimes over a minute</b>
+            </p>
+            <p>Made using <a href="https://www.tensorflow.org/hub/tutorials/semantic_similarity_with_tf_hub_universal_encoder" target="_blank">universal sentence encoder</a> 
+            </p>
+            
+          <p>
+            Translations only provide single-sentence phrases
+          <br>
+      </p>
+    <label>enter a sentence to find translations </label><input type="input" class="form-control input-lg"
+        id="searchTerm" placeholder="">
+        <button onclick="compareTerm()">Search</button>
+        Show Scores:<input type="checkbox" id="showScores">
+    <br>
+    </div>
+    <table id="results">
+    </table>
+
+
+<style>
+    		#loading {
+		  position: fixed;
+		  z-index: 999;
+		  height: 2em;
+		  width: 2em;
+		  overflow: show;
+		  margin: auto;
+		  top: 0;
+		  left: 0;
+		  bottom: 0;
+		  right: 0;
+		  font-size: 3em;
+		}
+</style>
+
+<script>
+
+window.addEventListener("load", function () {
+    document.getElementById("loading").style.display = "none";
+    console.log("loaded")
+});
+window.addEventListener("keyup", function (event) {
+		// Number 13 is the "Enter" key on the keyboard
+		if (event.keyCode === 13) {
+			// Cancel the default action, if needed
+			event.preventDefault();
+			// Trigger the button element with a click
+			compareTerm();
+		}
+	});
+
+
+
+// projections = 
+
+// hashTables = 
+
+// smMapData = 
+// [{"num": 0, "text": "I'm Usagi Tsukino, 14 years old.\nI'm in the eighth grade.", "timeStamp": "s1e01 0:01:47"}, {"num": 1, "text": "I'm just a little clumsy and a bit\nof a crybaby. That's about it.", "timeStamp": "s1e01 0:01:51"}, {"num": 2, "text": "Us
+
+sentences = [];
+for(i = 0; i < smMapData.length; i+= 1){
+    sentences.push(smMapData[i]['text']);
+}
+
+// console.log(tensors.length);
+
+function compareTerm(){
+    console.time('doSomething')
+    searchTerm = document.getElementById("searchTerm").value;
+(async() => {
+    document.getElementById("results").innerHTML = "<br> searching...";
+const model = await use.load();
+
+queryEmbedding = []
+queryEmbedding.push((await model.embed(searchTerm)).unstack()[0])
+//console.log(queryEmbedding[0].arraySync())
+
+numberOfHashtables = 400;
+hashtableLength = 10;
+inputArrayDims = 512;
+
+//tf.dot(queryEmbedding[0],projections[])
+queryHashes = [];
+for(i = 0; i < numberOfHashtables; i+= 1){
+    hash = '';
+    for(j = 0; j < hashtableLength; j+= 1){
+        if(math.dot(queryEmbedding[0].arraySync(),projections[i][j]) >0){
+            hash += '1';
+        }
+        else{
+            hash += '0';
+        }
+    }
+    queryHashes.push(hash);
+}
+
+indicesToCompare = [];
+for(i = 0; i < queryHashes.length; i+= 1){
+    if(queryHashes[i] in hashTables[i]){
+        indicesToCompare.push(...hashTables[i][queryHashes[i]]);
+    }
+}
+
+
+
+console.log(indicesToCompare.length);
+var map = indicesToCompare.reduce(function(p, c) {
+  p[c] = (p[c] || 0) + 1;
+  return p;
+}, {});
+
+var results = Object.keys(map).sort(function(a, b) {
+  return map[b] - map[a];
+});
+
+console.log(indicesToCompare.length);
+console.log(results.length);
+
+res = ""
+showScores = document.getElementById("showScores").checked;
+table = document.getElementById("results");
+table.innerHTML = "";
+for(var i = 5000; i >= 0; i-= 1){
+ var row = table.insertRow(0);
+  var cell1 = row.insertCell(0);
+  
+  cell1.innerHTML = sentences[results[i]];
+//if(showScores){ -->
+//     var cell2 = row.insertCell(1);
+//     displayScore = scores[indices[i]]*100;
+//     displayScore = 100 - displayScore;
+//     displayScore = Math.round(displayScore);
+//     displayScore = displayScore.toString();
+//    cell2.innerHTML = "&emsp;" + displayScore;
+// }
+}
+console.timeEnd('doSomething')
+})()  }
+
+
+</script>
+</html>

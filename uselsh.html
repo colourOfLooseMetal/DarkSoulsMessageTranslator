@@ -153,13 +153,13 @@
 							improving search time and file size for sentence embedding
 							searches
 						</p>
-						<p style="font-size: 4px;">
+						<p style="font-size: 4px; color:white;">
 							(Yet another way to browse Sailor Moon)
 						</p>
 						<br>
 						<div class="meta">
 							<a href="#" class="author"><span class="name">Jess</span><img
-									src="../assets/futureimperfect/images/supremeC.jpg" alt="" /></a>
+									src="../assets/futureimperfect/images/jos2.jpg" alt="" /></a>
 						</div>
 						<br>
 					</div>
@@ -172,7 +172,7 @@
 
 				<p>
 					The Universal Sentence Encoder is a model trained on a variety of language
-					data sources. It is able to turn a sentence into a 512-dimensional
+					data sources. It is able to turn a sentence into a 512-dimension
 					vector (also called an embedding). The goal is to have semantically similar sentences produce
 					vectors that point in a similar direction.
 				<p>
@@ -343,7 +343,7 @@
 				</p>
 
 				<p>
-					This array is a bit daunting to look at,
+					This array is a bit daunting to look at, <small>and tbh could probably be rounded to fewer decimal places</small>,
 					so for our visualizations, let's start with an array that has a
 					length of 2 and not 512, much easier to plot on a chart.<br>
 					<br>
@@ -359,8 +359,8 @@
 				</p>
 				<br>
 				<div id="visAsVec" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<button onclick="visualize_vector()">Visualize as vector</button>
 				<br>
 				<p>
@@ -394,7 +394,7 @@
 							style="max-width: 766px;" /></span>
 
 
-					The euclidian distance between then ends of <i>a</i> and <i>c</i> are smaller, but we are comparing
+					The euclidian distance between then ends of <i>a</i> and <i>c</i> is smaller, but we are comparing
 					the angle
 					between them as vectors, so <i>a</i> and <i>b</i> would be more similar than <i>a</i> and
 					<i>c</i>.<br><br>
@@ -423,8 +423,8 @@
 
 				<!-- chart showing angle and cosine similarity goes here, no opp and hyp yet! -->
 				<div id="cosineDvsAngDchart" class="jxgbox" style="position: relative;
-						width: 60%;    height: 0;
-						padding-bottom: 60%;"></div>
+						width: 40%;    height: 0;
+						padding-bottom: 40%;"></div>
 				<div id="cosineDvsAngD"></div>
 				<br>
 				<br>
@@ -449,8 +449,8 @@
 				</p>
 
 				<div id="vecLockedTrianglechart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<br>
 
 
@@ -474,8 +474,8 @@
 
 
 				<div id="vecUnlockedTrianglechart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<br>
 
 				<p>
@@ -657,8 +657,8 @@
 				</p>
 
 				<div id="lshOneProjectionChart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<div id="lshOneProjectionHashExplain"></div>
 				<br>
 
@@ -676,8 +676,8 @@
 				</p>
 
 				<div id="lshThreeProjectionChart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<div id="lshThreeProjectionHashExplain"></div>
 				<br>
 
@@ -719,8 +719,8 @@
 					same bin based on their distance changes.
 				</p>
 				<div id="probability1Chart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<div id="probability1"></div>
 
 				<label for="numberofprojections">Number of projections:</label>
@@ -875,15 +875,14 @@ for(i = 0; i < indicesToCompare.length; i+= 1){
 					1-Pc is the probability that we don't have a collision for a hash,
 					(1-pc)^L is the probability we don't have a collision for L number of
 					hashes, and finally 1-(1-pc)^L is the probability we do have a
-					collision, so thats 1-(1-(1-d/dc)^k)^L <br>@wy is this right idk
-					proabbility anymore im going off this equation from this paper
-					https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation
+					collision, so thats 1-(1-(1-d/dc)^k)^L <br> at least, that is my understanding of how the probability works out and I get the same looking graph 
+					<a href="https://www.researchgate.net/publication/6992546_Rapid_object_indexing_using_locality_sensitive_hashing_and_joint_3D-signature_space_estimation" target="_blank">as in this paper:</a>
 					see page 1116.<br> visualizing this below helps us get a good idea for
-					probability based on distance, hash length, and number of hashes.
+					probability based on distance, hash length, and number of hashes. <a href="https://youtu.be/pPPFlT9Wg-s "target="_blank">Here is a a youtube video I managed to find while trying to understand all of this as well!</a> 
 				</p>
 				<div id="probability2Chart" class="jxgbox" style="position: relative;
-				width: 60%;    height: 0;
-				padding-bottom: 60%;"></div>
+				width: 40%;    height: 0;
+				padding-bottom: 40%;"></div>
 				<div id="probability2"></div>
 
 				<label for="numberofprojections">Number of projections:</label>
@@ -1103,25 +1102,41 @@ for(var i = 500; i >= 0; i-= 1){
 				</p>
 				<br>
 				<br>
-				<h4 id="demos">Live Demos</h4>
-				
-				<a href="http://colourofloosemetal.com/DS/ER-LSH5-336">Elden Ring Messages</a><p> If you've played elden ring this is fantastic for finding messages, but with less than 10k messages to search from the results can be lacking</p>
-				<a href="http://colourofloosemetal.com/DS/HP-LSH5-248HashOnlyStyle3">Harry Potter books</a> <p>with close to 10x the results of the elden ring messages there are some interesting sentence to be found</p><br>
-				<a href="http://colourofloosemetal.com/DS/SailorMoonLSH">Sailor Moon in the works</a> <p>💯</p><br>
-				here are some interestng results from each searcher
+				<p><small> I havent talked too much about the actual universal sentence encoder model since it isn't really the main topic of this article, but it is worth
+					mentioning that all the examples use the "lite" version of the model which is many many times smaller than the main model, this is  to allow the model to run in 
+					your browser. It does of course result in a lack of model performance. In the future I might try to run the model locally to see how the results improve. The lite version still gives excellent
+					results but it probably wont pick up on things like idioms and is more likely to interpret text literally if you try.</small>
+				</p>
+				<br id="demos">
+				<br>
+				<h3 >Live Demos</h3>
+				<br><b><small>Do Not try to search before the loading message goes away, if the loading message seems like it is taking an absurdly long time to go away try the example on desktop or refresh the page</small></b><br>
+				<br>
+				<a href="http://colourofloosemetal.com/DS/ER-LSH5-336" target="_blank">Elden Ring Messages</a><p> If you've played elden ring this is fantastic for finding messages, but with less than 10k messages to search from the results can be lacking</p>
+				<a href="http://colourofloosemetal.com/DS/HP-LSH5-248HashOnlyStyle3" target="_blank">Harry Potter books</a> <p>with close to 10x the results of the elden ring messages there are some interesting sentence to be found</p><br>
+				<a href="http://colourofloosemetal.com/DS/SM/SMV5-256" target="_blank">Sailor Moon</a> <p>💯</p><br>
+				here are some interestng results from each searcher<br>
 				<div class="column">
 					<p>Starting with Elden Ring</p>
 					<div class="row">
-						<span class="image featured"><img src="./erMsgPics/thingRequiredAheadTemp.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./examplePics/er1.png"style="max-width: 40%;border: 2px solid #555;" /></span>
+						<span class="image featured"><img src="./examplePics/er2.png"style="max-width: 40%;border: 2px solid #555;" /></span>
 					</div>
 					<p>Harry Potter</p>
 					<div class="row">
-						<span class="image featured"><img src="./erMsgPics/ambushAhead.jpg"style="max-width: 100%;" /></span>
+						<span class="image featured"><img src="./examplePics/hp1.png"style="max-width: 40%;border: 2px solid #555;" /></span>
+						<span class="image featured"><img src="./examplePics/hp2.png"style="max-width: 40%;border: 2px solid #555;" /></span>
+						<span class="image featured"><img src="./examplePics/hp3.png"style="max-width: 40%;border: 2px solid #555;" /></span>
+						<span class="image featured"><img src="./examplePics/hp4.png"style="max-width: 40%;border: 2px solid #555;" /></span>
 					</div>
 					<p>And of course Sailor Moon</p>
 				  
 				  <div class="row">
-					<span class="image featured"><img src="./erMsgPics/slugButHouse.jpg"style="max-width: 100%;" /></span>
+					<span class="image featured"><img src="./examplePics/sm1.jpg"style="max-width: 40%;border: 2px solid #555;" /></span>
+					<span class="image featured"><img src="./examplePics/sm2.jpg"style="max-width: 40%;border: 2px solid #555;" /></span>
+					<span class="image featured"><img src="./examplePics/sm3.jpg"style="max-width: 40%;border: 2px solid #555;" /></span>
+					<span class="image featured"><img src="./examplePics/sm4.jpg"style="max-width: 40%;border: 2px solid #555;" /></span>
+					<span class="image featured"><img src="./examplePics/sm5.jpg"style="max-width: 40%;border: 2px solid #555;" /></span>
 				</div>
 			</div>
 				
